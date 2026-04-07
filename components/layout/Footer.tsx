@@ -22,9 +22,9 @@ export default function Footer() {
       title: t('resources'),
       links: [
         { name: "Casos de Éxito", href: `/${locale}/casos-exito` },
-        { name: "Bot WhatsApp", href: `/${locale}/bot` },
-        { name: "Blog", href: `/${locale}/blog` },
-        { name: "FAQ", href: `/${locale}/faq` },
+        { name: "Calculadora ROI", href: `/${locale}/calculadora-roi` },
+        { name: "Recomendador", href: `/${locale}/recomendador` },
+        { name: "Empezar Gratis", href: `/${locale}/empezar` },
       ],
     },
     {

@@ -11,6 +11,9 @@ const routes = [
   { path: "/saas", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/bot", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/casos-exito", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/calculadora-roi", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/recomendador", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/empezar", changeFrequency: "weekly" as const, priority: 0.8 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
