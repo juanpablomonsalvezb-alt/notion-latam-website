@@ -29,6 +29,17 @@ const navItems = [
     href: "/saas",
     description: "Automatiza con IA",
   },
+  {
+    name: "Bot Waitlist",
+    href: "/bot",
+    description: "Early bird — 40% OFF",
+    badge: "Nuevo",
+  },
+  {
+    name: "Casos de Éxito",
+    href: "/casos-exito",
+    description: "500+ empresas satisfechas",
+  },
 ];
 
 export default function Header() {

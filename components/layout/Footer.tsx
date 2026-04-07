@@ -15,9 +15,9 @@ export default function Footer() {
     {
       title: "Recursos",
       links: [
-        { name: "Blog", href: "/blog" },
-        { name: "Guías", href: "/guias" },
         { name: "Casos de Éxito", href: "/casos-exito" },
+        { name: "Bot WhatsApp", href: "/bot" },
+        { name: "Blog", href: "/blog" },
         { name: "FAQ", href: "/faq" },
       ],
     },
