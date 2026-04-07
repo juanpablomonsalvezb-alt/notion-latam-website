@@ -1,183 +1,123 @@
-# Notion LATAM - Sitio Web Premium
+# Notion LATAM — Sitio Web
 
-## Descripción del Proyecto
-Sitio web premium para vender productos y servicios complementarios a Notion, dirigido al mercado LATAM. Diseño inspirado 90% en el ADN visual de Notion con animaciones de clase mundial.
+Plataforma completa para el ecosistema Notion en Latinoamérica. Templates premium, cursos, consultoría y herramientas para empresas.
 
-## Stack Tecnológico
-- **Framework:** Next.js 15 (App Router)
-- **Estilos:** Tailwind CSS
-- **Animaciones:** Framer Motion
-- **Componentes:** shadcn/ui
-- **Tipografía:** Inter (la misma de Notion)
-- **Iconos:** Lucide React
-- **Pagos:** Stripe
+## Stack
+
+- **Framework:** Next.js 15 (App Router + SSG)
+- **Estilos:** Tailwind CSS 3.4 con design system Notion
+- **Animaciones:** Framer Motion 11
+- **Componentes:** shadcn/ui (manual, sin CLI)
+- **i18n:** next-intl (ES / EN / FR)
+- **Tipografía:** Inter (next/font)
 - **Hosting:** Vercel
 
-## Estructura del Proyecto
-```
-notion-latam-website/
-├── app/
-│   ├── layout.tsx          # Layout principal
-│   ├── page.tsx            # Home page
-│   ├── templates/          # Página de templates
-│   ├── curso/              # Página del curso
-│   ├── consultoria/        # Página de consultoría
-│   └── saas/               # Página del SaaS WhatsApp Bot
-├── components/
-│   ├── ui/                 # Componentes shadcn/ui
-│   ├── layout/            # Header, Footer
-│   ├── sections/          # Secciones del sitio
-│   └── animations/        # Componentes con animaciones
-├── lib/
-│   └── utils.ts           # Utilidades
-├── public/
-│   └── assets/            # Imágenes, logos
-└── styles/
-    └── globals.css        # Estilos globales
-```
+## Inicio rápido
 
-## Paleta de Colores (ADN Notion)
-- **Background:** #FFFFFF (light), #191919 (dark)
-- **Text Primary:** #37352F (light), #FFFFFF (dark)
-- **Text Secondary:** #787774 (light), #9B9A97 (dark)
-- **Accent:** #2383E2 (Notion blue)
-- **Border:** #E9E9E7 (light), #373737 (dark)
-
-## Características Clave
-
-### 1. Animaciones Premium
-- Scroll-triggered animations (elementos aparecen al scrollear)
-- Smooth page transitions
-- Hover effects sutiles en cards
-- Parallax effects moderados
-- Cursor customizado (opcional)
-- Loading states elegantes
-
-### 2. Secciones del Sitio
-
-#### Home Page
-1. **Hero Section**
-   - Headline impactante
-   - Gradiente sutil de fondo
-   - CTA prominente
-   - Preview animado del producto
-
-2. **Features Section**
-   - Grid de características
-   - Iconos animados
-   - Micro-interacciones
-
-3. **Templates Showcase**
-   - Carousel/Grid de templates
-   - Hover previews
-   - Precios claros
-
-4. **Social Proof**
-   - Testimonios
-   - Logos de clientes
-
-5. **CTA Final**
-   - Call to action fuerte
-   - Múltiples opciones de contacto
-
-#### Templates Page
-- Filtros por categoría
-- Grid responsivo
-- Vista previa en modal
-- Compra directa
-
-#### Curso Page
-- Video demo
-- Curriculum detallado
-- Pricing
-- FAQ
-
-#### Consultoría Page
-- Proceso paso a paso
-- Paquetes de servicio
-- Calendario de agendamiento
-- Casos de éxito
-
-#### SaaS Page
-- Demo interactivo
-- Features del producto
-- Pricing tiers
-- Prueba gratis CTA
-
-### 3. Componentes Reutilizables
-- Button (con variantes)
-- Card (con animaciones)
-- Input/Form
-- Modal
-- Navigation
-- Footer
-
-## Instrucciones para Claude Code
-
-### Paso 1: Inicializar Proyecto
 ```bash
-npx create-next-app@latest notion-latam --typescript --tailwind --app
-cd notion-latam
+npm install
+cp .env.example .env.local
+# Edita .env.local con tus valores
+npm run dev
 ```
 
-### Paso 2: Instalar Dependencias
-```bash
-npm install framer-motion lucide-react class-variance-authority clsx tailwind-merge
-npx shadcn-ui@latest init
+## Estructura
+
+```
+app/
+├── [locale]/              # Rutas con i18n (es/en/fr)
+│   ├── page.tsx           # Home
+│   ├── templates/         # Catálogo de templates
+│   │   └── [slug]/        # Detalle de template
+│   ├── curso/             # Página del curso
+│   ├── consultoria/       # Servicios de consultoría
+│   ├── saas/              # SaaS WhatsApp Bot
+│   ├── bot/               # Waitlist bot
+│   ├── blog/              # Blog SEO
+│   │   └── [slug]/        # Artículo de blog
+│   ├── calculadora-roi/   # Herramienta ROI
+│   ├── recomendador/      # Quiz de recomendación
+│   ├── empezar/           # Onboarding wizard
+│   ├── casos-exito/       # Casos de éxito
+│   ├── sobre-nosotros/    # About
+│   ├── contacto/          # Formulario de contacto
+│   ├── faq/               # Preguntas frecuentes
+│   ├── terminos/          # Términos y condiciones
+│   └── privacidad/        # Política de privacidad
+│
+├── sitemap.ts             # Sitemap dinámico (50+ URLs)
+├── robots.ts              # robots.txt
+└── globals.css            # Estilos globales
+
+components/
+├── layout/
+│   ├── Header.tsx         # Nav con mega-menu
+│   └── Footer.tsx         # Footer con links
+├── ui/                    # shadcn/ui components
+├── animations/            # FadeInSection, etc.
+├── Analytics.tsx          # GA4 + FB Pixel
+├── CookieConsent.tsx      # Banner GDPR
+├── SchemaOrg.tsx          # JSON-LD schemas
+└── LanguageSwitcher.tsx   # ES/EN/FR switcher
+
+messages/
+├── es.json                # Español (default)
+├── en.json                # English
+└── fr.json                # Français
+
+whatsapp-bot/              # Bot Node.js + Twilio + Notion API
+public/
+├── manifest.json          # PWA manifest
+├── favicon.svg
+├── logo.svg
+├── logo-white.svg
+├── logo-icon.svg
+└── og-image.svg
 ```
 
-### Paso 3: Configurar shadcn/ui
-Cuando pregunte, seleccionar:
-- Style: Default
-- Base color: Slate
-- CSS variables: Yes
+## Paleta de colores
 
-### Paso 4: Agregar Componentes shadcn/ui
-```bash
-npx shadcn-ui@latest add button
-npx shadcn-ui@latest add card
-npx shadcn-ui@latest add input
-npx shadcn-ui@latest add textarea
-npx shadcn-ui@latest add dialog
-npx shadcn-ui@latest add tabs
+| Token | Light | Dark |
+|-------|-------|------|
+| `notion-bg` | `#FFFFFF` | `#191919` |
+| `notion-text-primary` | `#37352F` | `#FFFFFF` |
+| `notion-text-secondary` | `#787774` | `#9B9A97` |
+| `notion-blue` | `#2383E2` | `#2383E2` |
+| `notion-border` | `#E9E9E7` | `#373737` |
+
+## i18n
+
+Locales soportados: `es` (default), `en`, `fr`.
+
+Las rutas tienen el formato `/{locale}/ruta`. El middleware de next-intl detecta automáticamente el idioma del navegador y redirige.
+
+```
+/es/templates    # Español
+/en/templates    # English
+/fr/templates    # Français
 ```
 
-### Paso 5: Configurar Tailwind
-Ver archivo `tailwind.config.ts` en este proyecto.
+## Variables de entorno
 
-### Paso 6: Crear Estructura de Carpetas
-Seguir estructura definida arriba.
+Ver `.env.example` para la lista completa de variables requeridas.
 
-### Paso 7: Implementar Páginas
-Crear cada página según los diseños proporcionados en `/designs/`
+## Deploy en Vercel
 
-## Diseño Responsivo
-- Mobile First approach
-- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
-- Navegación mobile con menú hamburguesa
-- Imágenes optimizadas para cada tamaño
+1. Push a GitHub
+2. Importar proyecto en Vercel
+3. Configurar variables de entorno del `.env.example`
+4. Deploy automático en cada push a `main`
 
-## Performance
-- Next.js Image optimization
-- Lazy loading de componentes
-- Code splitting automático
-- Fonts optimization (next/font)
+El archivo `vercel.json` configura headers de seguridad, caché y redirects automáticamente.
+
+## WhatsApp Bot
+
+Ver `whatsapp-bot/README.md` para instrucciones de configuración del bot Node.js con Twilio + Notion API.
 
 ## SEO
-- Metadata en cada página
-- Open Graph tags
-- Sitemap.xml
-- robots.txt
 
-## Deployment
-1. Push a GitHub
-2. Conectar con Vercel
-3. Deploy automático en cada push
-
-## Próximos Pasos
-1. Crear componentes base
-2. Implementar sistema de animaciones
-3. Desarrollar páginas principales
-4. Integrar Stripe para pagos
-5. Testing y optimización
-6. Deploy a producción
+- Sitemap dinámico con hreflang en `/sitemap.xml`
+- robots.txt en `/robots.txt`
+- Open Graph + Twitter Card en cada página
+- Schema.org JSON-LD (Organization, Product, Course, FAQ, Article)
+- PWA manifest para instalación móvil

@@ -49,6 +49,11 @@ export default function Header() {
       href: `/${locale}/casos-exito`,
       description: "500+ empresas satisfechas",
     },
+    {
+      name: "Blog",
+      href: `/${locale}/blog`,
+      description: "Guías y tutoriales de Notion",
+    },
   ];
 
   useEffect(() => {

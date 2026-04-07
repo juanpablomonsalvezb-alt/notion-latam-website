@@ -7,6 +7,8 @@ import { locales } from '@/i18n';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Analytics from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
+import { OrganizationSchema } from "@/components/SchemaOrg";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,6 +37,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: meta.description,
       images: ["/og-image.svg"],
     },
+    manifest: "/manifest.json",
+    icons: {
+      icon: "/favicon.svg",
+      shortcut: "/favicon.svg",
+      apple: "/favicon.svg",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: ["/og-image.svg"],
+    },
   };
 }
 
@@ -53,9 +67,11 @@ export default async function LocaleLayout({
       <body className="antialiased bg-notion-bg dark:bg-notion-bg-dark text-notion-text-primary dark:text-notion-text-dark">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Analytics />
+          <OrganizationSchema />
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

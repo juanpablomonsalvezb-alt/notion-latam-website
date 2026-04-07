@@ -14,6 +14,26 @@ const routes = [
   { path: "/calculadora-roi", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/recomendador", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/empezar", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/sobre-nosotros", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/contacto", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/faq", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/terminos", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/privacidad", changeFrequency: "yearly" as const, priority: 0.3 },
+  // Blog posts
+  { path: "/blog/como-usar-notion-como-crm", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/notion-vs-trello-vs-asana-2026", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/mejores-bases-de-datos-notion-empresa", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/notion-para-startups-latinoamericanas", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/automatizaciones-notion-pymes", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/notion-gestion-equipos-remotos", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/blog/notion-ai-funciones-empresas", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/blog/notion-vs-monday-equipos-comerciales", changeFrequency: "monthly" as const, priority: 0.6 },
+  // Template detail pages
+  { path: "/templates/sistema-financiero-pyme", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/templates/crm-whatsapp", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/templates/control-inventario", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/templates/gestion-proyectos", changeFrequency: "monthly" as const, priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

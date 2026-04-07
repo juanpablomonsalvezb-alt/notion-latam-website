@@ -1,0 +1,55 @@
+{
+  "name": "Notion LATAM",
+  "short_name": "Notion LATAM",
+  "description": "Templates, cursos y consultoría de Notion para empresas latinoamericanas",
+  "start_url": "/es",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2383E2",
+  "orientation": "portrait-primary",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Notion LATAM — Templates y Cursos"
+    }
+  ],
+  "categories": ["productivity", "business", "education"],
+  "shortcuts": [
+    {
+      "name": "Ver Templates",
+      "short_name": "Templates",
+      "description": "Explorar templates premium de Notion",
+      "url": "/es/templates",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Empezar gratis",
+      "short_name": "Empezar",
+      "description": "Onboarding paso a paso",
+      "url": "/es/empezar",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ]
+}
