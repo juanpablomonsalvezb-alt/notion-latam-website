@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Notion LATAM - Potencia tu negocio con Notion",
+    "description": "Templates, cursos y servicios premium de Notion para empresas latinoamericanas"
+  },
+  "nav": {
+    "templates": "Templates",
+    "course": "Curso",
+    "consulting": "Consultoría",
+    "bot": "WhatsApp Bot",
+    "successCases": "Casos de Éxito",
+    "login": "Iniciar Sesión",
+    "getStarted": "Comenzar Gratis"
+  },
+  "hero": {
+    "badge": "El ecosistema completo de Notion para LATAM",
+    "title": { "line1": "Potencia tu negocio", "line2": "con Notion" },
+    "subtitle": "Templates profesionales, cursos completos y servicios premium diseñados específicamente para empresas latinoamericanas",
+    "cta": { "primary": "Explorar Templates", "secondary": "Ver Demo" }
+  },
+  "features": {
+    "title": { "line1": "Todo lo que necesitas para", "line2": "potenciar tu negocio" },
+    "subtitle": "Herramientas, servicios y recursos diseñados específicamente para empresas latinoamericanas",
+    "items": {
+      "templates": { "title": "Templates Profesionales", "description": "Sistemas pre-armados y optimizados para PyMEs latinoamericanas. Listos para usar en minutos." },
+      "consulting": { "title": "Consultoría Personalizada", "description": "Armamos tu sistema operativo completo en Notion. 100% remoto, 100% a tu medida." },
+      "course": { "title": "Curso Completo", "description": "Aprende a dominar Notion desde cero hasta nivel experto. Con casos reales de LATAM." },
+      "whatsapp": { "title": "WhatsApp Integration", "description": "Conecta Notion con WhatsApp. Automatiza notificaciones y gestión de tareas." },
+      "support": { "title": "Soporte en Español", "description": "Atención personalizada en tu idioma. Entendemos las necesidades de LATAM." },
+      "updates": { "title": "Actualizaciones Continuas", "description": "Templates y recursos nuevos cada mes. Mantente siempre actualizado." }
+    }
+  },
+  "templates": {
+    "badge": "Templates Premium",
+    "title": "Listos para usar en minutos",
+    "subtitle": "Templates profesionales diseñados para las necesidades reales de empresas latinoamericanas",
+    "viewAll": "Ver Todos los Templates",
+    "viewDetails": "Ver Detalles",
+    "downloads": "descargas"
+  },
+  "socialProof": {
+    "title": "Lo que dicen nuestros clientes",
+    "subtitle": "Empresas de todo LATAM confían en nosotros",
+    "stats": { "sold": "Templates Vendidos", "companies": "Empresas Atendidas", "countries": "Países LATAM", "rating": "Rating Promedio" }
+  },
+  "cta": {
+    "badge": "Únete a 500+ empresas que ya usan nuestros productos",
+    "title": { "line1": "¿Listo para potenciar", "line2": "tu negocio con Notion?" },
+    "subtitle": "Comienza hoy mismo con nuestros templates gratuitos o agenda una consultoría personalizada",
+    "getStarted": "Comenzar Gratis",
+    "scheduleDemo": "Agendar Demo",
+    "footer": "Sin tarjeta de crédito requerida • Cancela cuando quieras • Soporte en español"
+  },
+  "footer": {
+    "tagline": "Potenciamos empresas latinoamericanas con las mejores herramientas y servicios de Notion.",
+    "products": "Productos",
+    "resources": "Recursos",
+    "company": "Empresa",
+    "madeWith": "Hecho con ❤️",
+    "in": "en LATAM",
+    "poweredBy": "Potenciado por Notion",
+    "rights": "Todos los derechos reservados"
+  }
+}

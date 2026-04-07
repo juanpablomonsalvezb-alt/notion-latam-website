@@ -1,8 +1,8 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Zap, Users, Bot } from "lucide-react";
-import Link from "next/link";
 import AnimatedGradient from "@/components/animations/AnimatedGradient";
 import FadeInSection from "@/components/animations/FadeInSection";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,14 @@ import SocialProof from "@/components/sections/SocialProof";
 import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
+  const t = useTranslations();
+
   return (
     <div className="overflow-hidden">
-      {/* Hero Section - ADN Notion */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
-        {/* Animated Background Gradient */}
         <AnimatedGradient />
-        
+
         <div className="relative z-10 max-w-7xl mx-auto text-center">
           <FadeInSection delay={0.1}>
             <motion.div
@@ -29,7 +30,7 @@ export default function Home() {
             >
               <Sparkles className="w-4 h-4 text-notion-blue" />
               <span className="text-sm font-medium text-notion-text-secondary dark:text-notion-text-dark-secondary">
-                El ecosistema completo de Notion para LATAM
+                {t('hero.badge')}
               </span>
             </motion.div>
           </FadeInSection>
@@ -37,35 +38,35 @@ export default function Home() {
           <FadeInSection delay={0.2}>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
               <span className="block text-notion-text-primary dark:text-notion-text-dark">
-                Potencia tu negocio
+                {t('hero.title.line1')}
               </span>
               <span className="block mt-2">
-                <span className="gradient-text">con Notion</span>
+                <span className="gradient-text">{t('hero.title.line2')}</span>
               </span>
             </h1>
           </FadeInSection>
 
           <FadeInSection delay={0.3}>
             <p className="text-xl md:text-2xl text-notion-text-secondary dark:text-notion-text-dark-secondary max-w-3xl mx-auto mb-12 leading-relaxed">
-              Templates profesionales, cursos completos y servicios premium diseñados específicamente para empresas latinoamericanas
+              {t('hero.subtitle')}
             </p>
           </FadeInSection>
 
           <FadeInSection delay={0.4}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="group text-lg px-8 py-6 bg-notion-blue hover:bg-notion-blue/90 shadow-lg hover:shadow-xl transition-all-smooth"
               >
-                Explorar Templates
+                {t('hero.cta.primary')}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="text-lg px-8 py-6 border-2 hover:bg-notion-gray-100 dark:hover:bg-notion-gray-800 transition-all-smooth"
               >
-                Ver Demo
+                {t('hero.cta.secondary')}
               </Button>
             </div>
           </FadeInSection>
@@ -79,10 +80,8 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="relative"
               >
-                {/* Main Preview Card */}
                 <div className="glass notion-shadow-lg rounded-2xl p-8 max-w-4xl mx-auto">
                   <div className="grid grid-cols-3 gap-4">
-                    {/* Mini Cards */}
                     {[
                       { icon: Zap, title: "Templates", count: "50+" },
                       { icon: Users, title: "Consultoría", count: "1-1" },

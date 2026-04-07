@@ -1,33 +1,39 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
 import { Twitter, Linkedin, Instagram, Mail } from "lucide-react";
 
 export default function Footer() {
+  const t = useTranslations('footer');
+  const locale = useLocale();
+
   const footerSections = [
     {
-      title: "Productos",
+      title: t('products'),
       links: [
-        { name: "Templates", href: "/templates" },
-        { name: "Curso Notion", href: "/curso" },
-        { name: "Consultoría", href: "/consultoria" },
-        { name: "WhatsApp Bot", href: "/saas" },
+        { name: "Templates", href: `/${locale}/templates` },
+        { name: "Curso Notion", href: `/${locale}/curso` },
+        { name: "Consultoría", href: `/${locale}/consultoria` },
+        { name: "WhatsApp Bot", href: `/${locale}/saas` },
       ],
     },
     {
-      title: "Recursos",
+      title: t('resources'),
       links: [
-        { name: "Casos de Éxito", href: "/casos-exito" },
-        { name: "Bot WhatsApp", href: "/bot" },
-        { name: "Blog", href: "/blog" },
-        { name: "FAQ", href: "/faq" },
+        { name: "Casos de Éxito", href: `/${locale}/casos-exito` },
+        { name: "Bot WhatsApp", href: `/${locale}/bot` },
+        { name: "Blog", href: `/${locale}/blog` },
+        { name: "FAQ", href: `/${locale}/faq` },
       ],
     },
     {
-      title: "Empresa",
+      title: t('company'),
       links: [
-        { name: "Sobre Nosotros", href: "/sobre-nosotros" },
-        { name: "Contacto", href: "/contacto" },
-        { name: "Términos", href: "/terminos" },
-        { name: "Privacidad", href: "/privacidad" },
+        { name: "Sobre Nosotros", href: `/${locale}/sobre-nosotros` },
+        { name: "Contacto", href: `/${locale}/contacto` },
+        { name: "Términos", href: `/${locale}/terminos` },
+        { name: "Privacidad", href: `/${locale}/privacidad` },
       ],
     },
   ];
@@ -38,7 +44,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2 mb-4">
+            <Link href={`/${locale}`} className="inline-flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-notion-blue rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">N</span>
               </div>
@@ -47,7 +53,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-notion-text-secondary dark:text-notion-text-dark-secondary max-w-sm mb-6">
-              Potenciamos empresas latinoamericanas con las mejores herramientas y servicios de Notion.
+              {t('tagline')}
             </p>
             <div className="flex items-center gap-3">
               <a
@@ -108,14 +114,12 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-notion-border dark:border-notion-border-dark flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-notion-text-secondary dark:text-notion-text-dark-secondary">
-            © 2026 Notion LATAM. Todos los derechos reservados.
+            © 2026 Notion LATAM. {t('rights')}.
           </p>
           <div className="flex items-center gap-6 text-sm text-notion-text-secondary dark:text-notion-text-dark-secondary">
-            <span>Hecho con ❤️ en LATAM</span>
+            <span>{t('madeWith')} {t('in')}</span>
             <span className="hidden md:inline">•</span>
-            <span className="hidden md:inline">
-              Potenciado por Notion
-            </span>
+            <span className="hidden md:inline">{t('poweredBy')}</span>
           </div>
         </div>
       </div>

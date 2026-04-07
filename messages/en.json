@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Notion LATAM - Supercharge your business with Notion",
+    "description": "Premium Notion templates, courses and services for Latin American companies"
+  },
+  "nav": {
+    "templates": "Templates",
+    "course": "Course",
+    "consulting": "Consulting",
+    "bot": "WhatsApp Bot",
+    "successCases": "Success Cases",
+    "login": "Sign In",
+    "getStarted": "Get Started Free"
+  },
+  "hero": {
+    "badge": "The complete Notion ecosystem for LATAM",
+    "title": { "line1": "Supercharge your business", "line2": "with Notion" },
+    "subtitle": "Professional templates, comprehensive courses and premium services designed specifically for Latin American companies",
+    "cta": { "primary": "Explore Templates", "secondary": "Watch Demo" }
+  },
+  "features": {
+    "title": { "line1": "Everything you need to", "line2": "supercharge your business" },
+    "subtitle": "Tools, services and resources designed specifically for Latin American companies",
+    "items": {
+      "templates": { "title": "Professional Templates", "description": "Pre-built systems optimized for Latin American SMEs. Ready to use in minutes." },
+      "consulting": { "title": "Personalized Consulting", "description": "We build your complete operating system in Notion. 100% remote, 100% customized." },
+      "course": { "title": "Complete Course", "description": "Learn to master Notion from zero to expert level. With real LATAM case studies." },
+      "whatsapp": { "title": "WhatsApp Integration", "description": "Connect Notion with WhatsApp. Automate notifications and task management." },
+      "support": { "title": "Spanish Support", "description": "Personalized attention in your language. We understand LATAM needs." },
+      "updates": { "title": "Continuous Updates", "description": "New templates and resources every month. Stay always updated." }
+    }
+  },
+  "templates": {
+    "badge": "Premium Templates",
+    "title": "Ready to use in minutes",
+    "subtitle": "Professional templates designed for the real needs of Latin American companies",
+    "viewAll": "View All Templates",
+    "viewDetails": "View Details",
+    "downloads": "downloads"
+  },
+  "socialProof": {
+    "title": "What our clients say",
+    "subtitle": "Companies from all over LATAM trust us",
+    "stats": { "sold": "Templates Sold", "companies": "Companies Served", "countries": "LATAM Countries", "rating": "Average Rating" }
+  },
+  "cta": {
+    "badge": "Join 500+ companies already using our products",
+    "title": { "line1": "Ready to supercharge", "line2": "your business with Notion?" },
+    "subtitle": "Start today with our free templates or schedule a personalized consultation",
+    "getStarted": "Get Started Free",
+    "scheduleDemo": "Schedule Demo",
+    "footer": "No credit card required • Cancel anytime • Spanish support"
+  },
+  "footer": {
+    "tagline": "We empower Latin American companies with the best Notion tools and services.",
+    "products": "Products",
+    "resources": "Resources",
+    "company": "Company",
+    "madeWith": "Made with ❤️",
+    "in": "in LATAM",
+    "poweredBy": "Powered by Notion",
+    "rights": "All rights reserved"
+  }
+}

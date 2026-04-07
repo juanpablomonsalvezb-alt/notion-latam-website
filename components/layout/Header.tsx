@@ -3,49 +3,53 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  {
-    name: "Templates",
-    href: "/templates",
-    description: "50+ plantillas profesionales",
-  },
-  {
-    name: "Curso",
-    href: "/curso",
-    description: "Aprende Notion desde cero",
-  },
-  {
-    name: "Consultoría",
-    href: "/consultoria",
-    description: "Tu sistema operativo en Notion",
-  },
-  {
-    name: "WhatsApp Bot",
-    href: "/saas",
-    description: "Automatiza con IA",
-  },
-  {
-    name: "Bot Waitlist",
-    href: "/bot",
-    description: "Early bird — 40% OFF",
-    badge: "Nuevo",
-  },
-  {
-    name: "Casos de Éxito",
-    href: "/casos-exito",
-    description: "500+ empresas satisfechas",
-  },
-];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations('nav');
+  const locale = useLocale();
+
+  const navItems = [
+    {
+      name: t('templates'),
+      href: `/${locale}/templates`,
+      description: "50+ plantillas profesionales",
+    },
+    {
+      name: t('course'),
+      href: `/${locale}/curso`,
+      description: "Aprende Notion desde cero",
+    },
+    {
+      name: t('consulting'),
+      href: `/${locale}/consultoria`,
+      description: "Tu sistema operativo en Notion",
+    },
+    {
+      name: t('bot'),
+      href: `/${locale}/saas`,
+      description: "Automatiza con IA",
+    },
+    {
+      name: "Bot Waitlist",
+      href: `/${locale}/bot`,
+      description: "Early bird — 40% OFF",
+      badge: "Nuevo",
+    },
+    {
+      name: t('successCases'),
+      href: `/${locale}/casos-exito`,
+      description: "500+ empresas satisfechas",
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +59,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
@@ -72,7 +75,7 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 bg-notion-blue rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-md">
               <span className="text-white font-bold text-base leading-none">N</span>
             </div>
@@ -109,20 +112,21 @@ export default function Header() {
             })}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* CTA Buttons + Language Switcher */}
+          <div className="hidden md:flex items-center gap-2">
+            <LanguageSwitcher />
             <Button
               variant="ghost"
               size="sm"
               className="text-notion-text-secondary hover:text-notion-text-primary"
             >
-              Iniciar Sesión
+              {t('login')}
             </Button>
             <Button
               size="sm"
               className="bg-notion-blue hover:bg-notion-blue/90 text-white shadow-md hover:shadow-lg transition-all duration-200 font-medium"
             >
-              Comenzar Gratis
+              {t('getStarted')}
             </Button>
           </div>
 
@@ -192,12 +196,15 @@ export default function Header() {
                     </Link>
                   </motion.div>
                 ))}
-                <div className="flex flex-col gap-2 pt-4 px-1">
+                <div className="flex items-center justify-between pt-4 px-1">
+                  <LanguageSwitcher />
+                </div>
+                <div className="flex flex-col gap-2 pt-2 px-1">
                   <Button variant="outline" className="w-full">
-                    Iniciar Sesión
+                    {t('login')}
                   </Button>
                   <Button className="w-full bg-notion-blue hover:bg-notion-blue/90">
-                    Comenzar Gratis
+                    {t('getStarted')}
                   </Button>
                 </div>
               </div>
