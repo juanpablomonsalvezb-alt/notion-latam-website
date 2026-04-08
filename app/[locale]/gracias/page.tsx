@@ -133,11 +133,40 @@ export default function GraciasPage() {
           })}
         </motion.div>
 
+        {/* Cross-sell: completa tu stack */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.75 }}
+          className="mb-8 p-6 rounded-2xl border-2 text-left"
+          style={{ borderColor: "#FF3D57", background: "#FF3D5708" }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-6 h-6 rounded flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: "#FF3D57" }}>M</span>
+            <p className="font-bold text-notion-text-primary dark:text-notion-text-dark">¿Completas tu stack con Monday.com?</p>
+          </div>
+          <p className="text-sm text-notion-text-secondary dark:text-notion-text-dark-secondary mb-4">
+            Notion es ideal para documentación. Monday.com es el complemento perfecto para gestión de proyectos. Ahorra hasta 30% en nuestros bundles.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Link href="/es/monday/templates">
+              <Button size="sm" className="text-white font-semibold" style={{ backgroundColor: "#FF3D57" }}>
+                Ver templates Monday <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+              </Button>
+            </Link>
+            <Link href="/es/bundles">
+              <Button size="sm" variant="outline" className="border-[#FF3D57] text-[#FF3D57]">
+                Ver bundle — ahorra 30%
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
+          transition={{ delay: 0.85 }}
           className="flex flex-col sm:flex-row gap-3 justify-center"
         >
           <Link href="/">
