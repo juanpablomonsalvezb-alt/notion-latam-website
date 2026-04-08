@@ -34,6 +34,22 @@ const routes = [
   { path: "/templates/crm-whatsapp", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/templates/control-inventario", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/templates/gestion-proyectos", changeFrequency: "monthly" as const, priority: 0.7 },
+  // Monday routes
+  { path: "/monday/templates", changeFrequency: "weekly" as const, priority: 0.9 },
+  { path: "/monday/curso", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/monday/consultoria", changeFrequency: "monthly" as const, priority: 0.8 },
+  // Monday template detail pages
+  { path: "/monday/templates/pipeline-ventas-b2b", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/monday/templates/gestion-proyectos-cliente", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/monday/templates/marketing-campaigns", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/monday/templates/product-roadmap", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/monday/templates/operaciones-empresariales", changeFrequency: "monthly" as const, priority: 0.7 },
+  // Bundles
+  { path: "/bundles", changeFrequency: "weekly" as const, priority: 0.9 },
+  // Monday blog posts
+  { path: "/blog/notion-vs-monday-2026", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/blog/stack-productividad-notion-monday", changeFrequency: "monthly" as const, priority: 0.6 },
+  { path: "/blog/monday-gestion-proyectos-latam", changeFrequency: "monthly" as const, priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

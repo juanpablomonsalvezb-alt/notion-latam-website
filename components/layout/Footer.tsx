@@ -10,12 +10,20 @@ export default function Footer() {
 
   const footerSections = [
     {
-      title: t('products'),
+      title: "Notion",
       links: [
-        { name: "Templates", href: `/${locale}/templates` },
+        { name: "Templates Notion", href: `/${locale}/templates` },
         { name: "Curso Notion", href: `/${locale}/curso` },
-        { name: "Consultoría", href: `/${locale}/consultoria` },
-        { name: "WhatsApp Bot", href: `/${locale}/saas` },
+        { name: "Consultoría Notion", href: `/${locale}/consultoria` },
+      ],
+    },
+    {
+      title: "Monday.com",
+      links: [
+        { name: "Templates Monday", href: `/${locale}/monday/templates` },
+        { name: "Curso Monday", href: `/${locale}/monday/curso` },
+        { name: "Consultoría Monday", href: `/${locale}/monday/consultoria` },
+        { name: "Bundles Notion + Monday", href: `/${locale}/bundles` },
       ],
     },
     {
@@ -48,10 +56,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href={`/${locale}`} className="inline-flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-notion-blue rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">N</span>
+                <span className="text-white font-bold text-xl">W</span>
               </div>
               <span className="font-bold text-xl text-notion-text-primary dark:text-notion-text-dark">
-                Notion <span className="text-notion-blue">LATAM</span>
+                Workspace<span className="text-notion-blue">LATAM</span>
               </span>
             </Link>
             <p className="text-notion-text-secondary dark:text-notion-text-dark-secondary max-w-sm mb-6">

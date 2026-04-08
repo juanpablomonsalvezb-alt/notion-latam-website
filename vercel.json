@@ -26,7 +26,12 @@
     { "source": "/blog", "destination": "/es/blog", "permanent": false },
     { "source": "/contacto", "destination": "/es/contacto", "permanent": false },
     { "source": "/consultoria", "destination": "/es/consultoria", "permanent": false },
-    { "source": "/curso", "destination": "/es/curso", "permanent": false }
+    { "source": "/curso", "destination": "/es/curso", "permanent": false },
+    { "source": "/monday", "destination": "/es/monday/templates", "permanent": false },
+    { "source": "/monday/templates", "destination": "/es/monday/templates", "permanent": false },
+    { "source": "/monday/curso", "destination": "/es/monday/curso", "permanent": false },
+    { "source": "/monday/consultoria", "destination": "/es/monday/consultoria", "permanent": false },
+    { "source": "/bundles", "destination": "/es/bundles", "permanent": false }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
