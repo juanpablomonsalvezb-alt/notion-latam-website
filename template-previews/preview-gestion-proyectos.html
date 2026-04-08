@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Gestión de Proyectos Ágil | Notion LATAM</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F7F6F3; color: #37352F; font-size: 14px; }
+
+    .app { display: flex; height: 100vh; max-width: 1200px; margin: 0 auto; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,0.12); }
+
+    .sidebar { width: 220px; min-width: 220px; background: #FBFAF8; border-right: 1px solid #E8E7E3; padding: 12px 0; }
+    .sidebar-header { padding: 8px 16px 14px; border-bottom: 1px solid #E8E7E3; margin-bottom: 8px; }
+    .workspace-name { font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .workspace-icon { width: 20px; height: 20px; background: #9B59B6; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 700; }
+    .sidebar-section { padding: 2px 8px; }
+    .sidebar-label { font-size: 11px; color: #9B9A97; font-weight: 500; padding: 6px 8px 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+    .sidebar-item:hover { background: #E9E8E3; }
+    .sidebar-item.active { background: #E3E2DE; font-weight: 500; }
+    .icon { font-size: 14px; width: 16px; text-align: center; }
+
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; border-bottom: 1px solid #E8E7E3; background: #fff; min-height: 50px; }
+    .breadcrumb { font-size: 13px; color: #9B9A97; }
+    .breadcrumb span { color: #37352F; font-weight: 500; }
+    .cta-btn { background: #2383E2; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .price-tag { font-size: 13px; color: #6B6A67; margin-right: 10px; }
+
+    .content { flex: 1; overflow-y: auto; padding: 28px 36px; background: #F7F6F3; }
+    .page-title { font-size: 26px; font-weight: 700; margin-bottom: 16px; }
+
+    /* Sprint header */
+    .sprint-header { background: white; border: 1px solid #E8E7E3; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 24px; }
+    .sprint-name { font-weight: 700; font-size: 16px; }
+    .sprint-dates { font-size: 12px; color: #6B6A67; }
+    .sprint-progress { flex: 1; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: #9B9A97; margin-bottom: 4px; }
+    .progress-bar { height: 8px; background: #F1F0EE; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #9B59B6; border-radius: 4px; }
+    .sprint-stat { text-align: center; }
+    .sprint-stat-value { font-size: 20px; font-weight: 700; color: #37352F; }
+    .sprint-stat-label { font-size: 10px; color: #9B9A97; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Kanban */
+    .section-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; margin-top: 20px; }
+    .kanban { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 12px; }
+    .kanban-col { min-width: 200px; max-width: 200px; background: #F1F0EE; border-radius: 8px; padding: 10px; }
+    .col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .col-title { font-size: 12px; font-weight: 600; color: #6B6A67; text-transform: uppercase; letter-spacing: 0.05em; }
+    .col-count { background: #E3E2DE; color: #6B6A67; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 10px; }
+    .card { background: white; border-radius: 6px; padding: 10px; margin-bottom: 7px; border: 1px solid #E8E7E3; }
+    .card-title { font-size: 12px; font-weight: 600; color: #37352F; margin-bottom: 6px; line-height: 1.4; }
+    .card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .points-badge { background: #EDE9FE; color: #7C3AED; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; }
+    .priority-badge { font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: 500; }
+    .priority-high { background: #FDDEDE; color: #E03E3E; }
+    .priority-med { background: #FBF3DB; color: #DFAB01; }
+    .priority-low { background: #DDEDEA; color: #0F7B6C; }
+    .avatar { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; margin-left: auto; }
+
+    /* Velocity chart */
+    .velocity-section { background: white; border: 1px solid #E8E7E3; border-radius: 8px; padding: 20px; margin-top: 20px; }
+    .chart-title { font-weight: 600; font-size: 14px; margin-bottom: 16px; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 12px; height: 100px; }
+    .bar-group { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .bar-pair { display: flex; gap: 3px; align-items: flex-end; height: 80px; }
+    .bar { border-radius: 3px 3px 0 0; min-width: 14px; }
+    .bar.committed { background: #E3E2DE; }
+    .bar.completed { background: #9B59B6; }
+    .bar-label { font-size: 10px; color: #9B9A97; text-align: center; }
+    .chart-legend { display: flex; gap: 16px; margin-top: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #6B6A67; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+    .preview-badge { position: fixed; bottom: 20px; right: 20px; background: #37352F; color: white; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="workspace-name">
+        <div class="workspace-icon">P</div>
+        Proyectos Ágil
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Sprint Activo</div>
+      <div class="sidebar-item active"><span class="icon">🚀</span> Sprint 14</div>
+      <div class="sidebar-item"><span class="icon">📋</span> Backlog</div>
+      <div class="sidebar-item"><span class="icon">🗺️</span> Roadmap</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Gestión</div>
+      <div class="sidebar-item"><span class="icon">📊</span> Dashboard</div>
+      <div class="sidebar-item"><span class="icon">🎯</span> Épicas</div>
+      <div class="sidebar-item"><span class="icon">👥</span> Equipo</div>
+      <div class="sidebar-item"><span class="icon">📅</span> Sprints anteriores</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Ceremonias</div>
+      <div class="sidebar-item"><span class="icon">☀️</span> Standups</div>
+      <div class="sidebar-item"><span class="icon">🔄</span> Retrospectivas</div>
+      <div class="sidebar-item"><span class="icon">📝</span> Sprint Planning</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="breadcrumb">Proyectos Ágil › <span>Sprint 14</span></div>
+      <div style="display:flex; align-items:center">
+        <span class="price-tag">Gestión de Proyectos Ágil — <strong>$25 USD</strong></span>
+        <button class="cta-btn">Obtener Template</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="page-title">🚀 Sprint 14 — Activo</div>
+
+      <!-- Sprint header -->
+      <div class="sprint-header">
+        <div>
+          <div class="sprint-name">Sprint 14</div>
+          <div class="sprint-dates">31 Mar – 14 Abr 2026 · 14 días</div>
+        </div>
+        <div class="sprint-progress" style="min-width: 200px">
+          <div class="progress-label"><span>Avance del sprint</span><span>62%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 62%"></div></div>
+        </div>
+        <div class="sprint-stat">
+          <div class="sprint-stat-value">18</div>
+          <div class="sprint-stat-label">Pts comprometidos</div>
+        </div>
+        <div class="sprint-stat">
+          <div class="sprint-stat-value" style="color: #9B59B6">11</div>
+          <div class="sprint-stat-label">Pts completados</div>
+        </div>
+        <div class="sprint-stat">
+          <div class="sprint-stat-value" style="color: #E03E3E">3</div>
+          <div class="sprint-stat-label">Bloqueadas</div>
+        </div>
+      </div>
+
+      <div class="section-title">Tablero de tareas</div>
+
+      <!-- Kanban board -->
+      <div class="kanban">
+        <div class="kanban-col">
+          <div class="col-header"><span class="col-title">Por hacer</span><span class="col-count">5</span></div>
+          <div class="card">
+            <div class="card-title">Refactorizar módulo de pagos</div>
+            <div class="card-meta"><span class="points-badge">3 pts</span><span class="priority-badge priority-med">Media</span><div class="avatar" style="background:#9B59B6">JM</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Documentar API de autenticación</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-low">Baja</span><div class="avatar" style="background:#27AE60">AV</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Diseñar onboarding flow versión 2</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span><span class="priority-badge priority-high">Alta</span><div class="avatar" style="background:#E67E22">LF</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Tests unitarios módulo reportes</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-low">Baja</span></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Actualizar dependencias npm</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-med">Media</span></div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="col-header"><span class="col-title">En progreso</span><span class="col-count">4</span></div>
+          <div class="card">
+            <div class="card-title">Integrar Stripe webhooks en staging</div>
+            <div class="card-meta"><span class="points-badge">3 pts</span><span class="priority-badge priority-high">Alta</span><div class="avatar" style="background:#9B59B6">JM</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Diseño responsive dashboard móvil</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span><span class="priority-badge priority-high">Alta</span><div class="avatar" style="background:#E67E22">LF</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Migración base de datos clientes</div>
+            <div class="card-meta"><span class="points-badge">3 pts</span><span class="priority-badge priority-high">Alta</span><div class="avatar" style="background:#27AE60">AV</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Configurar Sentry en producción</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-med">Media</span></div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="col-header"><span class="col-title">En revisión</span><span class="col-count">2</span></div>
+          <div class="card">
+            <div class="card-title">Feature: Exportar reportes a PDF</div>
+            <div class="card-meta"><span class="points-badge">3 pts</span><span class="priority-badge priority-med">Media</span><div class="avatar" style="background:#9B59B6">JM</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Fix: Bug en carga de imágenes Safari</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-high">Alta</span></div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="col-header"><span class="col-title">Bloqueado 🛑</span><span class="col-count">3</span></div>
+          <div class="card" style="border-color: #FDDEDE; background: #FFF9F9">
+            <div class="card-title">Configurar SSL certificado dominio nuevo</div>
+            <div class="card-meta"><span class="points-badge">1 pt</span><span class="priority-badge priority-high">Alta</span></div>
+            <div style="font-size:10px; color:#E03E3E; margin-top:5px">⚠ Esperando acceso DevOps</div>
+          </div>
+          <div class="card" style="border-color: #FDDEDE; background: #FFF9F9">
+            <div class="card-title">Endpoint de facturación electrónica</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span></div>
+            <div style="font-size:10px; color:#E03E3E; margin-top:5px">⚠ API proveedor no responde</div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="col-header"><span class="col-title">Completado ✓</span><span class="col-count">5</span></div>
+          <div class="card" style="opacity: 0.7">
+            <div class="card-title">Login con Google OAuth</div>
+            <div class="card-meta"><span class="points-badge">3 pts</span><span class="priority-badge priority-high">Alta</span></div>
+          </div>
+          <div class="card" style="opacity: 0.7">
+            <div class="card-title">Página de precios rediseño</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span></div>
+          </div>
+          <div class="card" style="opacity: 0.7">
+            <div class="card-title">Email de bienvenida automático</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span></div>
+          </div>
+          <div class="card" style="opacity: 0.7">
+            <div class="card-title">A/B test landing hero section</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span></div>
+          </div>
+          <div class="card" style="opacity: 0.7">
+            <div class="card-title">Script backup automático</div>
+            <div class="card-meta"><span class="points-badge">2 pts</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Velocity chart -->
+      <div class="velocity-section">
+        <div class="chart-title">Velocidad del equipo — Últimos 6 sprints</div>
+        <div class="bar-chart">
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 52px" title="Comprometido: 13"></div>
+              <div class="bar completed" style="height: 44px" title="Completado: 11"></div>
+            </div>
+            <div class="bar-label">S9</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 60px" title="Comprometido: 15"></div>
+              <div class="bar completed" style="height: 56px" title="Completado: 14"></div>
+            </div>
+            <div class="bar-label">S10</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 56px" title="Comprometido: 14"></div>
+              <div class="bar completed" style="height: 60px" title="Completado: 15"></div>
+            </div>
+            <div class="bar-label">S11</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 64px" title="Comprometido: 16"></div>
+              <div class="bar completed" style="height: 56px" title="Completado: 14"></div>
+            </div>
+            <div class="bar-label">S12</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 72px" title="Comprometido: 18"></div>
+              <div class="bar completed" style="height: 68px" title="Completado: 17"></div>
+            </div>
+            <div class="bar-label">S13</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-pair">
+              <div class="bar committed" style="height: 72px" title="Comprometido: 18"></div>
+              <div class="bar completed" style="height: 44px; background: #C4A8E8" title="En progreso: 11"></div>
+            </div>
+            <div class="bar-label">S14 ←</div>
+          </div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background: #E3E2DE"></div> Comprometido</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #9B59B6"></div> Completado</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #C4A8E8"></div> En progreso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="preview-badge">Vista previa — Notion LATAM</div>
+
+</body>
+</html>

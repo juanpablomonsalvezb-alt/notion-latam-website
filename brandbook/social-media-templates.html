@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Templates — Notion LATAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',-apple-system,sans-serif;background:#F7F6F3;color:#37352F;padding:40px;}
+    .page-header{max-width:1200px;margin:0 auto 40px;}
+    .page-title{font-size:28px;font-weight:800;color:#37352F;letter-spacing:-0.5px;margin-bottom:6px;}
+    .page-sub{font-size:15px;color:#777;}
+    .section-header{max-width:1200px;margin:0 auto 20px;}
+    .section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#2383E2;margin-bottom:4px;}
+    .section-name{font-size:20px;font-weight:700;color:#37352F;margin-bottom:4px;}
+    .section-desc{font-size:13px;color:#777;}
+    .templates-grid{max-width:1200px;margin:0 auto 60px;display:flex;flex-wrap:wrap;gap:24px;}
+    .template-wrapper{display:flex;flex-direction:column;gap:10px;}
+    .template-label{font-size:12px;font-weight:600;color:#525252;}
+    .template-dims{font-size:11px;color:#999;font-family:monospace;}
+    .canva-hint{font-size:11px;color:#2383E2;margin-top:4px;}
+    .section-divider{max-width:1200px;margin:0 auto 40px;height:1px;background:#E5E4E0;}
+
+    /* ==========================================
+       INSTAGRAM POSTS (400×400 = 1080×1080 scaled)
+       ========================================== */
+
+    /* Post 1: Tip educativo */
+    .ig-post-1{
+      width:400px;height:400px;
+      background:linear-gradient(135deg,#2383E2 0%,#0F2E5E 100%);
+      border-radius:12px;
+      padding:32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+      position:relative;overflow:hidden;
+    }
+    .ig-post-1::before{
+      content:'';position:absolute;top:-60px;right:-60px;
+      width:200px;height:200px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.06);
+    }
+    .ig-post-1::after{
+      content:'';position:absolute;bottom:-40px;left:-40px;
+      width:160px;height:160px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.04);
+    }
+
+    /* Post 2: Métrica grande */
+    .ig-post-2{
+      width:400px;height:400px;
+      background:#fff;
+      border:1px solid #E5E4E0;
+      border-radius:12px;
+      padding:32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+      box-shadow:0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    /* Post 3: Antes/Después */
+    .ig-post-3{
+      width:400px;height:400px;
+      background:#F7F6F3;
+      border-radius:12px;
+      padding:28px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+    }
+
+    /* Post 4: Lista de tips */
+    .ig-post-4{
+      width:400px;height:400px;
+      background:#37352F;
+      border-radius:12px;
+      padding:32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+    }
+
+    /* Post 5: Cita/Quote */
+    .ig-post-5{
+      width:400px;height:400px;
+      background:linear-gradient(135deg,#F7F6F3 0%,#EBF3FD 100%);
+      border:1px solid #E5E4E0;
+      border-radius:12px;
+      padding:32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+    }
+
+    /* ==========================================
+       INSTAGRAM STORIES (225×400 = 1080×1920 scaled)
+       ========================================== */
+
+    .ig-story-1{
+      width:225px;height:400px;
+      background:linear-gradient(180deg,#2383E2 0%,#0F2E5E 100%);
+      border-radius:12px;padding:24px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+    }
+
+    .ig-story-2{
+      width:225px;height:400px;
+      background:#fff;
+      border:1px solid #E5E4E0;
+      border-radius:12px;padding:24px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+      box-shadow:0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .ig-story-3{
+      width:225px;height:400px;
+      background:#37352F;
+      border-radius:12px;padding:24px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+    }
+
+    .ig-story-4{
+      width:225px;height:400px;
+      background:linear-gradient(180deg,#EBF3FD 0%,#fff 100%);
+      border:1px solid #E5E4E0;
+      border-radius:12px;padding:24px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+    }
+
+    .ig-story-5{
+      width:225px;height:400px;
+      background:linear-gradient(135deg,#F5A623,#E07B00);
+      border-radius:12px;padding:24px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+    }
+
+    /* ==========================================
+       LINKEDIN POSTS (400×400 or 400×210)
+       ========================================== */
+
+    .li-post-1{
+      width:400px;height:210px;
+      background:linear-gradient(135deg,#0F2E5E,#2383E2);
+      border-radius:12px;padding:28px 32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+    }
+
+    .li-post-2{
+      width:400px;height:210px;
+      background:#fff;
+      border:1px solid #E5E4E0;
+      border-radius:12px;padding:28px 32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .li-post-3{
+      width:400px;height:210px;
+      background:#F7F6F3;
+      border:1px solid #E5E4E0;
+      border-radius:12px;padding:28px 32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+    }
+
+    /* ==========================================
+       YOUTUBE THUMBNAILS (427×240 = 1280×720 scaled)
+       ========================================== */
+
+    .yt-thumb-1{
+      width:427px;height:240px;
+      background:linear-gradient(135deg,#0F2E5E 0%,#2383E2 100%);
+      border-radius:10px;padding:28px 32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      color:#fff;font-family:Inter,sans-serif;
+      position:relative;overflow:hidden;
+    }
+    .yt-thumb-1::before{
+      content:'';position:absolute;right:0;top:0;bottom:0;
+      width:180px;
+      background:rgba(255,255,255,0.04);
+      clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);
+    }
+
+    .yt-thumb-2{
+      width:427px;height:240px;
+      background:#fff;
+      border:1px solid #E5E4E0;
+      border-radius:10px;padding:24px 32px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      font-family:Inter,sans-serif;
+      box-shadow:0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Compartidos */
+    .logo-small{display:flex;align-items:center;gap:8px;}
+    .logo-icon-sm{width:24px;height:24px;background:#2383E2;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .logo-icon-sm-white{width:24px;height:24px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .logo-text-sm{font-size:12px;font-weight:700;}
+    .pill{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;}
+    .pill-dark{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12);color:#37352F;}
+    .pill-blue{background:#EBF3FD;border-color:#2383E2;color:#2383E2;}
+    .divider-sm{height:1px;background:rgba(255,255,255,0.2);}
+    .divider-light{height:1px;background:#E5E4E0;}
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#2383E2;margin-bottom:8px;">Notion LATAM · Brandbook</div>
+  <div class="page-title">Templates de Social Media</div>
+  <div class="page-sub">15 templates visuales para Instagram, LinkedIn y YouTube. Todos diseñados con los colores y tipografía de la marca.</div>
+</div>
+
+<!-- ================================================
+     INSTAGRAM POSTS
+     ================================================ -->
+
+<div class="section-header">
+  <div class="section-title">Instagram · Posts</div>
+  <div class="section-name">Posts cuadrados 1080×1080</div>
+  <div class="section-desc">Representados a 400×400px. Usar en feed y carruseles.</div>
+</div>
+
+<div class="templates-grid">
+
+  <!-- Post 1 -->
+  <div class="template-wrapper">
+    <div class="ig-post-1">
+      <div>
+        <div class="logo-small" style="margin-bottom:16px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="white" opacity=".2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm" style="color:#fff;">Notion LATAM</span>
+        </div>
+        <span class="pill" style="margin-bottom:14px;display:inline-block;">💡 Tip de Notion</span>
+        <div style="font-size:26px;font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-top:12px;">El atajo que te ahorra 30 minutos al día en Notion</div>
+      </div>
+      <div>
+        <div class="divider-sm" style="margin-bottom:12px;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;opacity:0.8;">@notionlatam</span>
+          <span style="font-size:11px;opacity:0.6;">notionlatam.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">Post 1 — Tip educativo (azul)</div>
+    <div class="template-dims">1080×1080px · Feed / Carrusel</div>
+    <div class="canva-hint">Canva: fondo gradiente #2383E2 → #0F2E5E · Inter 800 white</div>
+  </div>
+
+  <!-- Post 2 -->
+  <div class="template-wrapper">
+    <div class="ig-post-2">
+      <div>
+        <div class="logo-small" style="margin-bottom:16px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm" style="color:#37352F;">Notion LATAM</span>
+        </div>
+        <span class="pill-blue" style="display:inline-block;margin-bottom:12px;">📊 Estadística</span>
+      </div>
+      <div style="text-align:center;padding:8px 0;">
+        <div style="font-size:80px;font-weight:800;color:#2383E2;letter-spacing:-4px;line-height:1;">68%</div>
+        <div style="font-size:18px;font-weight:700;color:#37352F;margin-top:6px;">menos tareas administrativas</div>
+        <div style="font-size:13px;color:#777;margin-top:4px;">promedio de nuestros clientes tras implementar Notion</div>
+      </div>
+      <div>
+        <div class="divider-light" style="margin-bottom:10px;"></div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:11px;color:#999;">@notionlatam</span>
+          <span style="font-size:11px;color:#999;">notionlatam.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">Post 2 — Métrica / estadística</div>
+    <div class="template-dims">1080×1080px · Feed</div>
+    <div class="canva-hint">Canva: fondo blanco · número #2383E2 800 · Inter bold</div>
+  </div>
+
+  <!-- Post 3 -->
+  <div class="template-wrapper">
+    <div class="ig-post-3">
+      <div>
+        <div class="logo-small" style="margin-bottom:16px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm">Notion LATAM</span>
+        </div>
+        <span class="pill-dark" style="display:inline-block;margin-bottom:12px;">⚖️ Antes vs Después</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#FFF0F0;border-radius:10px;padding:16px;">
+          <div style="font-size:10px;font-weight:700;color:#C53030;margin-bottom:8px;">❌ SIN NOTION</div>
+          <div style="font-size:12px;color:#742A2A;line-height:1.6;">5 apps distintas<br/>WhatsApp para todo<br/>Info perdida<br/>Reuniones de status<br/>Sin visibilidad</div>
+        </div>
+        <div style="background:#F0FFF4;border-radius:10px;padding:16px;">
+          <div style="font-size:10px;font-weight:700;color:#276749;margin-bottom:8px;">✅ CON NOTION</div>
+          <div style="font-size:12px;color:#22543D;line-height:1.6;">1 sola app<br/>Procesos claros<br/>Todo documentado<br/>Updates automáticos<br/>Visibilidad total</div>
+        </div>
+      </div>
+      <div>
+        <div class="divider-light" style="margin-bottom:8px;"></div>
+        <span style="font-size:11px;color:#999;">@notionlatam</span>
+      </div>
+    </div>
+    <div class="template-label">Post 3 — Antes / Después</div>
+    <div class="template-dims">1080×1080px · Feed</div>
+    <div class="canva-hint">Canva: fondo #F7F6F3 · dos columnas rojo/verde · Inter regular</div>
+  </div>
+
+  <!-- Post 4 -->
+  <div class="template-wrapper">
+    <div class="ig-post-4">
+      <div>
+        <span class="pill" style="margin-bottom:14px;display:inline-block;">🔥 5 tips rápidos</span>
+        <div style="font-size:22px;font-weight:800;letter-spacing:-0.3px;line-height:1.2;margin-top:8px;">Atajos de Notion que cambian todo</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 12px;">
+          <span style="font-size:16px;">01</span>
+          <span style="font-size:13px;font-weight:500;">Cmd+P para buscar en todo el workspace</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 12px;">
+          <span style="font-size:16px;">02</span>
+          <span style="font-size:13px;font-weight:500;">/ para acceder a todos los bloques</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 12px;">
+          <span style="font-size:16px;">03</span>
+          <span style="font-size:13px;font-weight:500;">@nombre para mencionar a tu equipo</span>
+        </div>
+      </div>
+      <div>
+        <div class="divider-sm" style="margin-bottom:10px;"></div>
+        <span style="font-size:12px;opacity:0.7;">@notionlatam · notionlatam.com</span>
+      </div>
+    </div>
+    <div class="template-label">Post 4 — Lista de tips (oscuro)</div>
+    <div class="template-dims">1080×1080px · Feed / Carrusel</div>
+    <div class="canva-hint">Canva: fondo #37352F · texto blanco · items en rectangulos semi-transparentes</div>
+  </div>
+
+  <!-- Post 5 -->
+  <div class="template-wrapper">
+    <div class="ig-post-5">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="logo-small">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm" style="color:#37352F;">Notion LATAM</span>
+        </div>
+        <span class="pill-blue" style="display:inline-block;">💬 Cliente</span>
+      </div>
+      <div>
+        <div style="font-size:56px;font-weight:800;color:#2383E2;opacity:0.15;line-height:1;margin-bottom:-24px;">"</div>
+        <div style="font-size:20px;font-weight:600;color:#37352F;line-height:1.4;font-style:italic;position:relative;z-index:1;">"Ahora todo el equipo sabe exactamente qué hacer y cuándo. Notion cambió nuestra operación."</div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;background:#2383E2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;">MR</div>
+          <div><div style="font-size:13px;font-weight:600;color:#37352F;">María Rodríguez</div><div style="font-size:11px;color:#777;">CEO · Agencia Digital · Bogotá</div></div>
+        </div>
+        <div class="divider-light" style="margin-bottom:8px;"></div>
+        <span style="font-size:11px;color:#999;">@notionlatam</span>
+      </div>
+    </div>
+    <div class="template-label">Post 5 — Testimonial / Quote</div>
+    <div class="template-dims">1080×1080px · Feed</div>
+    <div class="canva-hint">Canva: fondo gradiente #F7F6F3 → #EBF3FD · cita en Inter semibold · avatar círculo azul</div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ================================================
+     INSTAGRAM STORIES
+     ================================================ -->
+
+<div class="section-header">
+  <div class="section-title">Instagram · Stories</div>
+  <div class="section-name">Stories 1080×1920</div>
+  <div class="section-desc">Representadas a 225×400px. Para stories, reels cover y anuncios verticales.</div>
+</div>
+
+<div class="templates-grid">
+
+  <!-- Story 1 -->
+  <div class="template-wrapper">
+    <div class="ig-story-1">
+      <div>
+        <div class="logo-small" style="margin-bottom:20px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="white" opacity=".2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm" style="color:#fff;">Notion LATAM</span>
+        </div>
+        <span class="pill" style="display:inline-block;margin-bottom:16px;">Nuevo contenido</span>
+        <div style="font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-0.5px;">5 errores que todos cometemos en Notion</div>
+      </div>
+      <div>
+        <div style="font-size:13px;opacity:0.8;margin-bottom:12px;">¿Cuántos de estos reconoces?</div>
+        <div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.5px;">Ver post ↑</div>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">Story 1 — Promo de post</div>
+    <div class="template-dims">1080×1920px</div>
+  </div>
+
+  <!-- Story 2 -->
+  <div class="template-wrapper">
+    <div class="ig-story-2">
+      <div>
+        <div class="logo-small" style="margin-bottom:20px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm">Notion LATAM</span>
+        </div>
+        <span class="pill-blue" style="display:inline-block;margin-bottom:12px;">Pregunta del día</span>
+        <div style="font-size:20px;font-weight:800;color:#37352F;line-height:1.25;">¿Tu equipo usa Notion actualmente?</div>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+          <div style="background:#EBF3FD;border:1px solid #2383E2;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:600;color:#2383E2;">Sí, y lo amamos ✅</div>
+          <div style="background:#F7F6F3;border:1px solid #E5E4E0;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:500;color:#37352F;">Sí, pero no bien 😅</div>
+          <div style="background:#F7F6F3;border:1px solid #E5E4E0;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:500;color:#37352F;">No, todavía no ❌</div>
+        </div>
+        <span style="font-size:10px;color:#999;">@notionlatam</span>
+      </div>
+    </div>
+    <div class="template-label">Story 2 — Poll / Encuesta</div>
+    <div class="template-dims">1080×1920px</div>
+  </div>
+
+  <!-- Story 3 -->
+  <div class="template-wrapper">
+    <div class="ig-story-3">
+      <div>
+        <span class="pill" style="display:inline-block;margin-bottom:16px;">🎓 Mini tutorial</span>
+        <div style="font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-0.3px;">Cómo crear una base de datos en Notion en 60 segundos</div>
+      </div>
+      <div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:16px;">
+          <div style="font-size:12px;opacity:0.7;margin-bottom:4px;">Paso 1 de 3</div>
+          <div style="font-size:14px;font-weight:500;">Escribe "/" en cualquier página y selecciona "Database"</div>
+        </div>
+        <div class="divider-sm" style="margin-bottom:10px;"></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.7;">
+          <span>Desliza para más →</span>
+          <span>@notionlatam</span>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">Story 3 — Mini tutorial</div>
+    <div class="template-dims">1080×1920px</div>
+  </div>
+
+  <!-- Story 4 -->
+  <div class="template-wrapper">
+    <div class="ig-story-4">
+      <div>
+        <div class="logo-small" style="margin-bottom:20px;">
+          <div class="logo-icon-sm"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span class="logo-text-sm">Notion LATAM</span>
+        </div>
+        <span class="pill-blue" style="display:inline-block;margin-bottom:12px;">🚀 Nuevo curso</span>
+        <div style="font-size:20px;font-weight:800;color:#37352F;line-height:1.25;">Aprende Notion desde cero en español</div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:#525252;margin-bottom:16px;">+8 horas de contenido · Certificado incluido · Acceso de por vida</div>
+        <div style="background:#2383E2;border-radius:10px;padding:12px;text-align:center;color:#fff;">
+          <div style="font-size:13px;font-weight:700;">Ver curso →</div>
+          <div style="font-size:11px;opacity:0.8;margin-top:2px;">notionlatam.com/curso</div>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">Story 4 — Promo de curso</div>
+    <div class="template-dims">1080×1920px</div>
+  </div>
+
+  <!-- Story 5 -->
+  <div class="template-wrapper">
+    <div class="ig-story-5">
+      <div>
+        <span class="pill" style="display:inline-block;margin-bottom:16px;">⏰ Último día</span>
+        <div style="font-size:24px;font-weight:800;line-height:1.2;letter-spacing:-0.5px;">El precio de lanzamiento termina hoy</div>
+      </div>
+      <div>
+        <div style="text-align:center;margin-bottom:16px;">
+          <div style="font-size:48px;font-weight:800;letter-spacing:-2px;">$97</div>
+          <div style="font-size:14px;text-decoration:line-through;opacity:0.7;">antes $197</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;">Acceder ahora →</div>
+        </div>
+        <div style="font-size:11px;opacity:0.7;text-align:center;margin-top:10px;">@notionlatam</div>
+      </div>
+    </div>
+    <div class="template-label">Story 5 — Urgencia / oferta</div>
+    <div class="template-dims">1080×1920px</div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ================================================
+     LINKEDIN POSTS
+     ================================================ -->
+
+<div class="section-header">
+  <div class="section-title">LinkedIn · Posts</div>
+  <div class="section-name">Posts horizontales 1200×627</div>
+  <div class="section-desc">Representados a 400×210px. Para posts de artículo y contenido profesional.</div>
+</div>
+
+<div class="templates-grid">
+
+  <!-- LinkedIn 1 -->
+  <div class="template-wrapper">
+    <div class="li-post-1">
+      <div>
+        <span class="pill" style="display:inline-block;margin-bottom:12px;">Caso de éxito</span>
+        <div style="font-size:20px;font-weight:800;letter-spacing:-0.3px;line-height:1.2;">Cómo una agencia LATAM ahorró $18K en su primer año con Notion</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="logo-small">
+          <div style="width:20px;height:20px;background:rgba(255,255,255,0.2);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+            <svg width="12" height="12" viewBox="0 0 28 28" fill="none"><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:#fff;opacity:0.8;">Notion LATAM</span>
+        </div>
+        <span style="font-size:11px;opacity:0.6;">notionlatam.com</span>
+      </div>
+    </div>
+    <div class="template-label">LinkedIn 1 — Caso de éxito</div>
+    <div class="template-dims">1200×627px · LinkedIn post</div>
+  </div>
+
+  <!-- LinkedIn 2 -->
+  <div class="template-wrapper">
+    <div class="li-post-2">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <span class="pill-blue" style="display:inline-block;margin-bottom:10px;">📊 Estadística</span>
+          <div style="font-size:18px;font-weight:800;color:#37352F;line-height:1.2;">El 73% de los equipos pierde +2h/día en tareas que Notion puede automatizar</div>
+        </div>
+        <div style="font-size:40px;font-weight:800;color:#2383E2;letter-spacing:-2px;flex-shrink:0;margin-left:16px;">73%</div>
+      </div>
+      <div class="divider-light" style="margin-bottom:8px;"></div>
+      <div style="display:flex;justify-content:space-between;">
+        <span style="font-size:11px;color:#999;">Notion LATAM · Reporte 2026</span>
+        <span style="font-size:11px;color:#999;">notionlatam.com</span>
+      </div>
+    </div>
+    <div class="template-label">LinkedIn 2 — Dato estadístico</div>
+    <div class="template-dims">1200×627px · LinkedIn post</div>
+  </div>
+
+  <!-- LinkedIn 3 -->
+  <div class="template-wrapper">
+    <div class="li-post-3">
+      <div>
+        <span class="pill-dark" style="display:inline-block;margin-bottom:10px;">5 errores comunes</span>
+        <div style="font-size:18px;font-weight:800;color:#37352F;line-height:1.2;">Por qué tu equipo no adopta Notion (y cómo solucionarlo)</div>
+      </div>
+      <div style="display:flex;gap:16px;">
+        <div style="flex:1;background:#fff;border-radius:8px;padding:10px;border:1px solid #E5E4E0;">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;color:#2383E2;letter-spacing:0.8px;margin-bottom:4px;">El problema</div>
+          <div style="font-size:12px;color:#37352F;">Sin estructura clara desde el principio</div>
+        </div>
+        <div style="flex:1;background:#F0FFF4;border-radius:8px;padding:10px;border:1px solid #9AE6B4;">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;color:#276749;letter-spacing:0.8px;margin-bottom:4px;">La solución</div>
+          <div style="font-size:12px;color:#22543D;">Diseñar arquitectura antes de implementar</div>
+        </div>
+      </div>
+    </div>
+    <div class="template-label">LinkedIn 3 — Problema/Solución</div>
+    <div class="template-dims">1200×627px · LinkedIn post</div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ================================================
+     YOUTUBE THUMBNAILS
+     ================================================ -->
+
+<div class="section-header">
+  <div class="section-title">YouTube · Thumbnails</div>
+  <div class="section-name">Thumbnails 1280×720</div>
+  <div class="section-desc">Representados a 427×240px. Para miniaturas de videos del canal.</div>
+</div>
+
+<div class="templates-grid">
+
+  <!-- YouTube 1 -->
+  <div class="template-wrapper">
+    <div class="yt-thumb-1">
+      <div>
+        <span class="pill" style="display:inline-block;margin-bottom:12px;">Tutorial completo</span>
+        <div style="font-size:26px;font-weight:800;line-height:1.15;letter-spacing:-0.5px;max-width:280px;">Notion desde cero: guía completa 2026</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="logo-small">
+          <div style="width:22px;height:22px;background:rgba(255,255,255,0.15);border-radius:5px;display:flex;align-items:center;justify-content:center;">
+            <svg width="12" height="12" viewBox="0 0 28 28" fill="none"><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg>
+          </div>
+          <span style="font-size:11px;font-weight:600;opacity:0.8;">Notion LATAM</span>
+        </div>
+        <span style="font-size:11px;opacity:0.6;">notionlatam.com</span>
+      </div>
+    </div>
+    <div class="template-label">Thumbnail 1 — Tutorial (azul oscuro)</div>
+    <div class="template-dims">1280×720px · YouTube thumbnail</div>
+    <div class="canva-hint">Canva: gradiente #0F2E5E → #2383E2 · Inter 800 blanco · screenshot de Notion a la derecha</div>
+  </div>
+
+  <!-- YouTube 2 -->
+  <div class="template-wrapper">
+    <div class="yt-thumb-2">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <span class="pill-blue" style="display:inline-block;margin-bottom:10px;">Bases de datos</span>
+          <div style="font-size:22px;font-weight:800;color:#37352F;line-height:1.2;max-width:240px;">Las 6 vistas de Notion explicadas</div>
+        </div>
+        <div style="background:#EBF3FD;border-radius:10px;padding:10px;text-align:center;min-width:80px;">
+          <div style="font-size:30px;font-weight:800;color:#2383E2;letter-spacing:-1px;">6</div>
+          <div style="font-size:10px;font-weight:600;color:#2383E2;text-transform:uppercase;letter-spacing:0.5px;">Vistas</div>
+        </div>
+      </div>
+      <div class="divider-light" style="margin-bottom:8px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="logo-small">
+          <div class="logo-icon-sm-white" style="border:1px solid #E5E4E0;"><svg width="14" height="14" viewBox="0 0 28 28" fill="none"><path d="M6 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5Z" fill="#2383E2"/><path d="M9 8l10 12M9 8h3.5L19 20h-3.5L9 8Z" fill="white"/></svg></div>
+          <span style="font-size:11px;font-weight:600;color:#37352F;">Notion LATAM</span>
+        </div>
+        <span style="font-size:11px;color:#999;">notionlatam.com</span>
+      </div>
+    </div>
+    <div class="template-label">Thumbnail 2 — Educativo (blanco)</div>
+    <div class="template-dims">1280×720px · YouTube thumbnail</div>
+    <div class="canva-hint">Canva: fondo blanco · número grande en azul · Inter bold #37352F · logo arriba izquierda</div>
+  </div>
+
+</div>
+
+<!-- INSTRUCCIONES CANVA -->
+<div style="max-width:1200px;margin:0 auto 40px;background:#fff;border:1px solid #E5E4E0;border-radius:12px;padding:28px;">
+  <div style="font-size:14px;font-weight:700;color:#37352F;margin-bottom:16px;">📐 Instrucciones para replicar en Canva</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:13px;color:#525252;">
+    <div>
+      <strong style="color:#37352F;">Fuentes en Canva:</strong>
+      <ul style="margin-top:6px;padding-left:16px;line-height:1.8;">
+        <li>Busca "Inter" en la librería de fuentes</li>
+        <li>Pesos: Regular (400), Medium (500), Bold (700), ExtraBold (800)</li>
+        <li>Para el logo usar Bold 700 en "Notion LATAM"</li>
+      </ul>
+    </div>
+    <div>
+      <strong style="color:#37352F;">Colores en Canva:</strong>
+      <ul style="margin-top:6px;padding-left:16px;line-height:1.8;">
+        <li>Azul marca: <code style="background:#F0F0F0;padding:1px 4px;border-radius:3px;">#2383E2</code></li>
+        <li>Oscuro: <code style="background:#F0F0F0;padding:1px 4px;border-radius:3px;">#37352F</code></li>
+        <li>Navy: <code style="background:#F0F0F0;padding:1px 4px;border-radius:3px;">#0F2E5E</code></li>
+        <li>Fondo: <code style="background:#F0F0F0;padding:1px 4px;border-radius:3px;">#F7F6F3</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="max-width:1200px;margin:0 auto;background:#37352F;color:#fff;padding:24px 32px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;">
+  <div>
+    <div style="font-size:14px;font-weight:600;">Notion LATAM · Social Media Templates</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;">hello@notionlatam.com · notionlatam.com</div>
+  </div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.3);">v1.0 · 2026 · 15 templates</div>
+</div>
+
+</body>
+</html>

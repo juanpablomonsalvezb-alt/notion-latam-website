@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propuesta Comercial — Implementación Completa Notion</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',-apple-system,sans-serif; background:#F7F6F3; color:#37352F; font-size:15px; line-height:1.6; }
+    .page { max-width:860px; margin:0 auto; background:#fff; box-shadow:0 2px 20px rgba(0,0,0,0.08); }
+
+    .header { background:linear-gradient(135deg,#1a6bc2 0%,#2383E2 100%); color:#fff; padding:48px 60px 40px; }
+    .header-top { display:flex; align-items:center; gap:16px; margin-bottom:32px; }
+    .logo { width:48px; height:48px; background:#fff; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+    .brand-name { font-size:20px; font-weight:700; }
+    .brand-sub { font-size:13px; opacity:0.8; }
+    .header h1 { font-size:30px; font-weight:700; letter-spacing:-0.5px; line-height:1.2; margin-bottom:12px; }
+    .header p { font-size:15px; opacity:0.85; max-width:540px; }
+    .proposal-meta { margin-top:32px; display:flex; gap:32px; flex-wrap:wrap; }
+    .meta-item { display:flex; flex-direction:column; gap:2px; }
+    .meta-label { font-size:11px; opacity:0.7; font-weight:500; text-transform:uppercase; letter-spacing:0.8px; }
+    .meta-value { font-size:14px; font-weight:600; }
+
+    .content { padding:48px 60px; }
+    section { margin-bottom:48px; }
+    .section-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1.2px; color:#2383E2; margin-bottom:12px; }
+    h2 { font-size:22px; font-weight:700; color:#37352F; margin-bottom:16px; letter-spacing:-0.3px; }
+    p { color:#525252; margin-bottom:12px; }
+
+    /* FEATURES GRID */
+    .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px; }
+    .feature-card { background:#F7F6F3; border-radius:10px; padding:20px; border:1px solid #E5E4E0; }
+    .feature-icon { font-size:24px; margin-bottom:10px; }
+    .feature-title { font-size:14px; font-weight:600; color:#37352F; margin-bottom:6px; }
+    .feature-desc { font-size:13px; color:#777; line-height:1.5; }
+
+    /* FASE CARDS */
+    .phases { display:flex; flex-direction:column; gap:0; margin-top:8px; }
+    .phase { display:flex; gap:20px; padding:20px 0; border-bottom:1px solid #F0EFec; }
+    .phase:last-child { border-bottom:none; }
+    .phase-num { width:40px; height:40px; background:#2383E2; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; margin-top:2px; }
+    .phase-content h3 { font-size:15px; font-weight:600; color:#37352F; margin-bottom:4px; }
+    .phase-content p { font-size:13px; color:#777; margin:0; }
+    .phase-days { font-size:12px; font-weight:600; color:#2383E2; background:#EBF3FD; padding:2px 8px; border-radius:20px; display:inline-block; margin-top:6px; }
+
+    /* TIMELINE VISUAL */
+    .timeline-bar { margin-top:8px; }
+    .week-row { display:flex; gap:0; margin-bottom:4px; }
+    .week-label { width:80px; font-size:12px; color:#999; display:flex; align-items:center; flex-shrink:0; }
+    .week-bar { flex:1; display:flex; }
+    .week-segment { height:28px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#fff; }
+    .week-segment.seg-discovery { background:#2383E2; border-radius:6px 0 0 6px; }
+    .week-segment.seg-design { background:#3B8EE8; }
+    .week-segment.seg-impl { background:#56A0EE; }
+    .week-segment.seg-train { background:#70AFF3; border-radius:0 6px 6px 0; }
+    .week-segment.seg-support { background:#EBF3FD; color:#2383E2; border-radius:6px; }
+    .timeline-legend { display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#777; }
+    .legend-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+
+    /* ROI */
+    .roi-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
+    .roi-card { border-radius:10px; padding:20px; text-align:center; }
+    .roi-card.before { background:#FFF0F0; border:1px solid #FED7D7; }
+    .roi-card.after { background:#F0FFF4; border:1px solid #9AE6B4; }
+    .roi-title { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
+    .roi-card.before .roi-title { color:#C53030; }
+    .roi-card.after .roi-title { color:#276749; }
+    .roi-item { font-size:13px; padding:4px 0; border-bottom:1px solid rgba(0,0,0,0.06); }
+    .roi-item:last-child { border-bottom:none; }
+    .roi-card.before .roi-item { color:#742A2A; }
+    .roi-card.after .roi-item { color:#22543D; }
+    .roi-savings { background:linear-gradient(135deg,#2383E2,#1a6bc2); border-radius:10px; padding:20px; text-align:center; color:#fff; margin-top:16px; }
+    .roi-savings-label { font-size:12px; opacity:0.8; text-transform:uppercase; letter-spacing:0.8px; }
+    .roi-savings-amount { font-size:36px; font-weight:800; letter-spacing:-1px; }
+    .roi-savings-note { font-size:13px; opacity:0.8; }
+
+    /* TESTIMONIAL */
+    .testimonial { background:#F7F6F3; border-radius:12px; padding:28px 32px; margin-top:8px; position:relative; }
+    .testimonial::before { content:'"'; font-size:80px; color:#2383E2; opacity:0.15; position:absolute; top:8px; left:24px; line-height:1; font-family:Georgia,serif; }
+    .testimonial-text { font-size:16px; color:#37352F; font-style:italic; line-height:1.6; margin-bottom:16px; position:relative; z-index:1; }
+    .testimonial-author { display:flex; align-items:center; gap:12px; }
+    .author-avatar { width:40px; height:40px; background:#2383E2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:14px; }
+    .author-name { font-size:14px; font-weight:600; color:#37352F; }
+    .author-role { font-size:12px; color:#999; }
+
+    /* PRECIO + PLAN PAGOS */
+    .price-box { background:linear-gradient(135deg,#EBF3FD,#F0F7FF); border:2px solid #2383E2; border-radius:12px; padding:32px; text-align:center; }
+    .price-label { font-size:13px; color:#2383E2; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+    .price-amount { font-size:56px; font-weight:800; color:#37352F; letter-spacing:-2px; line-height:1.1; margin:8px 0; }
+    .price-currency { font-size:28px; }
+    .price-period { font-size:16px; font-weight:400; color:#777; }
+    .price-note { font-size:13px; color:#777; margin-top:12px; }
+
+    .payment-plan { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+    .payment-step { background:#fff; border-radius:8px; padding:16px; text-align:center; border:1px solid #E5E4E0; }
+    .payment-step-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; color:#2383E2; margin-bottom:6px; }
+    .payment-step-amount { font-size:24px; font-weight:700; color:#37352F; }
+    .payment-step-when { font-size:12px; color:#999; margin-top:4px; }
+
+    .warning-box { background:#FFF8EC; border-left:4px solid #F5A623; border-radius:0 8px 8px 0; padding:20px 24px; }
+    .warning-box h3 { font-size:14px; font-weight:600; color:#B7791F; margin-bottom:10px; }
+    .warning-box ul { list-style:none; }
+    .warning-box li { font-size:14px; color:#744210; padding:4px 0; display:flex; align-items:flex-start; gap:8px; }
+    .warning-box li::before { content:'—'; color:#F5A623; flex-shrink:0; }
+
+    .guarantee-box { background:#F0FFF4; border:1px solid #9AE6B4; border-radius:10px; padding:24px; display:flex; gap:16px; }
+    .guarantee-icon { font-size:32px; flex-shrink:0; }
+    .guarantee-title { font-size:15px; font-weight:700; color:#276749; margin-bottom:6px; }
+    .guarantee-text { font-size:14px; color:#2F855A; }
+
+    .terms-list { list-style:none; }
+    .terms-list li { padding:8px 0; border-bottom:1px solid #F0EFec; font-size:14px; color:#525252; display:flex; gap:10px; }
+    .terms-list li:last-child { border-bottom:none; }
+    .terms-list .num { color:#2383E2; font-weight:600; flex-shrink:0; }
+
+    .signature-section { background:#F7F6F3; border-radius:12px; padding:32px; }
+    .signature-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; }
+    .signature-block h3 { font-size:13px; font-weight:600; color:#777; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:48px; }
+    .signature-line { border-bottom:2px solid #37352F; margin-bottom:8px; }
+    .signature-name { font-size:13px; font-weight:600; color:#37352F; }
+    .signature-role { font-size:12px; color:#999; }
+    .signature-date { font-size:12px; color:#999; margin-top:4px; }
+
+    .footer { background:#37352F; color:#fff; padding:28px 60px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-brand { font-size:14px; font-weight:600; }
+    .footer-contact { font-size:13px; color:rgba(255,255,255,0.7); }
+    .footer-contact a { color:#2383E2; text-decoration:none; }
+    .footer-page { font-size:12px; color:rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M6 5C6 4.44772 6.44772 4 7 4H21C21.5523 4 22 4.44772 22 5V23C22 23.5523 21.5523 24 21 24H7C6.44772 24 6 23.5523 6 23V5Z" fill="#2383E2"/>
+          <path d="M9 8L19 20M9 8H12.5L19 20H15.5L9 8Z" fill="white" stroke="white" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Notion LATAM</div>
+        <div class="brand-sub">Consultoría especializada en Notion</div>
+      </div>
+    </div>
+    <h1>Propuesta Comercial<br/>Implementación Completa Notion</h1>
+    <p>Construimos desde cero el sistema de gestión operativa de tu empresa en Notion, dejando todo configurado, documentado y con tu equipo capacitado para operar de forma autónoma.</p>
+    <div class="proposal-meta">
+      <div class="meta-item"><span class="meta-label">Fecha de propuesta</span><span class="meta-value">Abril 2026</span></div>
+      <div class="meta-item"><span class="meta-label">Válida por</span><span class="meta-value">30 días</span></div>
+      <div class="meta-item"><span class="meta-label">Duración</span><span class="meta-value">2–3 semanas</span></div>
+      <div class="meta-item"><span class="meta-label">Horas incluidas</span><span class="meta-value">10–15 horas</span></div>
+      <div class="meta-item"><span class="meta-label">Inversión</span><span class="meta-value">$650 USD</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <section>
+      <div class="section-label">¿Por qué elegirnos?</div>
+      <h2>Un sistema Notion construido para tu equipo</h2>
+      <p>No vendemos una plantilla genérica. Diseñamos e implementamos un sistema personalizado basado en los flujos de trabajo reales de tu empresa, con bases de datos interconectadas, vistas optimizadas por rol y documentación completa para que cualquier persona del equipo pueda operar sin depender de nosotros.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">Discovery profundo</div>
+          <div class="feature-desc">Sesión de 90 min para entender tu operación, procesos, dolores y objetivos antes de diseñar nada.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏗️</div>
+          <div class="feature-title">Implementación 10–15h</div>
+          <div class="feature-desc">Construcción completa del workspace: arquitectura, bases de datos, templates y automatizaciones básicas.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-title">Capacitaciones incluidas</div>
+          <div class="feature-desc">2 sesiones en vivo + videos grabados para que tu equipo use el sistema de forma autónoma desde día 1.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛟</div>
+          <div class="feature-title">1 mes de soporte</div>
+          <div class="feature-desc">30 días de soporte post-implementación por Slack para resolver dudas y ajustes del sistema.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Proceso detallado</div>
+      <h2>Cómo trabajamos</h2>
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-num">1</div>
+          <div class="phase-content">
+            <h3>Discovery session (Días 1–2)</h3>
+            <p>Reunión de 90 minutos donde mapeamos tu operación actual, identificamos los principales flujos de trabajo, roles del equipo y los KPIs más importantes. También revisamos las herramientas que usan actualmente y cómo reemplazarlas o integrarlas.</p>
+            <span class="phase-days">2 días</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">2</div>
+          <div class="phase-content">
+            <h3>Diseño de arquitectura (Días 3–5)</h3>
+            <p>Diseñamos la estructura completa del workspace: jerarquía de páginas, esquema de bases de datos, relaciones y propiedades. Presentamos el diseño para aprobación antes de implementar.</p>
+            <span class="phase-days">3 días</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">3</div>
+          <div class="phase-content">
+            <h3>Implementación (Días 5–12)</h3>
+            <p>Construimos todo el sistema: bases de datos con todas las propiedades, vistas filtradas por rol, templates para tareas recurrentes, automatizaciones básicas con Notion AI y documentación de procesos operativos.</p>
+            <span class="phase-days">7 días</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">4</div>
+          <div class="phase-content">
+            <h3>Capacitación del equipo (Días 13–15)</h3>
+            <p>2 sesiones en vivo (90 min c/u): una para el equipo operativo y otra para líderes/managers. Grabamos ambas sesiones y entregamos una guía de usuario personalizada del sistema.</p>
+            <span class="phase-days">3 días</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">5</div>
+          <div class="phase-content">
+            <h3>Soporte post-implementación (30 días)</h3>
+            <p>Canal privado de Slack para resolver dudas, ajustes menores y revisiones del sistema durante el primer mes de uso.</p>
+            <span class="phase-days">30 días</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Cronograma</div>
+      <h2>Timeline 2–3 semanas</h2>
+      <div class="timeline-bar">
+        <div class="week-row">
+          <div class="week-label">Semana 1</div>
+          <div class="week-bar">
+            <div class="week-segment seg-discovery" style="width:20%">Discovery</div>
+            <div class="week-segment seg-design" style="width:30%">Diseño</div>
+            <div class="week-segment seg-impl" style="width:50%">Implementación</div>
+          </div>
+        </div>
+        <div style="height:6px;"></div>
+        <div class="week-row">
+          <div class="week-label">Semana 2</div>
+          <div class="week-bar">
+            <div class="week-segment seg-impl" style="width:70%">Implementación (cont.)</div>
+            <div class="week-segment seg-train" style="width:30%">Capacitación</div>
+          </div>
+        </div>
+        <div style="height:6px;"></div>
+        <div class="week-row">
+          <div class="week-label">Meses 1</div>
+          <div class="week-bar">
+            <div class="week-segment seg-support" style="width:100%">Soporte y ajustes (30 días)</div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2383E2;"></div>Discovery</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3B8EE8;"></div>Diseño de arquitectura</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#56A0EE;"></div>Implementación</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#70AFF3;"></div>Capacitación</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#EBF3FD;border:1px solid #2383E2;"></div>Soporte</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Retorno de inversión</div>
+      <h2>ROI esperado</h2>
+      <p>Basado en nuestros clientes anteriores, un equipo de 5 personas ahorra en promedio 8 horas semanales después de implementar un sistema Notion bien diseñado.</p>
+      <div class="roi-grid">
+        <div class="roi-card before">
+          <div class="roi-title">❌ Sin sistema Notion</div>
+          <div class="roi-item">8 horas/semana perdidas en admin</div>
+          <div class="roi-item">Información dispersa en 5+ herramientas</div>
+          <div class="roi-item">Procesos sin documentar</div>
+          <div class="roi-item">Onboarding lento (2–3 semanas)</div>
+          <div class="roi-item">Reuniones de status innecesarias</div>
+        </div>
+        <div class="roi-card after">
+          <div class="roi-title">✅ Con sistema Notion</div>
+          <div class="roi-item">-75% tiempo en tareas administrativas</div>
+          <div class="roi-item">Single source of truth para todo</div>
+          <div class="roi-item">Procesos estandarizados y replicables</div>
+          <div class="roi-item">Onboarding acelerado (2–3 días)</div>
+          <div class="roi-item">Visibilidad total del avance de proyectos</div>
+        </div>
+      </div>
+      <div class="roi-savings">
+        <div class="roi-savings-label">Ahorro estimado en el primer año</div>
+        <div class="roi-savings-amount">$8,400 USD</div>
+        <div class="roi-savings-note">Calculado: 5 personas × 8h/sem × $4/h promedio LATAM × 52 semanas</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Lo que dicen nuestros clientes</div>
+      <h2>Caso de éxito</h2>
+      <div class="testimonial">
+        <div class="testimonial-text">Antes de la implementación, teníamos tareas perdidas en 4 herramientas distintas y nadie sabía en qué estaba trabajando cada quien. Notion LATAM nos construyó un sistema completo en 2 semanas y ahora toda la operación vive en un solo lugar. El ROI fue evidente desde el primer mes.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">MC</div>
+          <div>
+            <div class="author-name">María Claudia Restrepo</div>
+            <div class="author-role">COO, AgenciaCo · Medellín, Colombia</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Inversión</div>
+      <h2>Precio y plan de pagos</h2>
+      <div class="price-box">
+        <div class="price-label">Implementación Completa Notion</div>
+        <div class="price-amount"><span class="price-currency">$</span>650 <span class="price-period">USD</span></div>
+        <div class="price-note">Pago dividido en 2 partes · Sin cargos adicionales · Factura disponible</div>
+        <div class="payment-plan">
+          <div class="payment-step">
+            <div class="payment-step-label">50% al inicio</div>
+            <div class="payment-step-amount">$325 USD</div>
+            <div class="payment-step-when">Al confirmar la propuesta</div>
+          </div>
+          <div class="payment-step">
+            <div class="payment-step-label">50% al entregar</div>
+            <div class="payment-step-amount">$325 USD</div>
+            <div class="payment-step-when">Al completar la implementación</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#999;margin-top:12px;text-align:center;">Métodos: Transferencia bancaria · Stripe · PayPal · Mercado Pago</p>
+    </section>
+
+    <section>
+      <div class="section-label">Alcance</div>
+      <h2>¿Qué NO incluye?</h2>
+      <div class="warning-box">
+        <h3>Servicios fuera del alcance de esta propuesta</h3>
+        <ul>
+          <li>Migraciones de datos masivas desde otras herramientas (más de 500 registros)</li>
+          <li>Automatizaciones avanzadas con Zapier, Make o integraciones API</li>
+          <li>Desarrollo de integraciones con herramientas de terceros</li>
+          <li>Soporte extendido más allá del mes incluido</li>
+          <li>Formación individual (el servicio incluye formación de equipo)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Garantía</div>
+      <h2>Tu inversión está protegida</h2>
+      <div class="guarantee-box">
+        <div class="guarantee-icon">🛡️</div>
+        <div>
+          <div class="guarantee-title">Garantía de revisión ilimitada</div>
+          <div class="guarantee-text">Durante los 30 días de soporte post-implementación, realizamos todos los ajustes necesarios sin costo adicional hasta que el sistema esté exactamente como lo necesitas. Si después de los ajustes no cumple con los objetivos acordados en el discovery, gestionamos una devolución parcial del 50%.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Condiciones</div>
+      <h2>Términos y condiciones</h2>
+      <ul class="terms-list">
+        <li><span class="num">1.</span> El 50% inicial debe pagarse antes de comenzar el discovery. El 50% restante, antes de la entrega final.</li>
+        <li><span class="num">2.</span> El cliente designará un punto de contacto principal con disponibilidad para las sesiones de trabajo.</li>
+        <li><span class="num">3.</span> El timeline asume disponibilidad del cliente para revisar y aprobar entregables en máximo 24h.</li>
+        <li><span class="num">4.</span> Retrasos por falta de respuesta del cliente pausan el cronograma sin afectar la fecha de inicio del soporte.</li>
+        <li><span class="num">5.</span> Todos los activos creados (bases de datos, templates, documentación) son propiedad del cliente.</li>
+        <li><span class="num">6.</span> Notion LATAM mantiene confidencialidad total sobre la información del negocio del cliente.</li>
+        <li><span class="num">7.</span> El soporte de 30 días incluye hasta 10 solicitudes de ajuste vía Slack.</li>
+        <li><span class="num">8.</span> La propuesta tiene vigencia de 30 días desde la fecha de emisión.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-label">Aceptación</div>
+      <h2>Firma de propuesta</h2>
+      <p>Al firmar esta propuesta, el cliente acepta los términos descritos y autoriza el inicio del proceso una vez recibido el primer pago del 50%.</p>
+      <div class="signature-section">
+        <div class="signature-grid">
+          <div class="signature-block">
+            <h3>Proveedor del servicio</h3>
+            <div class="signature-line"></div>
+            <div class="signature-name">Notion LATAM</div>
+            <div class="signature-role">Consultoría especializada en Notion</div>
+            <div class="signature-date">Fecha: ____________________</div>
+          </div>
+          <div class="signature-block">
+            <h3>Cliente</h3>
+            <div class="signature-line"></div>
+            <div class="signature-name">____________________________</div>
+            <div class="signature-role">Nombre y cargo</div>
+            <div class="signature-date">Fecha: ____________________</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">
+    <div>
+      <div class="footer-brand">Notion LATAM</div>
+      <div class="footer-contact"><a href="mailto:hello@notionlatam.com">hello@notionlatam.com</a> · notionlatam.com</div>
+    </div>
+    <div class="footer-page">Propuesta — Implementación Completa · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
