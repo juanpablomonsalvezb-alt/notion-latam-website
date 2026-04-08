@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Clock, ArrowRight, BookOpen, TrendingUp, Zap, Users } from "lucide-react";
+import { Search, Clock, ArrowRight, BookOpen, TrendingUp, Zap, Users, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FadeInSection from "@/components/animations/FadeInSection";
 import Link from "next/link";
@@ -120,6 +120,33 @@ export default function Blog() {
   const locale = useLocale();
   const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterState, setNewsletterState] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [newsletterMsg, setNewsletterMsg] = useState("");
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterState("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsletterEmail, source: "blog" }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setNewsletterState("error");
+        setNewsletterMsg(data.error || "Error al suscribirte. Intenta de nuevo.");
+      } else {
+        setNewsletterState("success");
+        setNewsletterMsg(data.alreadySubscribed ? "¡Ya estás suscrito!" : "¡Listo! Revisa tu email para confirmar.");
+        setNewsletterEmail("");
+      }
+    } catch {
+      setNewsletterState("error");
+      setNewsletterMsg("Error de red. Intenta de nuevo.");
+    }
+  };
 
   const filtered = posts.filter((p) => {
     const matchCat = activeCategory === "all" || p.category === activeCategory;
@@ -252,16 +279,33 @@ export default function Blog() {
             </div>
             <h2 className="text-3xl font-bold mb-3">Recibe artículos en tu email</h2>
             <p className="text-blue-100 text-lg mb-8 max-w-lg mx-auto">Un artículo semanal sobre productividad y Notion para empresas latinoamericanas. Sin spam.</p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="tu@email.com"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-              <Button className="bg-white text-notion-blue hover:bg-blue-50 font-semibold px-6">
-                Suscribirme
-              </Button>
-            </div>
+            {newsletterState === "success" ? (
+              <div className="flex items-center justify-center gap-2 text-white font-semibold text-lg">
+                <CheckCircle className="w-6 h-6" />
+                {newsletterMsg}
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="tu@email.com"
+                  className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                />
+                <Button
+                  type="submit"
+                  disabled={newsletterState === "loading"}
+                  className="bg-white text-notion-blue hover:bg-blue-50 font-semibold px-6"
+                >
+                  {newsletterState === "loading" ? "Enviando..." : "Suscribirme"}
+                </Button>
+              </form>
+            )}
+            {newsletterState === "error" && (
+              <p className="text-red-200 text-sm mt-2">{newsletterMsg}</p>
+            )}
           </div>
         </FadeInSection>
       </div>

@@ -10,12 +10,29 @@ export default function Contacto() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1200));
-    setLoading(false);
-    setSent(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setError(data.error || "Error al enviar el mensaje. Intenta de nuevo.");
+      } else {
+        setSent(true);
+      }
+    } catch {
+      setError("Error de red. Verifica tu conexión e intenta de nuevo.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactInfo = [
@@ -115,6 +132,11 @@ export default function Contacto() {
                         className="w-full px-4 py-3 rounded-lg border border-notion-border dark:border-notion-border-dark bg-notion-gray-50 dark:bg-notion-gray-800 text-notion-text-primary dark:text-notion-text-dark placeholder:text-notion-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-notion-blue/30 focus:border-notion-blue transition-colors resize-none"
                         placeholder="Cuéntanos en qué podemos ayudarte..." />
                     </div>
+                    {error && (
+                      <div className="px-4 py-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+                        {error}
+                      </div>
+                    )}
                     <Button type="submit" disabled={loading} className="w-full bg-notion-blue hover:bg-notion-blue/90 py-6 text-base font-semibold">
                       {loading ? "Enviando..." : <><Send className="mr-2 w-4 h-4" /> Enviar mensaje</>}
                     </Button>
