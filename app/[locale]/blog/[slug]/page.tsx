@@ -206,11 +206,15 @@ const ARTICLES: Record<string, {
   },
 };
 
+const RELATED_META: Record<string, { title: string; readTime: string; gradient: string }> = Object.fromEntries(
+  Object.entries(ARTICLES).map(([slug, a]) => [slug, { title: a.title, readTime: a.readTime, gradient: a.gradient }])
+);
+
 export default function BlogPost() {
   const params = useParams();
   const locale = useLocale();
   const slug = typeof params?.slug === "string" ? params.slug : "";
-  const article = ARTICLES[slug] || DEFAULT_ARTICLE;
+  const article = ARTICLES[slug] || ARTICLES["notion-productividad-empresarial"] || Object.values(ARTICLES)[0];
 
   const renderBlock = (block: typeof article.content[0], i: number) => {
     if (block.type === "h2") return <h2 key={i} className="text-2xl font-bold text-notion-text-primary dark:text-notion-text-dark mt-10 mb-4">{block.text}</h2>;
