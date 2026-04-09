@@ -155,10 +155,7 @@ export default async function Home({
                 style={{
                   width: 480,
                   maxWidth: "100%",
-                  borderRadius: 20,
-                  border: "1px solid #e8e8e8",
                   display: "block",
-                  boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
                 }}
               />
             </div>
