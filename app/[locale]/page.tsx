@@ -7,214 +7,238 @@ import dynamic from "next/dynamic";
 
 const SwiperCarousel = dynamic(() => import("@/components/home/SwiperCarousel"), { ssr: false });
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ── picsum placeholder helper (seed = consistent image per card) ────────────
+const PIC = (seed: string, w = 400, h = 300) =>
+  `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
-const POPULAR_NOTION = [
-  {
-    slug: "crm-ventas-b2b",
-    name: "CRM Ventas B2B",
-    tag: "Notion Template",
-    price: "$29",
-    gradient: "linear-gradient(135deg,#0f1b3d 0%,#1a3a7c 50%,#2383E2 100%)",
-    gradientHover: "linear-gradient(135deg,#0a1226 0%,#122d66 50%,#1a6ac7 100%)",
-    accent: "#2383E2",
-  },
-  {
-    slug: "gestion-proyectos",
-    name: "Gestión de Proyectos",
-    tag: "Notion Template",
-    price: "$24",
-    gradient: "linear-gradient(135deg,#0d0d2b 0%,#1e1e6b 50%,#5b5bd6 100%)",
-    gradientHover: "linear-gradient(135deg,#09091e 0%,#151552 50%,#4747b8 100%)",
-    accent: "#5b5bd6",
-  },
-  {
-    slug: "wiki-empresa",
-    name: "Wiki Empresarial",
-    tag: "Notion Template",
-    price: "$19",
-    gradient: "linear-gradient(135deg,#001a2d 0%,#00456b 50%,#0095ff 100%)",
-    gradientHover: "linear-gradient(135deg,#001020 0%,#003352 50%,#007acc 100%)",
-    accent: "#0095ff",
-  },
-  {
-    slug: "finanzas-personal",
-    name: "Finanzas Personales",
-    tag: "Notion Template",
-    price: "Gratis",
-    gradient: "linear-gradient(135deg,#001a10 0%,#00502e 50%,#00c875 100%)",
-    gradientHover: "linear-gradient(135deg,#00100a 0%,#003d22 50%,#00a55e 100%)",
-    accent: "#00c875",
-  },
+// ── Data ────────────────────────────────────────────────────────────────────
+
+const POPULAR = [
+  { slug: "crm-ventas-b2b",      name: "CRM Ventas B2B",       tag: "Notion Template", price: "$29",   seed: "business11", accent: "#2383E2" },
+  { slug: "gestion-proyectos",   name: "Gestión de Proyectos", tag: "Notion Template", price: "$24",   seed: "office22",   accent: "#5b5bd6" },
+  { slug: "wiki-empresa",        name: "Wiki Empresarial",      tag: "Notion Template", price: "$19",   seed: "laptop33",   accent: "#0095ff" },
+  { slug: "finanzas-personal",   name: "Finanzas Personales",   tag: "Notion Template", price: "Gratis",seed: "desk44",     accent: "#00c875" },
 ];
 
 const COLLECTIONS = [
-  {
-    slug: "bundle-starter",
-    name: "Bundle Starter — Notion + Monday",
-    tag: "2 Notion + 2 Monday",
-    price: "$120",
-    gradient: "linear-gradient(135deg,#1a0a1a 0%,#4a1a6b 40%,#2383E2 100%)",
-    gradientHover: "linear-gradient(135deg,#120812 0%,#381252 40%,#1a6ac7 100%)",
-    accent: "#7c3aed",
-  },
-  {
-    slug: "bundle-professional",
-    name: "Bundle Professional",
-    tag: "5+5 Templates + 2 Cursos",
-    price: "$250",
-    gradient: "linear-gradient(135deg,#0a0020 0%,#1a0060 40%,#FF3D57 100%)",
-    gradientHover: "linear-gradient(135deg,#060016 0%,#12004a 40%,#cc2f45 100%)",
-    accent: "#FF3D57",
-  },
-  {
-    slug: "bundle-complete",
-    name: "Bundle Complete",
-    tag: "Todo + Consultoría VIP",
-    price: "$450",
-    gradient: "linear-gradient(135deg,#0a1a0a 0%,#1a4a1a 40%,#2383E2 100%)",
-    gradientHover: "linear-gradient(135deg,#061006 0%,#123512 40%,#1a6ac7 100%)",
-    accent: "#2383E2",
-  },
-  {
-    slug: "okr-planificacion",
-    name: "OKR & Planificación",
-    tag: "Notion Template",
-    price: "$34",
-    gradient: "linear-gradient(135deg,#1a1a00 0%,#4a4a00 50%,#eab308 100%)",
-    gradientHover: "linear-gradient(135deg,#101000 0%,#363600 50%,#b98e06 100%)",
-    accent: "#eab308",
-  },
+  { slug: "bundle-starter",      name: "Bundle Starter",                    tag: "2 Notion + 2 Monday",        price: "$120",  seed: "tech55",     accent: "#7c3aed", href: "/bundles" },
+  { slug: "bundle-professional", name: "Bundle Professional",               tag: "5+5 Templates + 2 Cursos",   price: "$250",  seed: "workspace66",accent: "#FF3D57", href: "/bundles" },
+  { slug: "bundle-complete",     name: "Bundle Complete",                   tag: "Todo + Consultoría VIP",     price: "$450",  seed: "meeting77",  accent: "#2383E2", href: "/bundles" },
+  { slug: "okr-planificacion",   name: "OKR & Planificación",               tag: "Notion Template",            price: "$34",   seed: "strategy88", accent: "#eab308", href: undefined },
 ];
 
-const NEW_RELEASES_NOTION = [
-  { slug: "pipeline-ventas", name: "Pipeline de Ventas", tag: "Notion Template", price: "$29", gradient: "linear-gradient(135deg,#0d1a2b 0%,#1e4070 50%,#3b82f6 100%)", gradientHover: "linear-gradient(135deg,#091220 0%,#163055 50%,#2d68d5 100%)", accent: "#3b82f6" },
-  { slug: "recursos-humanos", name: "Recursos Humanos", tag: "Notion Template", price: "$24", gradient: "linear-gradient(135deg,#200020 0%,#5a005a 50%,#c026d3 100%)", gradientHover: "linear-gradient(135deg,#180018 0%,#420042 50%,#9b1db0 100%)", accent: "#c026d3" },
-  { slug: "crm-ventas-b2b", name: "CRM Starter Gratis", tag: "Notion Template", price: "Gratis", gradient: "linear-gradient(135deg,#001a0a 0%,#004a20 50%,#16a34a 100%)", gradientHover: "linear-gradient(135deg,#001006 0%,#003518 50%,#128a3c 100%)", accent: "#16a34a" },
-  { slug: "gestion-proyectos", name: "Planificador Semanal", tag: "Notion Template", price: "$19", gradient: "linear-gradient(135deg,#1a0a00 0%,#4a2000 50%,#ea580c 100%)", gradientHover: "linear-gradient(135deg,#100600 0%,#361800 50%,#bb4509 100%)", accent: "#ea580c" },
-  { slug: "wiki-empresa", name: "Base de Conocimiento", tag: "Notion Template", price: "$22", gradient: "linear-gradient(135deg,#000f1a 0%,#002040 50%,#0284c7 100%)", gradientHover: "linear-gradient(135deg,#000a12 0%,#00182f 50%,#0268a0 100%)", accent: "#0284c7" },
-  { slug: "finanzas-personal", name: "Tracker de Hábitos", tag: "Notion Template", price: "Gratis", gradient: "linear-gradient(135deg,#1a0010 0%,#4a0030 50%,#db2777 100%)", gradientHover: "linear-gradient(135deg,#12000c 0%,#360024 50%,#b21e5f 100%)", accent: "#db2777" },
-  { slug: "pipeline-ventas", name: "Dashboard Empresa", tag: "Notion Template", price: "$39", gradient: "linear-gradient(135deg,#0a0a1a 0%,#20206b 50%,#4f46e5 100%)", gradientHover: "linear-gradient(135deg,#060612 0%,#181852 50%,#3d38c5 100%)", accent: "#4f46e5" },
-  { slug: "recursos-humanos", name: "Gestión Clientes", tag: "Notion Template", price: "$29", gradient: "linear-gradient(135deg,#001a1a 0%,#004a4a 50%,#0891b2 100%)", gradientHover: "linear-gradient(135deg,#001212 0%,#003838 50%,#067592 100%)", accent: "#0891b2" },
+const NEW_RELEASES = [
+  { slug: "pipeline-ventas",   name: "Pipeline de Ventas",    tag: "Notion Template", price: "$29",   seed: "sales11",   accent: "#3b82f6" },
+  { slug: "recursos-humanos",  name: "Recursos Humanos",      tag: "Notion Template", price: "$24",   seed: "hr22",      accent: "#c026d3" },
+  { slug: "crm-ventas-b2b",    name: "CRM Starter Gratis",    tag: "Notion Template", price: "Gratis",seed: "free33",    accent: "#16a34a" },
+  { slug: "gestion-proyectos", name: "Planificador Semanal",  tag: "Notion Template", price: "$19",   seed: "planner44", accent: "#ea580c" },
+  { slug: "wiki-empresa",      name: "Base de Conocimiento",  tag: "Notion Template", price: "$22",   seed: "knowledge55",accent: "#0284c7" },
+  { slug: "finanzas-personal", name: "Tracker de Hábitos",    tag: "Notion Template", price: "Gratis",seed: "habits66",  accent: "#db2777" },
+  { slug: "pipeline-ventas",   name: "Dashboard Empresa",     tag: "Notion Template", price: "$39",   seed: "dash77",    accent: "#4f46e5" },
+  { slug: "recursos-humanos",  name: "Gestión de Clientes",   tag: "Notion Template", price: "$29",   seed: "clients88", accent: "#0891b2" },
 ];
 
 const DEALS = [
-  { href: "/bundles", name: "Bundle Starter — Notion + Monday", regular: "$180 USD", sale: "$120 USD" },
-  { href: "/bundles", name: "Bundle Professional — 5+5 Templates + 2 Cursos", regular: "$340 USD", sale: "$250 USD" },
-  { href: "/bundles", name: "Bundle Complete — Todo Incluido + Consultoría 1h", regular: "$650 USD", sale: "$450 USD" },
+  { href: "/bundles", name: "Bundle Starter — Notion + Monday",                    regular: "$180 USD", sale: "$120 USD" },
+  { href: "/bundles", name: "Bundle Professional — 5+5 Templates + 2 Cursos",      regular: "$340 USD", sale: "$250 USD" },
+  { href: "/bundles", name: "Bundle Complete — Todo Incluido + Consultoría 1h",    regular: "$650 USD", sale: "$450 USD" },
 ];
 
-// ─── Fake UI inside template card ─────────────────────────────────────────────
-function FakeUI({ accent, isBundle }: { accent: string; isBundle?: boolean }) {
-  return (
-    <div className="absolute inset-0 p-4 flex flex-col gap-2.5 pointer-events-none select-none opacity-80">
-      <div className="flex items-center gap-2">
-        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: accent }} />
-        <div className="h-1.5 rounded-full bg-white/20 w-16" />
-        <div className="ml-auto h-1.5 rounded-full bg-white/10 w-8" />
-      </div>
-      {isBundle ? (
-        <div className="flex gap-2 mt-1">
-          {[accent, "#2383E2", "#FF3D57"].map((c, i) => (
-            <div key={i} className="flex-1 rounded p-1.5 flex flex-col gap-1" style={{ backgroundColor: c + "33" }}>
-              <div className="h-1 rounded-full bg-white/20 w-6" />
-              <div className="h-3 rounded bg-white/10" />
-              <div className="h-3 rounded bg-white/10" />
-              <div className="h-3 rounded bg-white/10" />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <>
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-sm flex-shrink-0" style={{ backgroundColor: accent + "99" }} />
-              <div className="h-1.5 rounded-full bg-white/15" style={{ width: `${50 + (i * 17) % 40}%` }} />
-              <div className="ml-auto h-1.5 rounded-full bg-white/10 w-8 flex-shrink-0" />
-            </div>
-          ))}
-          <div className="mt-1 grid grid-cols-3 gap-1">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-6 rounded bg-white/10 flex items-center justify-center">
-                <div className="h-1 rounded-full bg-white/20 w-6" />
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
+// ── Photo-based template card (mockupflock style) ───────────────────────────
 
-// ─── Template card (exact mockupflock card structure) ─────────────────────────
 interface CardProps {
   slug: string;
   name: string;
   tag: string;
   price: string;
-  gradient: string;
-  gradientHover: string;
+  seed: string;
   accent: string;
   locale: string;
   href?: string;
 }
 
-function TemplateCard({ slug, name, tag, price, gradient, gradientHover, accent, locale, href }: CardProps) {
+function TemplateCard({ slug, name, tag, price, seed, accent, locale, href }: CardProps) {
   const [hovered, setHovered] = useState(false);
-  const isBundle = tag.includes("Bundle") || name.includes("Bundle");
-  const link = href ?? (tag.includes("Monday") ? `/${locale}/monday/templates` : `/${locale}/templates/${slug}`);
+  const link = href
+    ? `/${locale}${href}`
+    : tag.includes("Monday")
+    ? `/${locale}/monday/templates`
+    : `/${locale}/templates/${slug}`;
 
   return (
-    <div className="rounded-md overflow-hidden" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Link href={link} className="block">
-        {/* image area */}
-        <div className="relative overflow-hidden rounded-t-md" style={{ height: 216 }}>
-          {/* primary bg */}
-          <div
-            className="absolute inset-0 transition-all duration-500"
-            style={{ background: hovered ? gradientHover : gradient, transform: hovered ? "scale(1.04)" : "scale(1)" }}
-          />
-          {/* secondary image overlay (mockupflock uses a second product photo — we use a shifted gradient) */}
-          <div
-            className="absolute inset-0 transition-all duration-300"
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ overflow: "hidden", borderRadius: 0 }}
+    >
+      <Link href={link} style={{ display: "block", textDecoration: "none" }}>
+        {/* ── Photo area ── */}
+        <div style={{ position: "relative", overflow: "hidden", height: 240 }}>
+          {/* primary photo */}
+          <img
+            src={PIC(seed, 400, 300)}
+            alt={name}
             style={{
-              background: `linear-gradient(225deg,${accent}22 0%,transparent 70%)`,
-              opacity: hovered ? 1 : 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              transform: hovered ? "scale(1.05)" : "scale(1)",
+              transition: "transform 600ms cubic-bezier(0.25,0.46,0.45,0.94)",
             }}
           />
-          <FakeUI accent={accent} isBundle={isBundle} />
+          {/* accent color tint overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundColor: accent,
+              opacity: hovered ? 0.18 : 0.08,
+              transition: "opacity 400ms ease",
+              mixBlendMode: "multiply",
+            }}
+          />
+          {/* secondary photo fades in on hover — mimics mockupflock's 2nd image */}
+          <img
+            src={PIC(seed + "-alt", 400, 300)}
+            alt=""
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: hovered ? 0.45 : 0,
+              transition: "opacity 400ms ease",
+            }}
+          />
         </div>
 
-        {/* meta — exact mockupflock dark card bottom */}
-        <div style={{ backgroundColor: "#2b2b2b" }} className="text-white space-y-1.5 py-3 px-4">
-          <h3 className="text-sm md:text-base" style={{ fontWeight: hovered ? 700 : 400, transition: "font-weight 0.15s" }}>
+        {/* ── Meta bar (dark, exact #2b2b2b like mockupflock) ── */}
+        <div
+          style={{
+            backgroundColor: "#2b2b2b",
+            padding: "14px 16px 16px",
+            color: "#fff",
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontSize: "0.9375rem",
+              fontWeight: hovered ? 700 : 400,
+              transition: "font-weight 0.15s",
+              lineHeight: 1.3,
+              fontFamily: "var(--font-titillium, sans-serif)",
+            }}
+          >
             {name}
           </h3>
-          <div className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>{tag}</div>
-          <div className="text-sm font-medium">{price}</div>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              color: "rgba(255,255,255,0.45)",
+              marginTop: 4,
+              fontFamily: "var(--font-titillium, sans-serif)",
+            }}
+          >
+            {tag}
+          </div>
+          <div
+            style={{
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              marginTop: 6,
+              color: "#fff",
+              fontFamily: "var(--font-titillium, sans-serif)",
+            }}
+          >
+            {price}
+          </div>
         </div>
       </Link>
     </div>
   );
 }
 
-// ─── "See More" link with side-line ───────────────────────────────────────────
+// ── Section header (line + title + count — like mockupflock) ────────────────
+
+function SectionHeader({ title, count, total }: { title: string; count: number; total: string }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        borderBottom: "1px solid #fff",
+        paddingBottom: 10,
+        marginBottom: 24,
+      }}
+    >
+      <h2
+        style={{
+          margin: 0,
+          color: "#fff",
+          fontSize: "clamp(1.1rem,2.5vw,1.5rem)",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "0.04em",
+          fontFamily: "var(--font-titillium, sans-serif)",
+        }}
+      >
+        {title}
+      </h2>
+      <span
+        style={{
+          color: "rgba(255,255,255,0.5)",
+          fontSize: "0.8125rem",
+          fontFamily: "var(--font-titillium, sans-serif)",
+        }}
+      >
+        Mostrando {count} de {total}
+      </span>
+    </div>
+  );
+}
+
+// ── See-more link ────────────────────────────────────────────────────────────
+
 function SeeMore({ href, label = "Ver Más" }: { href: string; label?: string }) {
   return (
-    <Link href={href} className="group text-lg uppercase text-white flex items-center gap-6 w-2/3 md:w-1/2 mx-auto mt-8">
-      <span className="whitespace-nowrap">{label}</span>
+    <Link
+      href={href}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 20,
+        color: "#fff",
+        textDecoration: "none",
+        fontSize: "0.9375rem",
+        textTransform: "uppercase",
+        letterSpacing: "0.08em",
+        marginTop: 32,
+        width: "50%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        fontFamily: "var(--font-titillium, sans-serif)",
+      }}
+      className="group"
+    >
+      <span style={{ whiteSpace: "nowrap" }}>{label}</span>
       <span
-        className="relative flex-1 h-px"
         style={{
-          background: "linear-gradient(90deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%)",
-          transition: "background 0.3s",
+          flex: 1,
+          height: 1,
+          background: "linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%)",
         }}
       />
     </Link>
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// ── Page ────────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
   const locale = useLocale();
   const [email, setEmail] = useState("");
@@ -233,171 +257,258 @@ export default function HomePage() {
 
   return (
     <div
-      className="w-full min-h-screen"
-      style={{ backgroundColor: "#000", color: "#fff", fontFamily: "var(--font-titillium, 'Titillium Web', sans-serif)" }}
+      style={{
+        backgroundColor: "#000",
+        color: "#fff",
+        minHeight: "100vh",
+        fontFamily: "var(--font-titillium, 'Titillium Web', sans-serif)",
+      }}
     >
 
-      {/* ══════════════════════════════════════════
-          HERO — logo + subtitles
-      ══════════════════════════════════════════ */}
-      <section
-        className="relative overflow-hidden"
-        style={{ backgroundColor: "#000", paddingTop: 64, paddingBottom: 32 }}
-      >
-        <div className="max-w-none px-6 lg:px-10">
-          {/* wordmark — full width like mockupflock SVG logo */}
-          <div className="w-full py-4 pb-8 lg:pb-12 text-center">
-            <div
-              className="inline-block leading-none tracking-tighter uppercase"
-              style={{ fontSize: "clamp(2.5rem, 10vw, 9rem)", fontWeight: 400, letterSpacing: "-0.03em", color: "#fff" }}
+      {/* ═════════════════════════════════════════════════════════════
+          HERO — full-width Bebas Neue wordmark (mockupflock exact)
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", padding: "48px 0 40px" }}>
+        <div style={{ padding: "0 24px" }}>
+
+          {/* ── Wordmark ── */}
+          <div style={{ textAlign: "center", overflow: "hidden" }}>
+            <h1
+              style={{
+                fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
+                fontSize: "clamp(4.5rem, 18vw, 18rem)",
+                fontWeight: 400,
+                lineHeight: 0.88,
+                letterSpacing: "0.02em",
+                color: "#fff",
+                margin: 0,
+                padding: 0,
+                textTransform: "uppercase",
+              }}
             >
-              Workspace<span style={{ color: "#d9d9d9" }}>LATAM</span>
-            </div>
+              Workspace
+            </h1>
+            <h1
+              style={{
+                fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
+                fontSize: "clamp(4.5rem, 18vw, 18rem)",
+                fontWeight: 400,
+                lineHeight: 0.88,
+                letterSpacing: "0.02em",
+                color: "#d9d9d9",
+                margin: 0,
+                padding: 0,
+                textTransform: "uppercase",
+                marginBottom: "clamp(24px, 4vw, 56px)",
+              }}
+            >
+              Latam
+            </h1>
           </div>
 
-          {/* two-column subtitles — identical to mockupflock layout */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:justify-around items-start">
-            <div className="w-full lg:w-1/3 text-center uppercase" style={{ fontSize: "1rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.33 }}>
-              <p>Templates Notion &amp; Monday.com para empresas de LATAM.</p>
-            </div>
-            <div className="w-full lg:w-1/3 text-center uppercase" style={{ fontSize: "1rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.33 }}>
-              <strong>Implementa en 30 minutos. Resultados desde el primer día.</strong>
-            </div>
+          {/* ── Two-column subtitle ── */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+              maxWidth: 960,
+              margin: "0 auto",
+            }}
+            className="lg:flex-row lg:justify-around"
+          >
+            <p
+              style={{
+                margin: 0,
+                textTransform: "uppercase",
+                fontSize: "0.9rem",
+                color: "rgba(255,255,255,0.75)",
+                lineHeight: 1.4,
+                textAlign: "center",
+                fontFamily: "var(--font-titillium, sans-serif)",
+              }}
+            >
+              Templates Notion &amp; Monday.com<br />para empresas de LATAM.
+            </p>
+            <p
+              style={{
+                margin: 0,
+                textTransform: "uppercase",
+                fontSize: "0.9rem",
+                color: "rgba(255,255,255,0.75)",
+                lineHeight: 1.4,
+                textAlign: "center",
+                fontFamily: "var(--font-titillium, sans-serif)",
+              }}
+            >
+              <strong>Implementa en 30 minutos.</strong><br />Resultados desde el primer día.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          IMAGE CAROUSEL — swiper style
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 0, paddingBottom: 96 }}>
+      {/* ═════════════════════════════════════════════════════════════
+          CAROUSEL — edge-to-edge, black bg
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingBottom: 80 }}>
         <SwiperCarousel locale={locale} />
       </section>
 
-      {/* ══════════════════════════════════════════
-          POPULAR TEMPLATES — Notion
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-none px-6 lg:px-10">
-          {/* section header */}
-          <div className="flex justify-between items-center mb-6 pb-2" style={{ borderBottom: "1px solid #fff" }}>
-            <h2 className="text-2xl md:text-3xl uppercase" style={{ color: "#fff", marginBottom: 0 }}>
-              Templates Populares
-            </h2>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
-              Mostrando <span>4</span> de 18+ Templates.
-            </div>
-          </div>
-
-          {/* grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {POPULAR_NOTION.map((t) => (
+      {/* ═════════════════════════════════════════════════════════════
+          POPULAR TEMPLATES
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 80, paddingBottom: 80 }}>
+        <div style={{ padding: "0 24px" }} className="lg:px-10">
+          <SectionHeader title="Templates Populares" count={4} total="18+" />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              gap: 4,
+            }}
+            className="md:grid-cols-4"
+          >
+            {POPULAR.map((t) => (
               <TemplateCard key={t.slug} {...t} locale={locale} />
             ))}
           </div>
-
-          {/* see more */}
-          <div className="flex justify-center">
-            <SeeMore href={`/${locale}/templates`} />
-          </div>
+          <SeeMore href={`/${locale}/templates`} />
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          COLLECTIONS — bundles + monday mix
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-none px-6 lg:px-10">
-          <div className="flex justify-between items-center mb-6 pb-2" style={{ borderBottom: "1px solid #fff" }}>
-            <h2 className="text-2xl md:text-3xl uppercase" style={{ color: "#fff", marginBottom: 0 }}>
-              Colecciones &amp; Bundles
-            </h2>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
-              Mostrando <span>4</span> de 7 colecciones.
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* ═════════════════════════════════════════════════════════════
+          COLLECTIONS & BUNDLES
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 80, paddingBottom: 80 }}>
+        <div style={{ padding: "0 24px" }} className="lg:px-10">
+          <SectionHeader title="Colecciones &amp; Bundles" count={4} total="7" />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              gap: 4,
+            }}
+            className="md:grid-cols-4"
+          >
             {COLLECTIONS.map((t) => (
-              <TemplateCard
-                key={t.slug}
-                {...t}
-                locale={locale}
-                href={t.tag.includes("Bundle") ? `/${locale}/bundles` : `/${locale}/templates/${t.slug}`}
-              />
-            ))}
-          </div>
-
-          <div className="flex justify-center">
-            <SeeMore href={`/${locale}/bundles`} label="Ver Bundles" />
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          NEW RELEASES — 8 items with load more
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 44, paddingBottom: 100 }}>
-        <div className="max-w-none px-6 lg:px-10">
-          <div className="flex justify-between items-center mb-6 pb-2" style={{ borderBottom: "1px solid #fff" }}>
-            <h2 className="text-2xl md:text-3xl uppercase" style={{ color: "#fff", marginBottom: 0 }}>
-              Nuevos Templates
-            </h2>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
-              Mostrando <span>8</span> de 18+ Templates.
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {NEW_RELEASES_NOTION.map((t) => (
               <TemplateCard key={t.slug + t.name} {...t} locale={locale} />
             ))}
           </div>
-
-          <div className="flex justify-center">
-            <SeeMore href={`/${locale}/templates`} label="Ver Todos" />
-          </div>
+          <SeeMore href={`/${locale}/bundles`} label="Ver Bundles" />
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          DEALS LIST — mockupflock "Mockup Collection"
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 44, paddingBottom: 100 }}>
-        <div className="max-w-none px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-10 mb-6">
+      {/* ═════════════════════════════════════════════════════════════
+          NEW RELEASES
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 40, paddingBottom: 80 }}>
+        <div style={{ padding: "0 24px" }} className="lg:px-10">
+          <SectionHeader title="Nuevos Templates" count={8} total="18+" />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              gap: 4,
+            }}
+            className="md:grid-cols-4"
+          >
+            {NEW_RELEASES.map((t) => (
+              <TemplateCard key={t.slug + t.name} {...t} locale={locale} />
+            ))}
+          </div>
+          <SeeMore href={`/${locale}/templates`} label="Ver Todos" />
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════════════
+          DEALS LIST — "Mockup Collection" equivalent
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 40, paddingBottom: 80 }}>
+        <div style={{ padding: "0 24px" }} className="lg:px-10">
+
+          {/* header row */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 32,
+              marginBottom: 24,
+            }}
+          >
             <h2
-              className="text-2xl md:text-4xl uppercase whitespace-nowrap"
-              style={{ color: "#fff" }}
+              style={{
+                margin: 0,
+                color: "#fff",
+                textTransform: "uppercase",
+                fontWeight: 700,
+                fontSize: "clamp(1.2rem,3vw,1.75rem)",
+                whiteSpace: "nowrap",
+                fontFamily: "var(--font-titillium, sans-serif)",
+                letterSpacing: "0.04em",
+              }}
             >
               Bundles Notion + Monday
             </h2>
-            <div className="hidden lg:block flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem", maxWidth: "18rem" }}>
-              Ahorra hasta 30% combinando Notion y Monday.com en un solo bundle.
+            <div
+              style={{ flex: 1, height: 1, backgroundColor: "rgba(255,255,255,0.18)" }}
+              className="hidden lg:block"
+            />
+            <p
+              style={{
+                margin: 0,
+                color: "rgba(255,255,255,0.5)",
+                fontSize: "0.8125rem",
+                maxWidth: 240,
+                lineHeight: 1.4,
+                fontFamily: "var(--font-titillium, sans-serif)",
+              }}
+              className="hidden lg:block"
+            >
+              Ahorra hasta 30% combinando Notion y Monday en un solo bundle.
             </p>
           </div>
 
-          <ul>
+          {/* list rows */}
+          <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
             {DEALS.map((d, i) => (
               <li
                 key={i}
                 style={{
-                  borderTop: i === 0 ? "1px solid #fff" : undefined,
-                  borderBottom: "1px solid #fff",
+                  borderTop: i === 0 ? "1px solid rgba(255,255,255,0.25)" : undefined,
+                  borderBottom: "1px solid rgba(255,255,255,0.25)",
                 }}
               >
-                <Link href={`/${locale}${d.href}`} className="group block w-full py-5 px-4">
-                  <div className="flex justify-between items-center text-lg text-white gap-4">
-                    <span style={{ transition: "font-weight 0.15s" }} className="group-hover:font-bold">
+                <Link
+                  href={`/${locale}${d.href}`}
+                  style={{ textDecoration: "none", display: "block", padding: "18px 8px" }}
+                  className="group"
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: 16,
+                      color: "#fff",
+                      fontSize: "clamp(0.875rem,1.5vw,1.0625rem)",
+                      fontFamily: "var(--font-titillium, sans-serif)",
+                    }}
+                  >
+                    <span className="group-hover:font-bold" style={{ transition: "font-weight 0.15s" }}>
                       {d.name}
                     </span>
                     <span
-                      className="flex items-center gap-3 group-hover:-translate-x-2 transition-transform duration-300"
-                      style={{ flexShrink: 0 }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        flexShrink: 0,
+                        transition: "transform 0.3s ease",
+                      }}
+                      className="group-hover:-translate-x-2"
                     >
-                      <s style={{ opacity: 0.4, fontSize: "0.875rem" }}>{d.regular}</s>
-                      <span>{d.sale}</span>
+                      <s style={{ opacity: 0.35, fontSize: "0.8125rem" }}>{d.regular}</s>
+                      <span style={{ fontWeight: 600 }}>{d.sale}</span>
                     </span>
                   </div>
                 </Link>
@@ -407,50 +518,77 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          BIG TEXT — "stay wild into your ideas"
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 36, paddingBottom: 32 }}>
-        <div className="max-w-5xl mx-auto px-6 text-center">
+      {/* ═════════════════════════════════════════════════════════════
+          BIG CTA + NEWSLETTER — "STAY WILD / BECOME MEMBER" combined
+      ════════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 32, paddingBottom: 80 }}>
+        <div style={{ padding: "0 24px" }} className="lg:px-10">
+
+          {/* BIG headline */}
           <h2
-            className="uppercase leading-none"
             style={{
-              fontSize: "clamp(2.5rem,9vw,6.5rem)",
+              fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
+              fontSize: "clamp(3.5rem, 12vw, 11rem)",
               fontWeight: 400,
+              lineHeight: 0.88,
               color: "#fff",
-              letterSpacing: "-0.02em",
-              marginBottom: -48,
+              textTransform: "uppercase",
+              margin: "0 0 -16px 0",
               position: "relative",
-              zIndex: 10,
+              zIndex: 1,
+              letterSpacing: "0.01em",
             }}
           >
-            DIGITALIZA TU<br />EMPRESA HOY.
+            Digitaliza tu<br />empresa hoy.
           </h2>
-        </div>
-      </section>
 
-      {/* ══════════════════════════════════════════
-          NEWSLETTER — "become member & get 10% off"
-      ══════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 96, paddingBottom: 56 }}>
-        <div className="max-w-none px-6 lg:px-10">
-          <div className="flex flex-col sm:flex-row items-end gap-6 max-w-2xl mx-auto">
+          {/* dividing rule */}
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", margin: "48px 0 40px" }} />
+
+          {/* newsletter row */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 24,
+              maxWidth: 680,
+            }}
+            className="sm:flex-row sm:items-end"
+          >
             {/* label */}
             <div
-              className="uppercase text-center sm:text-left whitespace-nowrap"
-              style={{ fontSize: "1rem", color: "#fff", lineHeight: 1.33 }}
+              style={{
+                textTransform: "uppercase",
+                fontSize: "0.875rem",
+                color: "#fff",
+                lineHeight: 1.4,
+                whiteSpace: "nowrap",
+                fontFamily: "var(--font-titillium, sans-serif)",
+                letterSpacing: "0.06em",
+              }}
             >
-              únete gratis<br />&amp; recibe templates
+              Únete gratis<br />&amp; recibe templates
             </div>
 
             {/* input */}
-            <div className="w-full">
+            <div style={{ flex: 1 }}>
               {subOk ? (
-                <p className="py-4" style={{ color: "rgba(255,255,255,0.5)", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                <p
+                  style={{
+                    color: "rgba(255,255,255,0.45)",
+                    borderBottom: "1px solid rgba(255,255,255,0.15)",
+                    padding: "16px 0",
+                    margin: 0,
+                    fontFamily: "var(--font-titillium, sans-serif)",
+                  }}
+                >
                   ¡Gracias! Revisa tu email.
                 </p>
               ) : (
-                <form onSubmit={handleSub} className="relative group">
+                <form
+                  onSubmit={handleSub}
+                  style={{ position: "relative" }}
+                >
                   <input
                     type="email"
                     value={email}
@@ -461,22 +599,30 @@ export default function HomePage() {
                       width: "100%",
                       background: "transparent",
                       border: "none",
-                      borderBottom: "1px solid rgba(255,255,255,0.2)",
+                      borderBottom: "1px solid rgba(255,255,255,0.18)",
                       color: "#fff",
-                      padding: "16px 32px 16px 0",
+                      padding: "16px 36px 16px 0",
                       outline: "none",
                       fontSize: "1rem",
-                      fontFamily: "inherit",
+                      fontFamily: "var(--font-titillium, sans-serif)",
+                      boxSizing: "border-box",
                     }}
-                    onFocus={(e) => (e.target.style.borderBottomColor = "#fff")}
-                    onBlur={(e) => (e.target.style.borderBottomColor = "rgba(255,255,255,0.2)")}
+                    onFocus={(e) => (e.currentTarget.style.borderBottomColor = "#fff")}
+                    onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.18)")}
                   />
-                  {/* submit arrow */}
                   <button
                     type="submit"
-                    className="absolute right-0 top-1/2 -translate-y-1/2"
-                    style={{ background: "transparent", border: "none", cursor: "pointer", padding: 0 }}
                     aria-label="Suscribirse"
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
                   >
                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
                       <path d="M8 7.006L0.5 13.934V0.078L8 7.006Z" fill="white" />
