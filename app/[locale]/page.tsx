@@ -7,58 +7,58 @@ import dynamic from "next/dynamic";
 
 const SwiperCarousel = dynamic(() => import("@/components/home/SwiperCarousel"), { ssr: false });
 
-// ── picsum placeholder helper (seed = consistent image per card) ────────────
-const PIC = (seed: string, w = 400, h = 300) =>
+const PIC = (seed: string, w = 324, h = 216) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
 // ── Data ────────────────────────────────────────────────────────────────────
 
 const POPULAR = [
-  { slug: "crm-ventas-b2b",      name: "CRM Ventas B2B",       tag: "Notion Template", price: "$29",   seed: "business11", accent: "#2383E2" },
-  { slug: "gestion-proyectos",   name: "Gestión de Proyectos", tag: "Notion Template", price: "$24",   seed: "office22",   accent: "#5b5bd6" },
-  { slug: "wiki-empresa",        name: "Wiki Empresarial",      tag: "Notion Template", price: "$19",   seed: "laptop33",   accent: "#0095ff" },
-  { slug: "finanzas-personal",   name: "Finanzas Personales",   tag: "Notion Template", price: "Gratis",seed: "desk44",     accent: "#00c875" },
+  { slug: "crm-ventas-b2b",    name: "CRM Ventas B2B",       tag: "Notion Template", price: "$29",    seedA: "biz-crm1",  seedB: "biz-crm2"  },
+  { slug: "gestion-proyectos", name: "Gestión de Proyectos", tag: "Notion Template", price: "$24",    seedA: "proj-m1",   seedB: "proj-m2"   },
+  { slug: "wiki-empresa",      name: "Wiki Empresarial",      tag: "Notion Template", price: "$19",    seedA: "wiki-1",    seedB: "wiki-2"    },
+  { slug: "finanzas-personal", name: "Finanzas Personales",   tag: "Notion Template", price: "Gratis", seedA: "fin-1",     seedB: "fin-2"     },
 ];
 
 const COLLECTIONS = [
-  { slug: "bundle-starter",      name: "Bundle Starter",                    tag: "2 Notion + 2 Monday",        price: "$120",  seed: "tech55",     accent: "#7c3aed", href: "/bundles" },
-  { slug: "bundle-professional", name: "Bundle Professional",               tag: "5+5 Templates + 2 Cursos",   price: "$250",  seed: "workspace66",accent: "#FF3D57", href: "/bundles" },
-  { slug: "bundle-complete",     name: "Bundle Complete",                   tag: "Todo + Consultoría VIP",     price: "$450",  seed: "meeting77",  accent: "#2383E2", href: "/bundles" },
-  { slug: "okr-planificacion",   name: "OKR & Planificación",               tag: "Notion Template",            price: "$34",   seed: "strategy88", accent: "#eab308", href: undefined },
+  { slug: "bundle-starter",      name: "Bundle Starter",       tag: "2 Notion + 2 Monday",      price: "$120", seedA: "bund-s1", seedB: "bund-s2", href: "/bundles" },
+  { slug: "bundle-professional", name: "Bundle Professional",  tag: "5+5 Templates + 2 Cursos", price: "$250", seedA: "bund-p1", seedB: "bund-p2", href: "/bundles" },
+  { slug: "bundle-complete",     name: "Bundle Complete",       tag: "Todo + Consultoría VIP",   price: "$450", seedA: "bund-c1", seedB: "bund-c2", href: "/bundles" },
+  { slug: "okr-planificacion",   name: "OKR & Planificación",  tag: "Notion Template",          price: "$34",  seedA: "okr-1",  seedB: "okr-2",   href: undefined  },
 ];
 
 const NEW_RELEASES = [
-  { slug: "pipeline-ventas",   name: "Pipeline de Ventas",    tag: "Notion Template", price: "$29",   seed: "sales11",   accent: "#3b82f6" },
-  { slug: "recursos-humanos",  name: "Recursos Humanos",      tag: "Notion Template", price: "$24",   seed: "hr22",      accent: "#c026d3" },
-  { slug: "crm-ventas-b2b",    name: "CRM Starter Gratis",    tag: "Notion Template", price: "Gratis",seed: "free33",    accent: "#16a34a" },
-  { slug: "gestion-proyectos", name: "Planificador Semanal",  tag: "Notion Template", price: "$19",   seed: "planner44", accent: "#ea580c" },
-  { slug: "wiki-empresa",      name: "Base de Conocimiento",  tag: "Notion Template", price: "$22",   seed: "knowledge55",accent: "#0284c7" },
-  { slug: "finanzas-personal", name: "Tracker de Hábitos",    tag: "Notion Template", price: "Gratis",seed: "habits66",  accent: "#db2777" },
-  { slug: "pipeline-ventas",   name: "Dashboard Empresa",     tag: "Notion Template", price: "$39",   seed: "dash77",    accent: "#4f46e5" },
-  { slug: "recursos-humanos",  name: "Gestión de Clientes",   tag: "Notion Template", price: "$29",   seed: "clients88", accent: "#0891b2" },
+  { slug: "pipeline-ventas",   name: "Pipeline de Ventas",   tag: "Notion Template", price: "$29",    seedA: "pipe1",  seedB: "pipe2"  },
+  { slug: "recursos-humanos",  name: "Recursos Humanos",     tag: "Notion Template", price: "$24",    seedA: "hr1",    seedB: "hr2"    },
+  { slug: "crm-ventas-b2b",    name: "CRM Starter Gratis",   tag: "Notion Template", price: "Gratis", seedA: "crm-f1", seedB: "crm-f2" },
+  { slug: "gestion-proyectos", name: "Planificador Semanal", tag: "Notion Template", price: "$19",    seedA: "plan1",  seedB: "plan2"  },
+  { slug: "wiki-empresa",      name: "Base de Conocimiento", tag: "Notion Template", price: "$22",    seedA: "know1",  seedB: "know2"  },
+  { slug: "finanzas-personal", name: "Tracker de Hábitos",   tag: "Notion Template", price: "Gratis", seedA: "hab1",   seedB: "hab2"   },
+  { slug: "pipeline-ventas",   name: "Dashboard Empresa",    tag: "Notion Template", price: "$39",    seedA: "dash1",  seedB: "dash2"  },
+  { slug: "recursos-humanos",  name: "Gestión de Clientes",  tag: "Notion Template", price: "$29",    seedA: "cli1",   seedB: "cli2"   },
 ];
 
 const DEALS = [
-  { href: "/bundles", name: "Bundle Starter — Notion + Monday",                    regular: "$180 USD", sale: "$120 USD" },
-  { href: "/bundles", name: "Bundle Professional — 5+5 Templates + 2 Cursos",      regular: "$340 USD", sale: "$250 USD" },
-  { href: "/bundles", name: "Bundle Complete — Todo Incluido + Consultoría 1h",    regular: "$650 USD", sale: "$450 USD" },
+  { href: "/bundles", name: "Bundle Starter — Notion + Monday",                  regular: "$180 USD", sale: "$120 USD" },
+  { href: "/bundles", name: "Bundle Professional — 5+5 Templates + 2 Cursos",   regular: "$340 USD", sale: "$250 USD" },
+  { href: "/bundles", name: "Bundle Complete — Todo Incluido + Consultoría 1h", regular: "$650 USD", sale: "$450 USD" },
 ];
 
-// ── Photo-based template card (mockupflock style) ───────────────────────────
+// ── Exact mockupflock card ───────────────────────────────────────────────────
+// Primary image: group-hover:opacity-0 group-hover:invisible
+// Secondary image: absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible
 
 interface CardProps {
   slug: string;
   name: string;
   tag: string;
   price: string;
-  seed: string;
-  accent: string;
+  seedA: string;
+  seedB: string;
   locale: string;
   href?: string;
 }
 
-function TemplateCard({ slug, name, tag, price, seed, accent, locale, href }: CardProps) {
-  const [hovered, setHovered] = useState(false);
+function TemplateCard({ slug, name, tag, price, seedA, seedB, locale, href }: CardProps) {
   const link = href
     ? `/${locale}${href}`
     : tag.includes("Monday")
@@ -66,174 +66,121 @@ function TemplateCard({ slug, name, tag, price, seed, accent, locale, href }: Ca
     : `/${locale}/templates/${slug}`;
 
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{ overflow: "hidden", borderRadius: 0 }}
-    >
-      <Link href={link} style={{ display: "block", textDecoration: "none" }}>
-        {/* ── Photo area ── */}
-        <div style={{ position: "relative", overflow: "hidden", height: 240 }}>
-          {/* primary photo */}
-          <img
-            src={PIC(seed, 400, 300)}
-            alt={name}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-              transform: hovered ? "scale(1.05)" : "scale(1)",
-              transition: "transform 600ms cubic-bezier(0.25,0.46,0.45,0.94)",
-            }}
-          />
-          {/* accent color tint overlay */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: accent,
-              opacity: hovered ? 0.18 : 0.08,
-              transition: "opacity 400ms ease",
-              mixBlendMode: "multiply",
-            }}
-          />
-          {/* secondary photo fades in on hover — mimics mockupflock's 2nd image */}
-          <img
-            src={PIC(seed + "-alt", 400, 300)}
-            alt=""
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              opacity: hovered ? 0.45 : 0,
-              transition: "opacity 400ms ease",
-            }}
-          />
+    <div className="p-2 w-full">
+      <div className="relative group overflow-hidden rounded-md" style={{ backgroundColor: "#111" }}>
+
+        {/* thumbnail wrapper */}
+        <div className="overflow-hidden rounded-md" style={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}>
+          <a href={link} className="block overflow-hidden" style={{ position: "relative" }}>
+            {/* Primary image — fades out on hover */}
+            <img
+              src={PIC(seedA)}
+              alt={name}
+              width={324}
+              height={216}
+              className="block w-full h-auto object-cover transition-all duration-300 group-hover:opacity-0 group-hover:invisible"
+              style={{ aspectRatio: "324/216" }}
+            />
+            {/* Secondary image — fades in on hover */}
+            <img
+              src={PIC(seedB)}
+              alt=""
+              aria-hidden
+              width={324}
+              height={216}
+              className="absolute inset-0 block w-full h-auto object-cover transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              style={{ aspectRatio: "324/216" }}
+            />
+          </a>
         </div>
 
-        {/* ── Meta bar (dark, exact #2b2b2b like mockupflock) ── */}
-        <div
-          style={{
-            backgroundColor: "#2b2b2b",
-            padding: "14px 16px 16px",
-            color: "#fff",
-          }}
-        >
-          <h3
+        {/* Meta — exact bg-[#2b2b2b] text-white space-y-2 py-3 px-4 */}
+        <div className="space-y-2 py-3 px-4" style={{ backgroundColor: "#2b2b2b", color: "#fff" }}>
+          <a
+            href={link}
+            className="block transition-all group-hover:font-bold"
             style={{
-              margin: 0,
-              fontSize: "0.9375rem",
-              fontWeight: hovered ? 700 : 400,
-              transition: "font-weight 0.15s",
-              lineHeight: 1.3,
-              fontFamily: "var(--font-titillium, sans-serif)",
+              fontSize: "clamp(0.875rem,1.5vw,1.0625rem)",
+              textDecoration: "none",
+              color: "#fff",
             }}
           >
-            {name}
-          </h3>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "rgba(255,255,255,0.45)",
-              marginTop: 4,
-              fontFamily: "var(--font-titillium, sans-serif)",
-            }}
-          >
+            <h3 style={{ fontWeight: "normal", margin: 0, fontFamily: "var(--font-titillium, sans-serif)" }}>
+              {name}
+            </h3>
+          </a>
+          <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-titillium, sans-serif)" }}>
             {tag}
           </div>
-          <div
-            style={{
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              marginTop: 6,
-              color: "#fff",
-              fontFamily: "var(--font-titillium, sans-serif)",
-            }}
-          >
+          <div style={{ fontSize: "0.875rem", color: "#fff", fontFamily: "var(--font-titillium, sans-serif)" }}>
             {price}
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }
 
-// ── Section header (line + title + count — like mockupflock) ────────────────
+// ── Section header — exact: border-b border-white, text-2xl md:text-3xl, NOT uppercase ─────
 
 function SectionHeader({ title, count, total }: { title: string; count: number; total: string }) {
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-end",
-        borderBottom: "1px solid #fff",
-        paddingBottom: 10,
-        marginBottom: 24,
-      }}
+      className="w-full md:flex justify-between items-center mb-6 pb-2"
+      style={{ borderBottom: "1px solid #fff" }}
     >
       <h2
+        className="text-white inline-block mb-0"
         style={{
+          fontSize: "clamp(1.25rem,2.5vw,1.875rem)",
+          fontWeight: 400,
           margin: 0,
-          color: "#fff",
-          fontSize: "clamp(1.1rem,2.5vw,1.5rem)",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.04em",
           fontFamily: "var(--font-titillium, sans-serif)",
         }}
       >
         {title}
       </h2>
-      <span
+      <div
         style={{
-          color: "rgba(255,255,255,0.5)",
-          fontSize: "0.8125rem",
+          color: "rgba(255,255,255,0.55)",
+          fontSize: "0.875rem",
           fontFamily: "var(--font-titillium, sans-serif)",
         }}
       >
-        Mostrando {count} de {total}
-      </span>
+        Showing <span>{count}</span> of {total} Templates.
+      </div>
     </div>
   );
 }
 
-// ── See-more link ────────────────────────────────────────────────────────────
+// ── See More — exact: "See More" text + side-line div ──────────────────────
 
-function SeeMore({ href, label = "Ver Más" }: { href: string; label?: string }) {
+function SeeMore({ href, label = "See More" }: { href: string; label?: string }) {
   return (
-    <Link
-      href={href}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 20,
-        color: "#fff",
-        textDecoration: "none",
-        fontSize: "0.9375rem",
-        textTransform: "uppercase",
-        letterSpacing: "0.08em",
-        marginTop: 32,
-        width: "50%",
-        marginLeft: "auto",
-        marginRight: "auto",
-        fontFamily: "var(--font-titillium, sans-serif)",
-      }}
-      className="group"
-    >
-      <span style={{ whiteSpace: "nowrap" }}>{label}</span>
-      <span
+    <div className="flex justify-center mt-8">
+      <Link
+        href={href}
+        className="flex items-center gap-4 text-white group"
         style={{
-          flex: 1,
-          height: 1,
-          background: "linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%)",
+          textDecoration: "none",
+          fontSize: "0.9375rem",
+          fontFamily: "var(--font-titillium, sans-serif)",
+          textTransform: "uppercase",
+          letterSpacing: "0.06em",
         }}
-      />
-    </Link>
+      >
+        <span className="whitespace-nowrap">{label}</span>
+        {/* side-line — exact: w-full max-w-[17rem] h-px */}
+        <div
+          style={{
+            width: "17rem",
+            maxWidth: "17rem",
+            height: 1,
+            backgroundColor: "rgba(255,255,255,0.35)",
+          }}
+        />
+      </Link>
+    </div>
   );
 }
 
@@ -265,94 +212,86 @@ export default function HomePage() {
       }}
     >
 
-      {/* ═════════════════════════════════════════════════════════════
-          HERO — full-width Bebas Neue wordmark (mockupflock exact)
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", padding: "48px 0 40px" }}>
-        <div style={{ padding: "0 24px" }}>
+      {/* ══════════════════════════════════════════════════
+          HERO — full-width SVG-style wordmark + two columns
+          Exact mockupflock: bg-primary--dark pt-16 pb-12 lg:pt-20 lg:pb-8 lg:-mt-14
+      ════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          backgroundColor: "#000",
+          paddingTop: 64,
+          paddingBottom: 48,
+          overflow: "hidden",
+          position: "relative",
+        }}
+        className="lg:-mt-14 lg:pt-20 lg:pb-8"
+      >
+        <div className="max-w-none px-6">
 
-          {/* ── Wordmark ── */}
-          <div style={{ textAlign: "center", overflow: "hidden" }}>
-            <h1
-              style={{
-                fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
-                fontSize: "clamp(4.5rem, 18vw, 18rem)",
-                fontWeight: 400,
-                lineHeight: 0.88,
-                letterSpacing: "0.02em",
-                color: "#fff",
-                margin: 0,
-                padding: 0,
-                textTransform: "uppercase",
-                marginBottom: "clamp(24px, 4vw, 56px)",
-              }}
-            >
-              Nebbuler
-            </h1>
+          {/* Full-width wordmark — mimics the SVG logo in mockupflock */}
+          <div className="w-full pt-4 pb-8 lg:pb-12">
+            <div style={{ position: "relative", textAlign: "center" }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
+                  fontSize: "clamp(5rem, 22vw, 22rem)",
+                  fontWeight: 400,
+                  lineHeight: 0.9,
+                  letterSpacing: "0.02em",
+                  color: "#fff",
+                  textTransform: "uppercase",
+                  display: "block",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Nebbuler
+              </span>
+            </div>
           </div>
 
-          {/* ── Two-column subtitle ── */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-              maxWidth: 960,
-              margin: "0 auto",
-            }}
-            className="lg:flex-row lg:justify-around"
-          >
-            <p
+          {/* Two-column subtitles — exact mockupflock layout */}
+          <div className="flex flex-col lg:flex-row gap-6 lg:justify-around items-start">
+            <div
+              className="w-full lg:w-1/3 text-center uppercase"
               style={{
-                margin: 0,
-                textTransform: "uppercase",
-                fontSize: "0.9rem",
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: 1.4,
-                textAlign: "center",
+                fontSize: "1rem",
+                color: "rgba(255,255,255,0.8)",
+                lineHeight: 1.33,
                 fontFamily: "var(--font-titillium, sans-serif)",
               }}
             >
-              Templates Notion &amp; Monday.com<br />para empresas de LATAM.
-            </p>
-            <p
+              <h1>Templates Notion &amp; Monday.com para empresas de LATAM.</h1>
+            </div>
+            <div
+              className="w-full lg:w-1/3 text-center uppercase"
               style={{
-                margin: 0,
-                textTransform: "uppercase",
-                fontSize: "0.9rem",
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: 1.4,
-                textAlign: "center",
+                fontSize: "1rem",
+                color: "rgba(255,255,255,0.8)",
+                lineHeight: 1.33,
                 fontFamily: "var(--font-titillium, sans-serif)",
               }}
             >
-              <strong>Implementa en 30 minutos.</strong><br />Resultados desde el primer día.
-            </p>
+              <h2><strong>Implementa en 30 minutos. Resultados desde el primer día.</strong></h2>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
-          CAROUSEL — edge-to-edge, black bg
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingBottom: 80 }}>
+      {/* ══════════════════════════════════════════════════
+          CAROUSEL — full bleed, black bg
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingBottom: 96 }}>
         <SwiperCarousel locale={locale} />
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════
           POPULAR TEMPLATES
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 80, paddingBottom: 80 }}>
-        <div style={{ padding: "0 24px" }} className="lg:px-10">
+          Exact: padding-top:100px; padding-bottom:100px
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 100, paddingBottom: 100 }}>
+        <div className="max-w-none px-6 lg:px-10">
           <SectionHeader title="Templates Populares" count={4} total="18+" />
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              gap: 4,
-            }}
-            className="md:grid-cols-4"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {POPULAR.map((t) => (
               <TemplateCard key={t.slug} {...t} locale={locale} />
             ))}
@@ -361,20 +300,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
-          COLLECTIONS & BUNDLES
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 80, paddingBottom: 80 }}>
-        <div style={{ padding: "0 24px" }} className="lg:px-10">
+      {/* ══════════════════════════════════════════════════
+          COLLECTION MOCKUPS
+          Exact: padding-top:100px; padding-bottom:100px
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 100, paddingBottom: 100 }}>
+        <div className="max-w-none px-6 lg:px-10">
           <SectionHeader title="Colecciones &amp; Bundles" count={4} total="7" />
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              gap: 4,
-            }}
-            className="md:grid-cols-4"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {COLLECTIONS.map((t) => (
               <TemplateCard key={t.slug + t.name} {...t} locale={locale} />
             ))}
@@ -383,20 +316,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════
           NEW RELEASES
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 40, paddingBottom: 80 }}>
-        <div style={{ padding: "0 24px" }} className="lg:px-10">
+          Exact: padding-top:44px; padding-bottom:100px
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 44, paddingBottom: 100 }}>
+        <div className="max-w-none px-6 lg:px-10">
           <SectionHeader title="Nuevos Templates" count={8} total="18+" />
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              gap: 4,
-            }}
-            className="md:grid-cols-4"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {NEW_RELEASES.map((t) => (
               <TemplateCard key={t.slug + t.name} {...t} locale={locale} />
             ))}
@@ -405,55 +332,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════
           DEALS LIST — "Mockup Collection" equivalent
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 40, paddingBottom: 80 }}>
-        <div style={{ padding: "0 24px" }} className="lg:px-10">
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 44, paddingBottom: 100 }}>
+        <div className="max-w-none px-6 lg:px-10">
 
-          {/* header row */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 32,
-              marginBottom: 24,
-            }}
-          >
+          {/* Header row with horizontal rule */}
+          <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-8 mb-6">
             <h2
-              style={{
-                margin: 0,
-                color: "#fff",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                fontSize: "clamp(1.2rem,3vw,1.75rem)",
-                whiteSpace: "nowrap",
-                fontFamily: "var(--font-titillium, sans-serif)",
-                letterSpacing: "0.04em",
-              }}
+              className="text-white text-2xl md:text-3xl whitespace-nowrap"
+              style={{ fontWeight: 400, margin: 0, fontFamily: "var(--font-titillium, sans-serif)" }}
             >
-              Bundles Notion + Monday
+              Bundle Collection
             </h2>
-            <div
-              style={{ flex: 1, height: 1, backgroundColor: "rgba(255,255,255,0.18)" }}
-              className="hidden lg:block"
-            />
+            <div className="hidden lg:block flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
             <p
+              className="hidden lg:block"
               style={{
+                color: "rgba(255,255,255,0.55)",
+                fontSize: "0.875rem",
+                maxWidth: "18rem",
                 margin: 0,
-                color: "rgba(255,255,255,0.5)",
-                fontSize: "0.8125rem",
-                maxWidth: 240,
-                lineHeight: 1.4,
+                lineHeight: 1.5,
                 fontFamily: "var(--font-titillium, sans-serif)",
               }}
-              className="hidden lg:block"
             >
               Ahorra hasta 30% combinando Notion y Monday en un solo bundle.
             </p>
           </div>
 
-          {/* list rows */}
+          {/* List rows */}
           <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
             {DEALS.map((d, i) => (
               <li
@@ -465,16 +374,12 @@ export default function HomePage() {
               >
                 <Link
                   href={`/${locale}${d.href}`}
-                  style={{ textDecoration: "none", display: "block", padding: "18px 8px" }}
+                  style={{ display: "block", padding: "18px 8px", textDecoration: "none", color: "#fff" }}
                   className="group"
                 >
                   <div
+                    className="flex justify-between items-center gap-4"
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: 16,
-                      color: "#fff",
                       fontSize: "clamp(0.875rem,1.5vw,1.0625rem)",
                       fontFamily: "var(--font-titillium, sans-serif)",
                     }}
@@ -483,17 +388,10 @@ export default function HomePage() {
                       {d.name}
                     </span>
                     <span
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 12,
-                        flexShrink: 0,
-                        transition: "transform 0.3s ease",
-                      }}
-                      className="group-hover:-translate-x-2"
+                      className="flex items-center gap-3 group-hover:-translate-x-1 transition-transform duration-300 flex-shrink-0"
                     >
                       <s style={{ opacity: 0.35, fontSize: "0.8125rem" }}>{d.regular}</s>
-                      <span style={{ fontWeight: 600 }}>{d.sale}</span>
+                      <strong>{d.sale}</strong>
                     </span>
                   </div>
                 </Link>
@@ -503,65 +401,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════
-          BIG CTA + NEWSLETTER — "STAY WILD / BECOME MEMBER" combined
-      ════════════════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#000", paddingTop: 32, paddingBottom: 80 }}>
-        <div style={{ padding: "0 24px" }} className="lg:px-10">
-
-          {/* BIG headline */}
+      {/* ══════════════════════════════════════════════════
+          STAY WILD equivalent + NEWSLETTER
+          Exact mockupflock: big tagline + "become member & get 10% off"
+      ════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#000", paddingTop: 36, paddingBottom: 32 }}>
+        <div className="max-w-5xl mx-auto px-6 text-center">
           <h2
             style={{
               fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
-              fontSize: "clamp(3.5rem, 12vw, 11rem)",
+              fontSize: "clamp(2.5rem,9vw,7rem)",
               fontWeight: 400,
-              lineHeight: 0.88,
               color: "#fff",
-              textTransform: "uppercase",
-              margin: "0 0 -16px 0",
+              letterSpacing: "-0.01em",
+              lineHeight: 0.9,
+              margin: "0 0 -48px",
               position: "relative",
-              zIndex: 1,
-              letterSpacing: "0.01em",
+              zIndex: 10,
+              textTransform: "uppercase",
             }}
           >
             Digitaliza tu<br />empresa hoy.
           </h2>
+        </div>
+      </section>
 
-          {/* dividing rule */}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", margin: "48px 0 40px" }} />
-
-          {/* newsletter row */}
+      {/* Newsletter — exact: "become member & get 10% off" */}
+      <section style={{ backgroundColor: "#000", paddingTop: 96, paddingBottom: 56 }}>
+        <div className="max-w-none px-6 lg:px-10">
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 24,
-              maxWidth: 680,
-            }}
-            className="sm:flex-row sm:items-end"
+            className="flex flex-col sm:flex-row items-end gap-6"
+            style={{ maxWidth: 680 }}
           >
-            {/* label */}
+            {/* Label — exact text */}
             <div
+              className="uppercase text-center sm:text-left whitespace-nowrap"
               style={{
-                textTransform: "uppercase",
-                fontSize: "0.875rem",
+                fontSize: "1rem",
                 color: "#fff",
-                lineHeight: 1.4,
-                whiteSpace: "nowrap",
+                lineHeight: 1.33,
                 fontFamily: "var(--font-titillium, sans-serif)",
-                letterSpacing: "0.06em",
               }}
             >
-              Únete gratis<br />&amp; recibe templates
+              únete gratis<br />&amp; recibe templates
             </div>
 
-            {/* input */}
-            <div style={{ flex: 1 }}>
+            {/* Input */}
+            <div className="w-full">
               {subOk ? (
                 <p
                   style={{
                     color: "rgba(255,255,255,0.45)",
-                    borderBottom: "1px solid rgba(255,255,255,0.15)",
+                    borderBottom: "1px solid rgba(255,255,255,0.2)",
                     padding: "16px 0",
                     margin: 0,
                     fontFamily: "var(--font-titillium, sans-serif)",
@@ -570,10 +461,7 @@ export default function HomePage() {
                   ¡Gracias! Revisa tu email.
                 </p>
               ) : (
-                <form
-                  onSubmit={handleSub}
-                  style={{ position: "relative" }}
-                >
+                <form onSubmit={handleSub} style={{ position: "relative" }}>
                   <input
                     type="email"
                     value={email}
@@ -584,16 +472,16 @@ export default function HomePage() {
                       width: "100%",
                       background: "transparent",
                       border: "none",
-                      borderBottom: "1px solid rgba(255,255,255,0.18)",
+                      borderBottom: "1px solid rgba(255,255,255,0.2)",
                       color: "#fff",
-                      padding: "16px 36px 16px 0",
+                      padding: "16px 32px 16px 0",
                       outline: "none",
                       fontSize: "1rem",
                       fontFamily: "var(--font-titillium, sans-serif)",
                       boxSizing: "border-box",
                     }}
                     onFocus={(e) => (e.currentTarget.style.borderBottomColor = "#fff")}
-                    onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.18)")}
+                    onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
                   />
                   <button
                     type="submit"
