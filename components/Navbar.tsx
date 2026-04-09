@@ -34,7 +34,7 @@ export function Navbar({ templatesLabel, blogLabel, aboutLabel, browseLabel }: N
         position: "sticky",
         top: 0,
         zIndex: 999,
-        backgroundColor: scrolled ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.95)",
+        backgroundColor: scrolled ? "rgba(246,246,244,0.85)" : "rgba(246,246,244,0.95)",
         backdropFilter: scrolled ? "blur(20px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(230,230,230,0.8)" : "1px solid transparent",
