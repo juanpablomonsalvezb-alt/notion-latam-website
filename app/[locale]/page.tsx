@@ -224,7 +224,7 @@ export default function HomePage() {
           overflow: "hidden",
           position: "relative",
         }}
-        className="lg:-mt-14 lg:pt-20 lg:pb-8"
+        className="lg:pt-20 lg:pb-8"
       >
         <div className="max-w-none px-6">
 
