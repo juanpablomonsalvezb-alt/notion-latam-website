@@ -41,7 +41,7 @@ export default function SwiperCarousel({ locale }: { locale: string }) {
   };
 
   return (
-    <div style={{ position: "relative", backgroundColor: "#000" }}>
+    <div style={{ position: "relative", backgroundColor: "#fff" }}>
 
       {/* arrow prev */}
       <button
@@ -59,16 +59,16 @@ export default function SwiperCarousel({ locale }: { locale: string }) {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,0.35)",
+          border: "1px solid rgba(0,0,0,0.25)",
           background: "transparent",
           cursor: "pointer",
           transition: "background 0.2s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
       >
         <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
-          <path d="M6.364 12.728L7.071 12.021L1.914 6.864L16 6.864V5.864L1.914 5.864L7.071 0.707L6.364 0L0 6.364L6.364 12.728Z" fill="white"/>
+          <path d="M6.364 12.728L7.071 12.021L1.914 6.864L16 6.864V5.864L1.914 5.864L7.071 0.707L6.364 0L0 6.364L6.364 12.728Z" fill="#000"/>
         </svg>
       </button>
 
@@ -105,16 +105,16 @@ export default function SwiperCarousel({ locale }: { locale: string }) {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,0.35)",
+          border: "1px solid rgba(0,0,0,0.25)",
           background: "transparent",
           cursor: "pointer",
           transition: "background 0.2s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
       >
         <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
-          <path d="M9.636 0.636L8.929 1.343L14.086 6.5H0V7.5H14.086L8.929 12.657L9.636 13.364L16 7L9.636 0.636Z" fill="white"/>
+          <path d="M9.636 0.636L8.929 1.343L14.086 6.5H0V7.5H14.086L8.929 12.657L9.636 13.364L16 7L9.636 0.636Z" fill="#000"/>
         </svg>
       </button>
 
