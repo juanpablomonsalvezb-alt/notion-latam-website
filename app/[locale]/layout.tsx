@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Titillium_Web } from "next/font/google";
+import { Inter, Titillium_Web, Bebas_Neue } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -21,6 +21,13 @@ const titillium = Titillium_Web({
   weight: ["400", "600", "700"],
   variable: "--font-titillium",
   display: "swap",
+});
+
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  variable: "--font-bebas",
+  display: "swap",
+  weight: "400",
 });
 
 export function generateStaticParams() {
@@ -70,7 +77,7 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} className={`${inter.variable} ${titillium.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${titillium.variable} ${bebas.variable}`}>
       <body className="antialiased bg-notion-bg dark:bg-notion-bg-dark text-notion-text-primary dark:text-notion-text-dark">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Analytics />
