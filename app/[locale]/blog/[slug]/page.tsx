@@ -109,7 +109,7 @@ const ARTICLES: Record<string, {
       { type: "p", text: "Notion brilla cuando necesitas centralizar el conocimiento de tu empresa. Si tu equipo pasa más tiempo escribiendo, documentando procesos o gestionando bases de datos simples, Notion es tu herramienta." },
       { type: "h2", text: "¿Cuándo usar Monday?" },
       { type: "p", text: "Monday.com es superior cuando gestionas proyectos con múltiples dependencias, necesitas automatizaciones sofisticadas sin código o coordinas equipos de 10+ personas en diferentes departamentos." },
-      { type: "highlight", text: "El veredicto de WorkspaceLATAM: Las empresas más productivas de LATAM usan Notion para documentación y Monday para proyectos. No es 'vs' — es 'y'." },
+      { type: "highlight", text: "El veredicto de Nebbuler: Las empresas más productivas de LATAM usan Notion para documentación y Monday para proyectos. No es 'vs' — es 'y'." },
       { type: "h2", text: "Casos reales en LATAM" },
       { type: "p", text: "Agencia digital en Bogotá (12 personas): usa Notion para propuestas y wikis de clientes, Monday para gestión de proyectos. Resultado: 40% menos reuniones de status." },
       { type: "p", text: "Startup fintech en Ciudad de México (25 personas): usa Monday para desarrollo (sprints, bugs) y Notion para documentación técnica y OKRs. Adoptaron el stack completo en 3 semanas." },

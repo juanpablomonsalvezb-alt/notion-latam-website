@@ -284,25 +284,10 @@ export default function HomePage() {
                 margin: 0,
                 padding: 0,
                 textTransform: "uppercase",
-              }}
-            >
-              Workspace
-            </h1>
-            <h1
-              style={{
-                fontFamily: "var(--font-bebas, 'Bebas Neue', cursive)",
-                fontSize: "clamp(4.5rem, 18vw, 18rem)",
-                fontWeight: 400,
-                lineHeight: 0.88,
-                letterSpacing: "0.02em",
-                color: "#d9d9d9",
-                margin: 0,
-                padding: 0,
-                textTransform: "uppercase",
                 marginBottom: "clamp(24px, 4vw, 56px)",
               }}
             >
-              Latam
+              Nebbuler
             </h1>
           </div>
 

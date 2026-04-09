@@ -50,8 +50,7 @@ export default function Footer() {
                   marginBottom: "20px",
                 }}
               >
-                <div>WORKSPACE</div>
-                <div>LATAM</div>
+                <div>NEBBULER</div>
               </div>
             </Link>
             <small
@@ -61,7 +60,7 @@ export default function Footer() {
                 display: "block",
               }}
             >
-              © 2026 WorkspaceLATAM. Todos los derechos reservados.
+              © 2026 Nebbuler. Todos los derechos reservados.
             </small>
           </div>
 

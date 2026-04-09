@@ -48,7 +48,7 @@ export default function Header() {
             flexShrink: 0,
           }}
         >
-          WORKSPACE LATAM
+          NEBBULER
         </Link>
 
         {/* CENTER: Desktop nav */}
