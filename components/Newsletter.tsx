@@ -57,7 +57,7 @@ export function Newsletter({
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "#fff",
+                background: "#fefefe",
                 border: "1px solid #e6e6e6",
                 borderRadius: 100,
                 padding: "14px 28px",
@@ -84,7 +84,7 @@ export function Newsletter({
                   borderRight: "none",
                   borderRadius: "100px 0 0 100px",
                   outline: "none",
-                  background: "#fff",
+                  background: "#fefefe",
                   color: "#111",
                 }}
               />

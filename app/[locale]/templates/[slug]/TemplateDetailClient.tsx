@@ -70,9 +70,9 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
   const features = INCLUDED_FEATURES[slug] || [];
 
   return (
-    <div style={{ background: "#fff", minHeight: "100vh" }}>
+    <div style={{ background: "#fefefe", minHeight: "100vh" }}>
       {/* Back nav */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #e6e6e6", padding: "12px 24px" }}>
+      <div style={{ background: "#fefefe", borderBottom: "1px solid #e6e6e6", padding: "12px 24px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Link
             href="/templates"
@@ -190,7 +190,7 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
           {/* ── RIGHT SIDEBAR (sticky) ───────────────────────────────────── */}
           <div style={{ position: "sticky", top: 100 }}>
             <div style={{
-              background: "#fff",
+              background: "#fefefe",
               border: "1px solid #e6e6e6",
               borderRadius: 20,
               padding: "28px 28px 32px",

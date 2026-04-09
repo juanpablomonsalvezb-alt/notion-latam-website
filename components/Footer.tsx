@@ -37,7 +37,7 @@ export async function Footer({ locale }: FooterProps) {
   ];
 
   return (
-    <footer style={{ background: "#fff", borderTop: "1px solid #e6e6e6", padding: "64px 28px 40px" }}>
+    <footer style={{ background: "#fefefe", borderTop: "1px solid #e6e6e6", padding: "64px 28px 40px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div
           style={{

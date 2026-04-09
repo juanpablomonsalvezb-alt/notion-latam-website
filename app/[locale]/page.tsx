@@ -53,7 +53,7 @@ export default async function Home({
 
       <main>
         {/* ── HERO ──────────────────────────────────────────────────────────── */}
-        <section style={{ background: "#fff", padding: "100px 24px 80px", borderBottom: "1px solid #e8e8e8", overflow: "hidden" }}>
+        <section style={{ background: "#fefefe", padding: "100px 24px 80px", borderBottom: "1px solid #e8e8e8", overflow: "hidden" }}>
           <div style={{
             maxWidth: 1100,
             margin: "0 auto",
@@ -166,7 +166,7 @@ export default async function Home({
         </section>
 
         {/* ── NOTION TEMPLATES (featured grid) ──────────────────────────── */}
-        <section style={{ background: "#fff", padding: "80px 24px" }}>
+        <section style={{ background: "#fefefe", padding: "80px 24px" }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 40, flexWrap: "wrap", gap: 16 }}>
               <div>
@@ -218,7 +218,7 @@ export default async function Home({
         </section>
 
         {/* ── SECOND BRAIN ──────────────────────────────────────────────── */}
-        <section style={{ background: "#fff", padding: "0 24px 80px" }}>
+        <section style={{ background: "#fefefe", padding: "0 24px 80px" }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
               <div
@@ -313,7 +313,7 @@ export default async function Home({
         </section>
 
         {/* ── FINANCE TRACKER ───────────────────────────────────────────── */}
-        <section style={{ background: "#fff", padding: "0 24px 80px" }}>
+        <section style={{ background: "#fefefe", padding: "0 24px 80px" }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
               <div
@@ -401,7 +401,7 @@ export default async function Home({
         </section>
 
         {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
-        <section style={{ background: "#fff", padding: "0 24px 80px" }}>
+        <section style={{ background: "#fefefe", padding: "0 24px 80px" }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
               <div style={{ textAlign: "center", marginBottom: 48 }}>
@@ -426,7 +426,7 @@ export default async function Home({
                   <div
                     key={i}
                     style={{
-                      background: "#fff",
+                      background: "#fefefe",
                       border: "1px solid #e8e8e8",
                       borderRadius: 12,
                       padding: "24px",

@@ -131,7 +131,7 @@ export function Navbar({ templatesLabel, blogLabel, aboutLabel, browseLabel }: N
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
             style={{
-              background: "#fff",
+              background: "#fefefe",
               borderTop: "1px solid #e6e6e6",
               overflow: "hidden",
             }}
