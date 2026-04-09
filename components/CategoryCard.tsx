@@ -31,7 +31,7 @@ export function CategoryCard({
       <Link href={href as never} style={{ textDecoration: "none", display: "block" }}>
         <div
           style={{
-            background: "#fefefe",
+            background: "#f6f6f4",
             border: "1px solid #e6e6e6",
             borderRadius: 20,
             padding: "32px 36px",

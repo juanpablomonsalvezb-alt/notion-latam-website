@@ -42,7 +42,7 @@ export default async function BlogPage({
   return (
     <div style={{ background: "#fafafa", minHeight: "100vh" }}>
       {/* Header */}
-      <section style={{ padding: "72px 24px 56px", borderBottom: "1px solid #e6e6e6", background: "#fefefe" }}>
+      <section style={{ padding: "72px 24px 56px", borderBottom: "1px solid #e6e6e6", background: "#f6f6f4" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#888", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>
             Nebbuler
@@ -82,7 +82,7 @@ export default async function BlogPage({
               >
                 <article
                   style={{
-                    background: "#fefefe",
+                    background: "#f6f6f4",
                     border: "1px solid #e6e6e6",
                     borderRadius: 16,
                     overflow: "hidden",
