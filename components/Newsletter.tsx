@@ -27,7 +27,7 @@ export function Newsletter({
   };
 
   return (
-    <section style={{ background: "#f0ece6", padding: "80px 24px", borderTop: "1px solid #e6e6e6" }}>
+    <section style={{ background: "#ffffff", padding: "80px 24px", borderTop: "1px solid #e6e6e6" }}>
       <div style={{ maxWidth: 540, margin: "0 auto", textAlign: "center" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export function Newsletter({
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "#f0ece6",
+                background: "#ffffff",
                 border: "1px solid #e6e6e6",
                 borderRadius: 100,
                 padding: "14px 28px",
@@ -84,7 +84,7 @@ export function Newsletter({
                   borderRight: "none",
                   borderRadius: "100px 0 0 100px",
                   outline: "none",
-                  background: "#f0ece6",
+                  background: "#ffffff",
                   color: "#111",
                 }}
               />

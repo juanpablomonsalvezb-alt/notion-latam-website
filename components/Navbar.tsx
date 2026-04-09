@@ -34,7 +34,7 @@ export function Navbar({ templatesLabel, blogLabel, aboutLabel, browseLabel }: N
         position: "sticky",
         top: 0,
         zIndex: 999,
-        backgroundColor: scrolled ? "rgba(240,236,230,0.85)" : "rgba(240,236,230,0.95)",
+        backgroundColor: scrolled ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.95)",
         backdropFilter: scrolled ? "blur(20px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(230,230,230,0.8)" : "1px solid transparent",
@@ -131,7 +131,7 @@ export function Navbar({ templatesLabel, blogLabel, aboutLabel, browseLabel }: N
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
             style={{
-              background: "#f0ece6",
+              background: "#ffffff",
               borderTop: "1px solid #e6e6e6",
               overflow: "hidden",
             }}

@@ -14,7 +14,7 @@ function NotionMockup({ slug }: { slug: string }) {
   const base: React.CSSProperties = {
     width: "100%",
     height: "100%",
-    background: "#f0ece6",
+    background: "#ffffff",
     padding: "14px 16px",
     display: "flex",
     flexDirection: "column",
@@ -172,7 +172,7 @@ export function TemplateCard({ template, index }: TemplateCardProps) {
       <Link href={`/templates/${template.slug}` as never} style={{ textDecoration: "none", display: "block" }}>
         <div
           style={{
-            background: "#f0ece6",
+            background: "#ffffff",
             border: "1px solid #e8e8e8",
             borderRadius: 12,
             overflow: "hidden",
