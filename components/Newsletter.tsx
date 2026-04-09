@@ -27,7 +27,7 @@ export function Newsletter({
   };
 
   return (
-    <section style={{ background: "#f0f0f0", padding: "80px 24px" }}>
+    <section style={{ background: "#ffffff", padding: "80px 24px", borderTop: "1px solid #e6e6e6" }}>
       <div style={{ maxWidth: 540, margin: "0 auto", textAlign: "center" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

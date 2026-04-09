@@ -70,7 +70,7 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
   const features = INCLUDED_FEATURES[slug] || [];
 
   return (
-    <div style={{ background: "#fafafa", minHeight: "100vh" }}>
+    <div style={{ background: "#fff", minHeight: "100vh" }}>
       {/* Back nav */}
       <div style={{ background: "#fff", borderBottom: "1px solid #e6e6e6", padding: "12px 24px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -97,7 +97,7 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
               fontSize: 11,
               fontWeight: 600,
               color: "#484848",
-              background: "#f0f0f0",
+              background: "#f5f5f5",
               borderRadius: 100,
               padding: "3px 12px",
               marginBottom: 18,
@@ -144,7 +144,7 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
                     <span style={{
                       width: 28,
                       height: 28,
-                      background: "#f0f0f0",
+                      background: "#f5f5f5",
                       borderRadius: 8,
                       display: "flex",
                       alignItems: "center",
@@ -169,7 +169,7 @@ export function TemplateDetailClient({ slug }: { slug: string }) {
                     key={n}
                     style={{
                       aspectRatio: "16/9",
-                      background: "linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%)",
+                      background: "#f9f9f9",
                       borderRadius: 16,
                       border: "1px solid #e6e6e6",
                       display: "flex",

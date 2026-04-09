@@ -72,7 +72,7 @@ export function CategoryCard({
               fontSize: 13,
               fontWeight: 600,
               color: "#111",
-              background: "#f0f0f0",
+              background: "#f5f5f5",
               padding: "4px 12px",
               borderRadius: 100,
             }}>

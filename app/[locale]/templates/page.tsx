@@ -30,7 +30,7 @@ export default function TemplatesPage() {
   return (
     <>
       {/* Header */}
-      <section style={{ background: "#fafafa", padding: "64px 24px 48px", borderBottom: "1px solid #e6e6e6" }}>
+      <section style={{ background: "#fff", padding: "64px 24px 48px", borderBottom: "1px solid #e6e6e6" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#888", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>
             Nebbuler
@@ -81,7 +81,7 @@ export default function TemplatesPage() {
       </div>
 
       {/* Grid */}
-      <section style={{ background: "#fafafa", padding: "48px 24px 80px" }}>
+      <section style={{ background: "#fff", padding: "48px 24px 80px" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ marginBottom: 24, fontSize: 13, color: "#888" }}>
             {filtered.length} {t("resultsCount")}
