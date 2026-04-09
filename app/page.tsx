@@ -1,260 +1,383 @@
 import Link from "next/link";
 
-/* ─── Design tokens (exact from easlo.co inspector) ────────────────────────── */
+/* ─── Tokens ────────────────────────────────────────────────────────────────── */
 const C = {
-  bg:       "#fafafa",
-  white:    "#ffffff",
-  black:    "#000000",
-  text:     "#2a2a2a",
-  text2:    "#484848",
-  muted:    "#6b6b6b",
-  border:   "#e6e6e6",
-  borderM:  "#e3e3e3",
-  light:    "#f0f0f0",
-  accent:   "#0099ff",
+  gray: "#f0f0f0",   // section background
+  white: "#ffffff",
+  black: "#000000",
+  text:  "#2a2a2a",
+  text2: "#484848",
+  muted: "#6b6b6b",
+  border: "#e6e6e6",
 } as const;
 
-/* ─── SVG Mockups ─────────────────────────────────────────────────────────── */
+/* ─── Shared heading style ──────────────────────────────────────────────────── */
+const H2: React.CSSProperties = {
+  fontSize: "clamp(2.6rem, 6vw, 4.5rem)",
+  fontWeight: 700,
+  color: C.black,
+  lineHeight: 1.1,
+  letterSpacing: "-0.03em",
+  textAlign: "center",
+  marginBottom: 16,
+};
+const Sub: React.CSSProperties = {
+  fontSize: 18,
+  color: C.text2,
+  lineHeight: 1.6,
+  textAlign: "center",
+  maxWidth: 560,
+  margin: "0 auto 28px",
+};
 
-function NotionDashboardMockup() {
+/* ─── Device frames ─────────────────────────────────────────────────────────── */
+function TabletFrame({ width = 260, children }: { width?: number; children: React.ReactNode }) {
   return (
-    <svg viewBox="0 0 880 500" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}>
-      {/* bg */}
-      <rect width="880" height="500" fill="#ffffff" />
-      {/* sidebar */}
-      <rect width="200" height="500" fill="#f7f7f5" />
-      {/* sidebar items */}
-      <rect x="16" y="20" width="120" height="8" rx="4" fill="#37352f" opacity="0.8" />
-      <rect x="16" y="16" width="18" height="18" rx="4" fill="#e9e9e7" />
-      {[0,1,2,3,4,5,6].map(i => (
-        <g key={i}>
-          <rect x="16" y={60 + i*36} width="16" height="16" rx="3" fill="#e9e9e7" />
-          <rect x="38" y={63 + i*36} width={60 + (i%3)*20} height="9" rx="4" fill="#37352f" opacity="0.5" />
-        </g>
-      ))}
-      {/* divider */}
-      <rect x="12" y="320" width="176" height="1" fill="#e9e9e7" />
-      {[0,1,2].map(i => (
-        <g key={i}>
-          <rect x="16" y={330 + i*32} width="14" height="14" rx="2" fill="#d3e3fd" />
-          <rect x="36" y={333 + i*32} width={50 + i*15} height="8" rx="3" fill="#37352f" opacity="0.4" />
-        </g>
-      ))}
-      {/* main content */}
-      <rect x="216" y="32" width="200" height="12" rx="5" fill={C.text} opacity="0.15" />
-      <rect x="216" y="52" width="140" height="8" rx="4" fill={C.text} opacity="0.08" />
-      {/* properties row */}
-      {[0,1,2,3].map(i => (
-        <g key={i}>
-          <rect x={216 + i*150} y="88" width="80" height="7" rx="3" fill={C.text} opacity="0.2" />
-          <rect x={216 + i*150} y="102" width={50 + (i%2)*30} height="20" rx="4" fill={i===0?"#d3e3fd":i===1?"#fde8d3":i===2?"#d3fde8":"#f0f0f0"} />
-        </g>
-      ))}
-      {/* table header */}
-      <rect x="216" y="145" width="640" height="28" rx="4" fill="#f7f7f5" />
-      {["Nombre","Estado","Prioridad","Fecha","Asignado"].map((col, i) => (
-        <rect key={i} x={224 + i*124} y="154" width={col.length * 5.5} height="8" rx="3" fill={C.text} opacity="0.35" />
-      ))}
-      {/* table rows */}
-      {[0,1,2,3,4,5].map(i => (
-        <g key={i}>
-          <rect x="216" y={178 + i*44} width="640" height="1" fill="#f0f0f0" />
-          <rect x="220" y={188 + i*44} width={80 + (i%4)*10} height="9" rx="4" fill={C.text} opacity="0.55" />
-          <rect x="344" y={186 + i*44} width="54" height="14" rx="7" fill={["#d3fde8","#fde8d3","#d3e3fd","#fff3cd","#fde8d3","#d3fde8"][i]} />
-          <rect x="468" y={186 + i*44} width="44" height="14" rx="7" fill={["#fde8d3","#d3fde8","#fde8d3","#d3e3fd","#d3fde8","#fde8d3"][i]} />
-          <rect x="592" y={188 + i*44} width="52" height="9" rx="4" fill={C.text} opacity="0.3" />
-          <circle cx="736" cy={193 + i*44} r="12" fill="#e9e9e7" />
-        </g>
-      ))}
-    </svg>
+    <div style={{
+      width, display: "inline-block",
+      background: "#1c1c1c", borderRadius: 26, padding: 7,
+      boxShadow: "0 28px 72px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.1)",
+    }}>
+      <div style={{ background: "#fff", borderRadius: 20, overflow: "hidden" }}>
+        {/* camera bar */}
+        <div style={{ height: 20, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid #f0f0f0" }}>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#999" }} />
+        </div>
+        {children}
+      </div>
+    </div>
   );
 }
 
-function FinanceMockup() {
+function PhoneFrame({ width = 200, children }: { width?: number; children: React.ReactNode }) {
+  const h = Math.round(width * 2.16);
   return (
-    <svg viewBox="0 0 880 500" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}>
-      <rect width="880" height="500" fill="#ffffff" />
-      {/* top bar */}
-      <rect width="880" height="52" fill="#f7f7f5" />
-      <rect x="20" y="18" width="90" height="16" rx="4" fill={C.text} opacity="0.6" />
-      <rect x="130" y="20" width="60" height="12" rx="3" fill={C.text} opacity="0.25" />
-      {/* KPI cards */}
-      {[
-        { label: "Ingresos", value: "$48.2K", color: "#d3fde8", bar: 0.72 },
-        { label: "Gastos",   value: "$21.7K", color: "#fde8d3", bar: 0.45 },
-        { label: "Utilidad", value: "$26.5K", color: "#d3e3fd", bar: 0.55 },
-        { label: "Balance",  value: "$94.1K", color: "#f3d3fd", bar: 0.88 },
-      ].map((k, i) => (
-        <g key={i}>
-          <rect x={20 + i*212} y="72" width="196" height="100" rx="8" fill={C.white} stroke={C.border} strokeWidth="1" />
-          <rect x={28 + i*212} y="80" width="80" height="7" rx="3" fill={C.muted} opacity="0.6" />
-          <rect x={28 + i*212} y="95" width="90" height="16" rx="4" fill={C.text} opacity="0.75" />
-          <rect x={28 + i*212} y="124" width="168" height="6" rx="3" fill={C.light} />
-          <rect x={28 + i*212} y="124" width={168 * k.bar} height="6" rx="3" fill={k.color.replace("d3","73").replace("fd","dd")} />
-          <rect x={28 + i*212} y="138" width="40" height="7" rx="3" fill={C.muted} opacity="0.4" />
-        </g>
-      ))}
-      {/* chart area */}
-      <rect x="20" y="192" width="540" height="288" rx="8" fill={C.white} stroke={C.border} strokeWidth="1" />
-      <rect x="32" y="204" width="80" height="9" rx="4" fill={C.text} opacity="0.6" />
-      {/* bar chart */}
-      {[120,180,100,220,160,200,140,175,130,190,210,155].map((h, i) => (
-        <rect key={i} x={40 + i*40} y={440 - h} width="28" height={h} rx="3" fill={i===3||i===8?"#2a2a2a":"#e6e6e6"} opacity={i===3||i===8?1:0.6} />
-      ))}
-      {/* right panel */}
-      <rect x="576" y="192" width="284" height="288" rx="8" fill={C.white} stroke={C.border} strokeWidth="1" />
-      <rect x="590" y="204" width="100" height="9" rx="4" fill={C.text} opacity="0.6" />
-      {[
-        { label: "Ventas Online",  pct: 45, color: "#2a2a2a" },
-        { label: "Consultoría",    pct: 28, color: "#6b6b6b" },
-        { label: "Suscripciones",  pct: 18, color: "#e6e6e6" },
-        { label: "Otros",          pct: 9,  color: "#f0f0f0" },
-      ].map((item, i) => (
-        <g key={i}>
-          <rect x="590" y={230 + i*44} width="10" height="10" rx="2" fill={item.color} />
-          <rect x="608" y={232 + i*44} width="80" height="8" rx="3" fill={C.text} opacity="0.55" />
-          <rect x="720" y={232 + i*44} width="30" height="8" rx="3" fill={C.text} opacity="0.3" />
-          <rect x="590" y={246 + i*44} width={item.pct * 2.4} height="4" rx="2" fill={item.color === "#f0f0f0" ? C.border : item.color} opacity="0.8" />
-        </g>
-      ))}
-    </svg>
+    <div style={{
+      width, display: "inline-block",
+      background: "#1c1c1c", borderRadius: 44, padding: 9,
+      boxShadow: "0 28px 72px rgba(0,0,0,0.22)",
+    }}>
+      <div style={{ background: "#fff", borderRadius: 36, overflow: "hidden", height: h, position: "relative" }}>
+        <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", width: "40%", height: 26, borderRadius: 18, background: "#1c1c1c", zIndex: 10 }} />
+        {children}
+      </div>
+    </div>
   );
 }
 
-function MondayMockup() {
-  const statuses = ["En Progreso","Completado","Pendiente","Revisión","Bloqueado"];
-  const colors   = ["#fdbc40","#00c875","#c4c4c4","#0099ff","#e2445c"];
+/* ─── Notion-like UI components ─────────────────────────────────────────────── */
+const Row = ({ icon, label, tag, tagColor }: { icon: string; label: string; tag?: string; tagColor?: string }) => (
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #f5f5f5" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+      <span style={{ fontSize: 12 }}>{icon}</span>
+      <span style={{ fontSize: 11.5, color: "#1a1a1a" }}>{label}</span>
+    </div>
+    {tag && <span style={{ fontSize: 10, background: tagColor || "#f0f0f0", padding: "1px 7px", borderRadius: 4, color: "#484848" }}>{tag}</span>}
+  </div>
+);
+
+function CRMContent() {
   return (
-    <svg viewBox="0 0 880 500" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}>
-      <rect width="880" height="500" fill="#1f1f1f" />
-      {/* top bar */}
-      <rect width="880" height="48" fill="#1a1a1a" />
-      <rect x="16" y="16" width="90" height="16" rx="4" fill="#ffffff" opacity="0.7" />
-      {["Tablero","Lista","Timeline","Gantt"].map((t,i) => (
-        <rect key={i} x={140+i*80} y="20" width={t.length*6} height="8" rx="3" fill="#ffffff" opacity={i===0?0.85:0.4} />
+    <div style={{ padding: "12px 14px 16px" }}>
+      <div style={{ fontSize: 22, marginBottom: 4 }}>📋</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", marginBottom: 2 }}>CRM Ventas</div>
+      <div style={{ fontSize: 10, color: "#9b9a97", marginBottom: 10 }}>Pipeline de clientes</div>
+      <div style={{ fontSize: 10, fontWeight: 600, color: "#9b9a97", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 5 }}>Quick Actions</div>
+      {["Nuevo Lead","Nueva Empresa","Nueva Tarea"].map((t,i) => (
+        <div key={i} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
+          <div style={{ width: 11, height: 11, borderRadius: 2, border: "1.5px solid #d0d0d0" }} />
+          <span style={{ fontSize: 11, color: "#1a1a1a" }}>{t}</span>
+        </div>
       ))}
-      {/* group header */}
-      <rect x="0" y="64" width="880" height="32" fill="#252525" />
-      <rect x="16" y="74" width="8" height="8" rx="1" fill="#00c875" />
-      <rect x="30" y="74" width="90" height="8" rx="3" fill="#ffffff" opacity="0.7" />
-      {/* column headers */}
-      {["Tarea","Responsable","Estado","Fecha","Prioridad"].map((h,i)=>(
-        <rect key={i} x={[16,220,380,520,660][i]} y="104" width={h.length*6.5} height="7" rx="3" fill="#ffffff" opacity="0.3" />
+      <div style={{ fontSize: 10, fontWeight: 600, color: "#9b9a97", textTransform: "uppercase", letterSpacing: "0.06em", margin: "10px 0 5px" }}>Pipeline</div>
+      {[["Prospecto","12","#d3e3fd"],["Propuesta","5","#fde8d3"],["Negociación","3","#d3fde8"],["Cerrado","8","#f0f0f0"]].map(([s,n,c],i) => (
+        <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 3 }}>
+          <span style={{ fontSize: 11, color: "#484848" }}>{s}</span>
+          <span style={{ fontSize: 10, background: c, padding: "1px 6px", borderRadius: 3, color: "#484848" }}>{n}</span>
+        </div>
       ))}
-      {/* rows */}
-      {[0,1,2,3,4,5,6].map(i=>(
-        <g key={i}>
-          <rect x="0" y={120+i*48} width="880" height="47" fill={i%2===0?"#252525":"#222"} />
-          <rect x="16" y={136+i*48} width={80+(i%4)*18} height="9" rx="4" fill="#ffffff" opacity="0.7" />
-          <circle cx="244" cy={141+i*48} r="12" fill={["#c4c4c4","#0073ea","#00c875","#c4c4c4","#e2445c","#0073ea","#fdbc40"][i]} />
-          <rect x={372} y={132+i*48} width="72" height="22" rx="4" fill={colors[i%5]} opacity="0.2" />
-          <rect x={382} y={137+i*48} width={statuses[i%5].length*5.2} height="9" rx="3" fill={colors[i%5]} />
-          <rect x="520" y={136+i*48} width="60" height="9" rx="4" fill="#ffffff" opacity="0.3" />
-          <rect x={660} y={134+i*48} width="52" height="16" rx="8" fill={i%2===0?"#e2445c20":"#00c87520"} />
-          <rect x={672} y={138+i*48} width="28" height="8" rx="3" fill={i%2===0?"#e2445c":"#00c875"} opacity="0.9" />
-        </g>
-      ))}
-    </svg>
+    </div>
   );
 }
 
-function AppsMockup() {
+function ProjectsContent() {
   return (
-    <svg viewBox="0 0 880 500" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}>
-      <rect width="880" height="500" fill="#ffffff" />
-      <rect width="880" height="500" fill="#f7f7f5" />
-      {/* header */}
-      <rect x="20" y="24" width="140" height="14" rx="5" fill={C.text} opacity="0.75" />
-      <rect x="20" y="46" width="220" height="9" rx="4" fill={C.muted} opacity="0.5" />
-      {/* template cards - 3x2 grid */}
-      {[
-        { title:"CRM & Ventas",     tag:"Notion",   color:"#d3e3fd" },
-        { title:"Gestión Proyectos",tag:"Notion",   color:"#d3fde8" },
-        { title:"Finanzas",         tag:"Notion",   color:"#fde8d3" },
-        { title:"Wiki Empresa",     tag:"Notion",   color:"#f3d3fd" },
-        { title:"Pipeline Ventas",  tag:"Monday",   color:"#fde8d3" },
-        { title:"Sprints Ágiles",   tag:"Monday",   color:"#d3e3fd" },
-      ].map((card, i) => {
-        const col = i % 3;
-        const row = Math.floor(i / 3);
-        const x = 20 + col * 290;
-        const y = 80 + row * 200;
-        return (
-          <g key={i}>
-            <rect x={x} y={y} width="272" height="180" rx="10" fill={C.white} stroke={C.border} strokeWidth="1" />
-            {/* mock screenshot area */}
-            <rect x={x+1} y={y+1} width="270" height="110" rx="10" fill={card.color} opacity="0.4" />
-            {/* lines simulating content */}
-            <rect x={x+16} y={y+24} width="100" height="8" rx="3" fill={C.text} opacity="0.25" />
-            <rect x={x+16} y={y+40} width="200" height="6" rx="3" fill={C.text} opacity="0.15" />
-            <rect x={x+16} y={y+54} width="160" height="6" rx="3" fill={C.text} opacity="0.12" />
-            {[0,1,2].map(r=>(
-              <rect key={r} x={x+16} y={y+70+r*14} width="240" height="5" rx="2" fill={C.text} opacity="0.1" />
+    <div style={{ padding: "12px 14px 16px" }}>
+      <div style={{ fontSize: 22, marginBottom: 4 }}>🗂️</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", marginBottom: 2 }}>Gestión Proyectos</div>
+      <div style={{ fontSize: 10, color: "#9b9a97", marginBottom: 10 }}>Sprints y tareas</div>
+      <div style={{ fontSize: 10, fontWeight: 600, color: "#9b9a97", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 5 }}>Quick Capture</div>
+      {["Nueva Tarea","Nuevo Proyecto","Nuevo Sprint","Nuevo Hito"].map((t,i) => (
+        <div key={i} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
+          <div style={{ width: 11, height: 11, borderRadius: 2, border: "1.5px solid #d0d0d0" }} />
+          <span style={{ fontSize: 11, color: "#1a1a1a" }}>{t}</span>
+        </div>
+      ))}
+      <div style={{ fontSize: 10, fontWeight: 600, color: "#9b9a97", textTransform: "uppercase", letterSpacing: "0.06em", margin: "10px 0 5px" }}>Proyectos</div>
+      {[["Website Rediseño","En Progreso","#d3e3fd"],["App Mobile","Planificando","#f0f0f0"],["Marketing Q2","Completado","#d3fde8"]].map(([n,s,c],i) => (
+        <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+          <span style={{ fontSize: 11, color: "#1a1a1a" }}>{n}</span>
+          <span style={{ fontSize: 10, background: c, padding: "1px 7px", borderRadius: 4, color: "#484848" }}>{s}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WikiContent() {
+  return (
+    <div style={{ padding: "12px 14px 16px" }}>
+      <div style={{ fontSize: 22, marginBottom: 4 }}>📚</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", marginBottom: 2 }}>Wiki Empresa</div>
+      <div style={{ fontSize: 10, color: "#9b9a97", marginBottom: 10 }}>Base de conocimiento</div>
+      {[["📁","Onboarding"],["📁","Procesos"],["📁","Políticas"],["📁","Recursos"]].map(([ic,t],i) => (
+        <div key={i} style={{ display: "flex", gap: 7, alignItems: "center", padding: "4px 0", borderBottom: "1px solid #f5f5f5" }}>
+          <span style={{ fontSize: 13 }}>{ic}</span>
+          <span style={{ fontSize: 11, color: "#1a1a1a" }}>{t}</span>
+        </div>
+      ))}
+      <div style={{ fontSize: 10, fontWeight: 600, color: "#9b9a97", textTransform: "uppercase", letterSpacing: "0.06em", margin: "10px 0 5px" }}>Destacados</div>
+      {["📄 Guía de Onboarding","📄 Manual de Ventas","📄 Política de Vacaciones"].map((t,i) => (
+        <div key={i} style={{ fontSize: 11, color: "#0073ea", marginBottom: 4 }}>{t}</div>
+      ))}
+    </div>
+  );
+}
+
+/* Finance Tracker Notion content (matching screenshot) */
+function FinanceNotionContent() {
+  return (
+    <div style={{ padding: "16px 18px", fontFamily: "inherit" }}>
+      {/* Top bar */}
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid #f0f0f0" }}>
+        {["Share","💬","🕐","☆","···"].map((t,i) => (
+          <span key={i} style={{ fontSize: 11, color: "#9b9a97" }}>{t}</span>
+        ))}
+      </div>
+      {/* Page icon + title */}
+      <div style={{ fontSize: 28, marginBottom: 6 }}>🏛️</div>
+      <div style={{ fontSize: 20, fontWeight: 700, color: "#1a1a1a", marginBottom: 16 }}>Finance Tracker</div>
+      {/* Two columns */}
+      <div style={{ display: "flex", gap: 16 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#1a1a1a", marginBottom: 6 }}>Quick Actions</div>
+          {["New Income","New Expense","New Transfer"].map((t,i) => (
+            <div key={i} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 5 }}>
+              <div style={{ width: 14, height: 14, borderRadius: "50%", border: "1.5px solid #d0d0d0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 7, height: 1, background: "#aaa" }} />
+              </div>
+              <span style={{ fontSize: 11, color: "#1a1a1a" }}>{t}</span>
+            </div>
+          ))}
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#1a1a1a", margin: "12px 0 6px" }}>Navigation</div>
+          {[["🏛️","Dashboard"],["💰","Accounts"],["📊","Budgeting"],["🏷️","Categories"],["⬆️","Incomes"]].map(([ic,t],i) => (
+            <div key={i} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
+              <span style={{ fontSize: 11 }}>{ic}</span>
+              <span style={{ fontSize: 11, color: "#484848" }}>{t}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ flex: 1.6 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#1a1a1a", marginBottom: 8 }}>Accounts</div>
+          {/* Table */}
+          <div style={{ border: "1px solid #e9e9e7", borderRadius: 4, overflow: "hidden", marginBottom: 10 }}>
+            <div style={{ display: "flex", background: "#f7f7f5", borderBottom: "1px solid #e9e9e7", padding: "3px 6px" }}>
+              {["Aa Name","# Balance","# Total"].map((h,i) => (
+                <span key={i} style={{ flex: 1, fontSize: 9.5, color: "#9b9a97" }}>{h}</span>
+              ))}
+            </div>
+            {[["DBS","$4,188","$4,041"],["OCBC","$0.00","$0.00"]].map(([n,b,t],i) => (
+              <div key={i} style={{ display: "flex", padding: "4px 6px", borderBottom: i===0 ? "1px solid #f0f0f0" : "none" }}>
+                {[n,b,t].map((v,j) => (
+                  <span key={j} style={{ flex: 1, fontSize: 10, color: "#1a1a1a" }}>{v}</span>
+                ))}
+              </div>
             ))}
-            {/* card footer */}
-            <rect x={x+16} y={y+125} width={card.title.length*7} height="10" rx="4" fill={C.text} opacity="0.7" />
-            <rect x={x+16} y={y+142} width="50" height="14" rx="7" fill={card.tag==="Notion"?"#f0f0f0":"#fff3cd"} />
-            <rect x={x+22} y={y+146} width={card.tag.length*5.5} height="7" rx="2" fill={C.text} opacity="0.45" />
-            <rect x={x+188} y={y+140} width="68" height="24" rx="12" fill={C.text} opacity="0.07" />
-            <rect x={x+196} y={y+148} width="50" height="8" rx="3" fill={C.text} opacity="0.45" />
-          </g>
-        );
-      })}
-    </svg>
+          </div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#1a1a1a", marginBottom: 6 }}>Budgets</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {[["🏠","Housing","100%"],["🛒","Groceries","60%"],["⚡","Utilities","83%"]].map(([ic,n,p],i) => (
+              <div key={i} style={{ flex: 1, border: "1px solid #e9e9e7", borderRadius: 4, padding: "5px 6px" }}>
+                <div style={{ fontSize: 12, marginBottom: 2 }}>{ic}</div>
+                <div style={{ fontSize: 9.5, color: "#484848", marginBottom: 3 }}>{n}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                  <div style={{ flex: 1, height: 4, background: "#e9e9e7", borderRadius: 2 }}>
+                    <div style={{ width: p, height: "100%", background: "#484848", borderRadius: 2 }} />
+                  </div>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", border: "1.5px solid #d0d0d0" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
-/* ─── Nav ─────────────────────────────────────────────────────────────────── */
+/* Second Brain Notion content */
+function SecondBrainTabletContent() {
+  return (
+    <div style={{ padding: "14px 16px" }}>
+      <div style={{ fontSize: 26, marginBottom: 6 }}>🧠</div>
+      <div style={{ fontSize: 18, fontWeight: 700, color: "#1a1a1a", marginBottom: 14 }}>Second Brain</div>
+      <div style={{ display: "flex", gap: 14 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 5 }}>Quick Capture</div>
+          {[["☐","New Task"],["☐","New Note"],["☐","New Project"],["☐","New Highlight"],["✏️","New Reference"]].map(([ic,t],i) => (
+            <div key={i} style={{ display: "flex", gap: 5, alignItems: "center", marginBottom: 4 }}>
+              <span style={{ fontSize: 10 }}>{ic}</span>
+              <span style={{ fontSize: 10.5, color: "#484848" }}>{t}</span>
+            </div>
+          ))}
+          <div style={{ fontSize: 11, fontWeight: 600, marginTop: 8, marginBottom: 5 }}>Dashboards</div>
+          {[["📁","PARA Dashboard"],["✅","GTD Dashboard"],["✏️","Notes Dashboard"]].map(([ic,t],i) => (
+            <div key={i} style={{ display: "flex", gap: 5, alignItems: "center", marginBottom: 3 }}>
+              <span style={{ fontSize: 10 }}>{ic}</span>
+              <span style={{ fontSize: 10.5, color: "#484848" }}>{t}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ flex: 1.4 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 5 }}>Tasks</div>
+          <div style={{ display: "flex", gap: 4, marginBottom: 6 }}>
+            {["Today","Upcoming","Next Action","Waiting On"].map((t,i) => (
+              <span key={i} style={{ fontSize: 9, padding: "2px 5px", background: i===0?"#1a1a1a":"#f0f0f0", color: i===0?"#fff":"#484848", borderRadius: 3 }}>{t}</span>
+            ))}
+          </div>
+          {[["✅","Schedule a meeting with Ben"],["✅","Write an outline for email course"],["🎬","Film a new YouTube video"]].map(([ic,t],i) => (
+            <div key={i} style={{ display: "flex", gap: 5, alignItems: "flex-start", marginBottom: 4 }}>
+              <span style={{ fontSize: 10 }}>{ic}</span>
+              <span style={{ fontSize: 10, color: "#1a1a1a", lineHeight: 1.3 }}>{t}</span>
+            </div>
+          ))}
+          <div style={{ fontSize: 11, fontWeight: 600, marginTop: 8, marginBottom: 5 }}>Projects</div>
+          <div style={{ display: "flex", gap: 4, marginBottom: 4 }}>
+            {["Deadlines","Timeline","Status"].map((t,i) => (
+              <span key={i} style={{ fontSize: 9, padding: "1px 4px", background: "#f0f0f0", color: "#484848", borderRadius: 2 }}>{t}</span>
+            ))}
+          </div>
+          {[["▶","Feb 2024","1"],["▼","Apr 2024","3"]].map(([ic,d,c],i) => (
+            <div key={i} style={{ display: "flex", gap: 5, alignItems: "center", marginBottom: 3 }}>
+              <span style={{ fontSize: 9 }}>{ic}</span>
+              <span style={{ fontSize: 10, color: "#484848" }}>{d}</span>
+              <span style={{ fontSize: 9, color: "#9b9a97" }}>{c}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SecondBrainPhoneContent() {
+  return (
+    <div style={{ paddingTop: 44 }}>
+      <div style={{ padding: "0 14px 14px" }}>
+        <div style={{ fontSize: 20, marginBottom: 4 }}>🧠</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a", marginBottom: 8 }}>Second Brain</div>
+        <div style={{ fontSize: 9, fontWeight: 600, marginBottom: 4 }}>Quick Capture</div>
+        {["☐ New Task","☐ New Note","☐ New Project","☐ New Highlight","✏️ New Reference"].map((t,i) => (
+          <div key={i} style={{ fontSize: 9.5, color: "#484848", marginBottom: 2 }}>{t}</div>
+        ))}
+        <div style={{ fontSize: 9, fontWeight: 600, marginTop: 8, marginBottom: 4 }}>Dashboards</div>
+        {["📁 PARA Dashboard","✅ GTD Dashboard","✏️ Notes Dashboard"].map((t,i) => (
+          <div key={i} style={{ fontSize: 9.5, color: "#484848", marginBottom: 2 }}>{t}</div>
+        ))}
+      </div>
+      {/* Bottom bar */}
+      <div style={{ display: "flex", justifyContent: "space-around", padding: "8px 0", borderTop: "1px solid #f0f0f0" }}>
+        {["≡","🔍","🔔","👤"].map((ic,i) => (
+          <span key={i} style={{ fontSize: 14, color: i===0?"#1a1a1a":"#9b9a97" }}>{ic}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Monday phone content */
+function MondayPhoneContent() {
+  return (
+    <div style={{ paddingTop: 44, padding: "44px 12px 8px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+        <div style={{ width: 28, height: 28, borderRadius: 8, background: "#f5f0ff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span style={{ fontSize: 14 }}>📊</span>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a" }}>Pipeline Ventas</div>
+          <div style={{ fontSize: 9, color: "#9b9a97" }}>monday.com</div>
+        </div>
+      </div>
+      {/* Kanban columns */}
+      {[
+        { stage: "Nuevo", color: "#e2e2e2", items: ["Empresa A","Empresa B"] },
+        { stage: "Contactado", color: "#fdbc40", items: ["Empresa C"] },
+        { stage: "Propuesta", color: "#0073ea", items: ["Empresa D","Empresa E"] },
+        { stage: "Cerrado", color: "#00c875", items: ["Empresa F"] },
+      ].map((col,i) => (
+        <div key={i} style={{ marginBottom: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 3 }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: col.color }} />
+            <span style={{ fontSize: 9.5, fontWeight: 600, color: "#1a1a1a" }}>{col.stage}</span>
+            <span style={{ fontSize: 9, color: "#9b9a97" }}>{col.items.length}</span>
+          </div>
+          {col.items.map((item,j) => (
+            <div key={j} style={{ background: "#f7f7f5", borderRadius: 4, padding: "4px 8px", marginBottom: 2 }}>
+              <span style={{ fontSize: 10, color: "#1a1a1a" }}>{item}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Nav ────────────────────────────────────────────────────────────────────── */
 function Nav() {
   return (
     <header style={{
       position: "sticky", top: 0, zIndex: 999,
-      backgroundColor: "rgba(250,250,250,0.7)",
-      backdropFilter: "blur(20px)",
-      WebkitBackdropFilter: "blur(20px)",
-      borderBottom: `1px solid rgba(230,230,230,0.5)`,
+      backgroundColor: "rgba(255,255,255,0.8)",
+      backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      borderBottom: "1px solid rgba(230,230,230,0.6)",
     }}>
       <div style={{
-        maxWidth: 1080, margin: "0 auto", padding: "0 24px",
-        height: 56,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
+        maxWidth: 1100, margin: "0 auto", padding: "0 28px",
+        height: 58, display: "flex", alignItems: "center", justifyContent: "space-between",
       }}>
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
           <div style={{
-            width: 28, height: 28, borderRadius: 6,
+            width: 30, height: 30, borderRadius: 8,
             background: C.black,
             display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0,
           }}>
-            <span style={{ color: "#fff", fontSize: 13, fontWeight: 700, letterSpacing: "-0.03em" }}>N</span>
+            <span style={{ color: "#fff", fontSize: 14, fontWeight: 800, letterSpacing: "-0.04em" }}>N</span>
           </div>
-          <span style={{ fontSize: 14, fontWeight: 600, color: C.text, letterSpacing: "-0.01em" }}>Nebbuler</span>
+          <span style={{ fontSize: 15, fontWeight: 700, color: C.black, letterSpacing: "-0.01em" }}>Nebbuler</span>
         </Link>
 
-        {/* Center links */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 2 }}>
-          {[["Apps","/apps"],["Templates","/templates"],["Blog","/blog"]].map(([label, href]) => (
-            <Link key={href} href={href} style={{
-              padding: "6px 14px", fontSize: 14, color: C.text2,
+        {/* Center nav */}
+        <nav style={{ display: "flex", alignItems: "center", gap: 0 }}>
+          {[["Apps","/apps"],["Templates","/templates"],["Blog","/blog"]].map(([l,h]) => (
+            <Link key={h} href={h} style={{
+              padding: "6px 16px", fontSize: 14, color: C.text2,
               borderRadius: 100, fontWeight: 400,
-              transition: "background 0.15s",
             }}
-            className="hover:bg-black/5"
+            className="hover:bg-black/5 transition-colors"
             >
-              {label}
+              {l}
             </Link>
           ))}
         </nav>
 
         {/* Right */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <Link href="/sign-in" style={{
-            padding: "6px 16px", fontSize: 14, fontWeight: 500,
-            color: C.text2, borderRadius: 100,
-          }}
-          className="hover:bg-black/5"
-          >
+            padding: "6px 18px", fontSize: 14, fontWeight: 500,
+            color: C.text, borderRadius: 100,
+            border: "1px solid #d8d8d8", backgroundColor: "rgba(255,255,255,0.8)",
+          }}>
             Sign In
           </Link>
           <Link href="/sign-up" style={{
@@ -269,254 +392,304 @@ function Nav() {
   );
 }
 
-/* ─── Hero ────────────────────────────────────────────────────────────────── */
+/* ─── Hero ───────────────────────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section style={{ backgroundColor: C.bg, padding: "80px 24px 0" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-        {/* Text block — centered */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h1 style={{
-            fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)",
-            fontWeight: 700, color: C.text, lineHeight: 1.1,
-            letterSpacing: "-0.03em", marginBottom: 18,
-          }}>
-            Notion &amp; Monday.com<br/>Templates
-          </h1>
-          <p style={{
-            fontSize: 17, color: C.muted, lineHeight: 1.65,
-            maxWidth: 480, margin: "0 auto 32px",
-          }}>
-            Discover 30+ templates to organize your company, save time and digitize your workflows from day one.
-          </p>
-          <Link href="/templates" style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "11px 26px",
-            backgroundColor: C.black, color: "#fff",
-            borderRadius: 100, fontSize: 14, fontWeight: 600,
-          }}>
-            Shop Templates
-          </Link>
-        </div>
-
-        {/* Hero screenshot */}
+    <section style={{ backgroundColor: C.gray, padding: "60px 24px 80px", overflow: "hidden" }}>
+      {/* Three floating tablets */}
+      <div style={{
+        position: "relative", maxWidth: 860, margin: "0 auto",
+        height: 440, marginBottom: 64,
+      }}>
+        {/* Left */}
         <div style={{
-          borderRadius: "12px 12px 0 0",
-          overflow: "hidden",
-          border: `1px solid ${C.border}`,
-          borderBottom: "none",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.07)",
+          position: "absolute", width: 240,
+          left: "4%", top: 56,
+          transform: "rotate(-14deg)",
+          transformOrigin: "center bottom",
+          zIndex: 1,
         }}>
-          <NotionDashboardMockup />
+          <TabletFrame width={240}><CRMContent /></TabletFrame>
         </div>
+        {/* Center (front) */}
+        <div style={{
+          position: "absolute", width: 268,
+          left: "50%", top: 16, marginLeft: -134,
+          transform: "rotate(-4deg)",
+          transformOrigin: "center bottom",
+          zIndex: 3,
+        }}>
+          <TabletFrame width={268}><ProjectsContent /></TabletFrame>
+        </div>
+        {/* Right */}
+        <div style={{
+          position: "absolute", width: 248,
+          right: "4%", top: 36,
+          transform: "rotate(10deg)",
+          transformOrigin: "center bottom",
+          zIndex: 2,
+        }}>
+          <TabletFrame width={248}><WikiContent /></TabletFrame>
+        </div>
+      </div>
+
+      {/* Text below */}
+      <div style={{ textAlign: "center", maxWidth: 700, margin: "0 auto" }}>
+        <h1 style={{
+          fontSize: "clamp(3rem, 7vw, 5rem)",
+          fontWeight: 700, color: C.black,
+          lineHeight: 1.08, letterSpacing: "-0.035em",
+          marginBottom: 18,
+        }}>
+          Notion &amp; Monday.com Templates
+        </h1>
+        <p style={{ fontSize: 18, color: C.text2, lineHeight: 1.6, marginBottom: 32, maxWidth: 500, margin: "0 auto 32px" }}>
+          Discover 30+ templates to organize your company, saving you valuable time.
+        </p>
+        <Link href="/templates" style={{
+          display: "inline-flex", alignItems: "center", gap: 8,
+          padding: "14px 32px",
+          backgroundColor: C.black, color: "#fff",
+          borderRadius: 100, fontSize: 15, fontWeight: 600,
+        }}>
+          Shop Templates
+        </Link>
       </div>
     </section>
   );
 }
 
-/* ─── Feature section ─────────────────────────────────────────────────────── */
-interface FeatureProps {
+/* ─── Centered section (title+subtitle+CTA above, image below) ──────────────── */
+interface SectionProps {
   title: string;
-  description: string;
+  subtitle: string;
   cta: string;
   href: string;
-  mockup: React.ReactNode;
-  reverse?: boolean;
+  image: React.ReactNode;
+  bg?: string;
 }
 
-function Feature({ title, description, cta, href, mockup, reverse }: FeatureProps) {
+function CenteredSection({ title, subtitle, cta, href, image, bg = C.gray }: SectionProps) {
   return (
-    <section style={{ backgroundColor: C.bg, padding: "100px 24px" }}>
-      <div style={{
-        maxWidth: 1080, margin: "0 auto",
-        display: "flex",
-        flexDirection: reverse ? "row-reverse" : "row",
-        alignItems: "center",
-        gap: 72,
-      }}
-      className={`flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}
-      >
-        {/* Text */}
-        <div style={{ flex: "0 0 320px", minWidth: 0 }}>
-          <h2 style={{
-            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-            fontWeight: 700, color: C.text,
-            lineHeight: 1.15, letterSpacing: "-0.025em",
-            marginBottom: 16,
-          }}>
-            {title}
-          </h2>
-          <p style={{
-            fontSize: 16, color: C.muted, lineHeight: 1.7,
-            marginBottom: 28, maxWidth: 320,
-          }}>
-            {description}
-          </p>
-          <Link href={href} style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "9px 22px",
-            backgroundColor: C.black, color: "#fff",
-            borderRadius: 100, fontSize: 14, fontWeight: 600,
-          }}>
-            {cta}
-          </Link>
-        </div>
-
-        {/* Mockup */}
-        <div style={{
-          flex: 1, minWidth: 0,
-          borderRadius: 12,
-          overflow: "hidden",
-          border: `1px solid ${C.border}`,
-          boxShadow: "0 4px 32px rgba(0,0,0,0.07), 0 0 0 0.5px rgba(0,0,0,0.04)",
+    <section style={{ backgroundColor: bg, padding: "96px 24px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <h2 style={H2}>{title}</h2>
+        <p style={Sub}>{subtitle}</p>
+        <Link href={href} style={{
+          display: "inline-flex", alignItems: "center",
+          padding: "13px 28px",
+          backgroundColor: C.black, color: "#fff",
+          borderRadius: 100, fontSize: 15, fontWeight: 600,
+          marginBottom: 64,
         }}>
-          {mockup}
+          {cta}
+        </Link>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {image}
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── Template cards section ──────────────────────────────────────────────── */
+/* ─── Templates section (replaces "Apps by Easlo") ──────────────────────────── */
 function TemplatesSection() {
-  const templates = [
-    { name: "CRM & Ventas B2B",       desc: "Gestiona leads, pipeline y seguimiento de clientes.", tag: "Notion",  href: "/templates/crm-ventas" },
-    { name: "Gestión de Proyectos",   desc: "Organiza sprints, tareas y entregas de tu equipo.",  tag: "Notion",  href: "/templates/proyectos" },
-    { name: "Finanzas Empresariales", desc: "Ingresos, gastos, proyecciones y KPIs en un lugar.", tag: "Notion",  href: "/templates/finanzas" },
-    { name: "Wiki & Base de Conocimiento", desc: "Documentación centralizada para toda tu empresa.", tag: "Notion", href: "/templates/wiki" },
-    { name: "Pipeline de Ventas",     desc: "Automatiza tu proceso de ventas en Monday.com.",      tag: "Monday",  href: "/monday/pipeline" },
-    { name: "Sprints Ágiles",         desc: "Gestión de desarrollo y entregables con claridad.",   tag: "Monday",  href: "/monday/sprints" },
-    { name: "Recursos Humanos",       desc: "Onboarding, vacaciones, evaluaciones y más.",         tag: "Notion",  href: "/templates/rrhh" },
-    { name: "OKR & Metas",            desc: "Define objetivos clave y haz seguimiento semanal.",   tag: "Notion",  href: "/templates/okr" },
+  const items = [
+    {
+      icon: (
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="16" width="56" height="8" rx="4" fill="#1a1a1a" strokeWidth="0"/>
+          <rect x="8" y="32" width="40" height="8" rx="4" fill="#1a1a1a" strokeWidth="0"/>
+          <rect x="8" y="48" width="48" height="8" rx="4" fill="#1a1a1a" strokeWidth="0"/>
+          <circle cx="60" cy="52" r="10" fill="#1a1a1a"/>
+          <path d="M56 52 L59 55 L64 49" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      name: "CRM & Ventas",
+      desc: "Gestiona tus leads y pipeline.",
+      href: "/templates/crm",
+    },
+    {
+      icon: (
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="24" height="24" rx="4" stroke="#1a1a1a" strokeWidth="3"/>
+          <rect x="40" y="8" width="24" height="24" rx="4" stroke="#1a1a1a" strokeWidth="3"/>
+          <rect x="8" y="40" width="24" height="24" rx="4" stroke="#1a1a1a" strokeWidth="3"/>
+          <rect x="40" y="40" width="24" height="24" rx="4" stroke="#1a1a1a" strokeWidth="3"/>
+          <rect x="16" y="16" width="8" height="8" rx="1" fill="#1a1a1a"/>
+          <rect x="48" y="16" width="8" height="8" rx="1" fill="#1a1a1a"/>
+        </svg>
+      ),
+      name: "Proyectos",
+      desc: "Organiza sprints y entregas.",
+      href: "/templates/proyectos",
+    },
+    {
+      icon: (
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="52" width="12" height="16" rx="2" fill="#1a1a1a"/>
+          <rect x="25" y="36" width="12" height="32" rx="2" fill="#1a1a1a"/>
+          <rect x="42" y="24" width="12" height="44" rx="2" fill="#1a1a1a"/>
+          <rect x="59" y="12" width="12" height="56" rx="2" fill="#1a1a1a"/>
+          <path d="M8 52 L20 36 L37 28 L54 20 L68 14" stroke="#1a1a1a" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+        </svg>
+      ),
+      name: "Finanzas",
+      desc: "Ingresos, gastos y KPIs.",
+      href: "/templates/finanzas",
+    },
+    {
+      icon: (
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="6" y="34" fontFamily="sans-serif" fontWeight="900" fontSize="22" fill="#1a1a1a">MO</text>
+          <text x="6" y="60" fontFamily="sans-serif" fontWeight="900" fontSize="22" fill="#1a1a1a">ND</text>
+          <rect x="52" y="8" width="14" height="56" rx="3" fill="#1a1a1a" opacity="0.12"/>
+        </svg>
+      ),
+      name: "Monday",
+      desc: "Templates para Monday.com.",
+      href: "/monday",
+    },
   ];
 
   return (
-    <section style={{ backgroundColor: C.bg, padding: "100px 24px" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ marginBottom: 40 }}>
-          <h2 style={{
-            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-            fontWeight: 700, color: C.text,
-            letterSpacing: "-0.025em", marginBottom: 10,
-          }}>
-            Templates by Nebbuler
-          </h2>
-          <p style={{ fontSize: 16, color: C.muted }}>
-            Get things done with templates designed with simplicity in mind.
-          </p>
-        </div>
+    <section style={{ backgroundColor: C.gray, padding: "96px 24px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <h2 style={H2}>Templates by Nebbuler</h2>
+        <p style={Sub}>Get things done with templates designed with simplicity in mind.</p>
+        <Link href="/templates" style={{
+          display: "inline-flex", alignItems: "center",
+          padding: "13px 28px",
+          backgroundColor: C.black, color: "#fff",
+          borderRadius: 100, fontSize: 15, fontWeight: 600,
+          marginBottom: 64,
+        }}>
+          View All
+        </Link>
 
-        {/* Grid */}
+        {/* 4 large app-style icons */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-          gap: 12,
-        }}>
-          {templates.map(t => (
-            <Link key={t.href} href={t.href} style={{
-              display: "block",
-              padding: "18px 20px",
-              backgroundColor: C.white,
-              borderRadius: 10,
-              border: `1px solid ${C.border}`,
-              textDecoration: "none",
-              transition: "box-shadow 0.15s, border-color 0.15s",
-            }}
-            className="hover:shadow-md hover:border-gray-300"
-            >
-              {/* icon placeholder */}
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 24,
+        }}
+        className="grid-cols-2 md:grid-cols-4"
+        >
+          {items.map(item => (
+            <Link key={item.href} href={item.href} style={{ textDecoration: "none" }}>
               <div style={{
-                width: 40, height: 40, borderRadius: 10,
-                backgroundColor: C.light,
-                marginBottom: 12,
+                width: "100%", aspectRatio: "1",
+                backgroundColor: "#e8e8e8",
+                borderRadius: "30%",
                 display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <span style={{ fontSize: 18 }}>
-                  {t.tag === "Monday" ? "📊" : "📝"}
-                </span>
+                marginBottom: 14,
+                transition: "background 0.2s",
+              }}
+              className="hover:bg-gray-300"
+              >
+                {item.icon}
               </div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: C.text, marginBottom: 6 }}>
-                {t.name}
-              </div>
-              <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.5, marginBottom: 12 }}>
-                {t.desc}
-              </div>
-              <span style={{
-                display: "inline-block",
-                padding: "2px 10px",
-                borderRadius: 100,
-                fontSize: 11, fontWeight: 600,
-                backgroundColor: t.tag === "Monday" ? "#fff3cd" : C.light,
-                color: C.text2,
-              }}>
-                {t.tag}
-              </span>
+              <div style={{ fontSize: 15, fontWeight: 700, color: C.black, marginBottom: 4 }}>{item.name}</div>
+              <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.5 }}>{item.desc}</div>
             </Link>
           ))}
         </div>
-
-        {/* See more */}
-        <div style={{ textAlign: "center", marginTop: 40 }}>
-          <Link href="/templates" style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "9px 24px",
-            border: `1px solid ${C.border}`,
-            borderRadius: 100, fontSize: 14, fontWeight: 500,
-            color: C.text, backgroundColor: C.white,
-          }}
-          className="hover:border-gray-400"
-          >
-            View All Templates
-          </Link>
-        </div>
       </div>
     </section>
   );
 }
 
-/* ─── Footer ──────────────────────────────────────────────────────────────── */
+/* ─── Footer (white background) ─────────────────────────────────────────────── */
 function Footer() {
   const cols = [
-    { title: "Pages", links: [["Apps","/apps"],["Templates","/templates"],["Blog","/blog"]] },
-    { title: "Templates", links: [["CRM Ventas","/templates/crm-ventas"],["Finanzas","/templates/finanzas"],["Proyectos","/templates/proyectos"],["Ver Todos","/templates"]] },
-    { title: "Monday.com", links: [["Pipeline Ventas","/monday/pipeline"],["Sprints Ágiles","/monday/sprints"],["Ver Todos","/monday"]] },
-    { title: "Company", links: [["About","/about"],["Contact","/contact"],["Privacy Policy","/privacy"]] },
+    { title: "Pages",     links: [["Apps","/apps"],["Templates","/templates"],["Blog","/blog"]] },
+    { title: "Templates", links: [["CRM Ventas","/templates/crm"],["Finanzas","/templates/finanzas"],["Proyectos","/templates/proyectos"],["All Access","/pricing"]] },
+    { title: "Monday",    links: [["Pipeline Ventas","/monday/pipeline"],["Sprints Ágiles","/monday/sprints"],["Ver Todos","/monday"]] },
+    { title: "Company",   links: [["About","/about"],["Updates","/updates"],["Privacy Policy","/privacy"]] },
+  ];
+
+  /* Simple SVG social icons */
+  const socials = [
+    {
+      label: "Notion",
+      svg: (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="1" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+          <path d="M5 5h8M5 9h5M5 13h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+      ),
+    },
+    {
+      label: "Instagram",
+      svg: (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="1" width="16" height="16" rx="4" stroke="currentColor" strokeWidth="1.5"/>
+          <circle cx="9" cy="9" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
+          <circle cx="13.5" cy="4.5" r="1" fill="currentColor"/>
+        </svg>
+      ),
+    },
+    {
+      label: "X/Twitter",
+      svg: (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M2 2l5.5 6.5L2 16h2l4.5-6 4.5 6H16L10 8.5 15.5 2H14l-4 5L6 2H2z" fill="currentColor"/>
+        </svg>
+      ),
+    },
+    {
+      label: "TikTok",
+      svg: (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M12 1c.3 2 1.5 3.5 3 4v3c-1 0-2-.3-3-1v5a5 5 0 1 1-4-4.9V11a2 2 0 1 0 2 2V1h2z" fill="currentColor"/>
+        </svg>
+      ),
+    },
+    {
+      label: "YouTube",
+      svg: (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="3" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+          <path d="M7 6.5l5 2.5-5 2.5V6.5z" fill="currentColor"/>
+        </svg>
+      ),
+    },
   ];
 
   return (
-    <footer style={{ backgroundColor: C.black, color: C.white, padding: "64px 24px 32px" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+    <footer style={{ backgroundColor: C.white, padding: "64px 28px 40px", borderTop: "1px solid #e8e8e8" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{
           display: "grid",
-          gridTemplateColumns: "1.4fr repeat(4, 1fr)",
+          gridTemplateColumns: "1.6fr repeat(4, 1fr)",
           gap: 40,
-          marginBottom: 56,
+          marginBottom: 48,
           alignItems: "start",
         }}
         className="grid-cols-2 md:grid-cols-5"
         >
           {/* Brand */}
           <div>
-            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 14, textDecoration: "none" }}>
+            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, textDecoration: "none" }}>
               <div style={{
-                width: 28, height: 28, borderRadius: 6,
-                backgroundColor: C.white,
+                width: 36, height: 36, borderRadius: 10,
+                background: C.black,
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                <span style={{ color: C.black, fontSize: 13, fontWeight: 700 }}>N</span>
+                <span style={{ color: "#fff", fontSize: 16, fontWeight: 800 }}>N</span>
               </div>
-              <span style={{ fontSize: 14, fontWeight: 600, color: C.white }}>Nebbuler</span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: C.black }}>Nebbuler</span>
             </Link>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.65, maxWidth: 180, marginBottom: 20 }}>
+            <p style={{ fontSize: 14, color: C.muted, lineHeight: 1.6, maxWidth: 200, marginBottom: 20 }}>
               Productivity meets minimalism.
             </p>
-            <div style={{ display: "flex", gap: 10 }}>
-              {["Instagram","Twitter","YouTube","TikTok"].map(s => (
-                <a key={s} href="#" style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}
-                  className="hover:text-white transition-colors"
+            <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+              {socials.map(s => (
+                <a key={s.label} href="#" style={{ color: C.text2, display: "flex" }}
+                  className="hover:text-black transition-colors"
+                  aria-label={s.label}
                 >
-                  {s}
+                  {s.svg}
                 </a>
               ))}
             </div>
@@ -525,19 +698,14 @@ function Footer() {
           {/* Columns */}
           {cols.map(col => (
             <div key={col.title}>
-              <div style={{
-                fontSize: 11, fontWeight: 600,
-                color: "rgba(255,255,255,0.35)",
-                textTransform: "uppercase", letterSpacing: "0.1em",
-                marginBottom: 16,
-              }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: C.black, marginBottom: 16 }}>
                 {col.title}
               </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 11 }}>
                 {col.links.map(([label, href]) => (
                   <li key={href}>
-                    <Link href={href} style={{ fontSize: 14, color: "rgba(255,255,255,0.6)" }}
-                      className="hover:text-white transition-colors"
+                    <Link href={href} style={{ fontSize: 14, color: C.muted }}
+                      className="hover:text-black transition-colors"
                     >
                       {label}
                     </Link>
@@ -548,12 +716,7 @@ function Footer() {
           ))}
         </div>
 
-        <div style={{
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          paddingTop: 24,
-          fontSize: 12,
-          color: "rgba(255,255,255,0.25)",
-        }}>
+        <div style={{ fontSize: 13, color: "#b0b0b0" }}>
           © 2024–2026 Nebbuler. All rights reserved.
         </div>
       </div>
@@ -561,7 +724,7 @@ function Footer() {
   );
 }
 
-/* ─── Page ────────────────────────────────────────────────────────────────── */
+/* ─── Page ───────────────────────────────────────────────────────────────────── */
 export default function Home() {
   return (
     <>
@@ -569,29 +732,41 @@ export default function Home() {
       <main>
         <Hero />
 
-        <Feature
-          title="Second Brain for your company"
-          description="An all-in-one Notion system to organize your tasks, projects, goals, and notes. Everything in one place, ready from day one."
+        {/* Second Brain */}
+        <CenteredSection
+          title="Second Brain"
+          subtitle="An all-in-one Notion system to organize your tasks, projects, goals, and notes."
           cta="Learn More"
           href="/templates/second-brain"
-          mockup={<NotionDashboardMockup />}
+          image={
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 20, justifyContent: "center" }}>
+              <TabletFrame width={480}><SecondBrainTabletContent /></TabletFrame>
+              <PhoneFrame width={210}><SecondBrainPhoneContent /></PhoneFrame>
+            </div>
+          }
         />
 
-        <Feature
+        {/* Finance Dashboard */}
+        <CenteredSection
           title="All-In-One Finance Dashboard"
-          description="Bring your company financials in one place to get the big picture: income, expenses, forecasts and KPIs."
+          subtitle="Bring your financials in one place to get the big picture."
           cta="Get Finance Tracker"
           href="/templates/finanzas"
-          mockup={<FinanceMockup />}
-          reverse
+          bg={C.white}
+          image={
+            <TabletFrame width={600}><FinanceNotionContent /></TabletFrame>
+          }
         />
 
-        <Feature
-          title="Manage your projects with Monday"
-          description="Professional Monday.com templates: sales pipeline, sprint management, client onboarding and more."
+        {/* Monday Pipeline */}
+        <CenteredSection
+          title="Manage with Monday.com"
+          subtitle="Professional Monday.com templates for sales pipelines, sprints, and client onboarding."
           cta="View Monday Templates"
           href="/monday"
-          mockup={<MondayMockup />}
+          image={
+            <PhoneFrame width={280}><MondayPhoneContent /></PhoneFrame>
+          }
         />
 
         <TemplatesSection />
