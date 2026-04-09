@@ -3,13 +3,86 @@
     "apps": "Apps",
     "templates": "Modèles",
     "blog": "Blog",
+    "about": "À propos",
     "signIn": "Se connecter",
-    "createAccount": "Créer un compte gratuit"
+    "createAccount": "Créer un compte gratuit",
+    "browse": "Voir les modèles"
   },
   "Hero": {
-    "title": "Modèles Notion & Monday.com",
-    "subtitle": "Découvrez 30+ modèles pour organiser votre entreprise et gagner un temps précieux.",
-    "cta": "Voir les Modèles"
+    "badge": "6 modèles disponibles",
+    "title": "Modèles Notion pour la productivité moderne",
+    "subtitle": "Découvrez des modèles magnifiquement conçus pour organiser votre vie, votre business et vos finances — tout dans Notion.",
+    "cta": "Voir les modèles",
+    "ctaSecondary": "En savoir plus",
+    "socialProof": "créateurs font confiance à Nebbuler"
+  },
+  "Categories": {
+    "label": "Collections",
+    "title": "Deux systèmes. Un flux de travail clair.",
+    "lifeOS": {
+      "subtitle": "Productivité personnelle",
+      "description": "Modèles pour votre vie — habitudes, objectifs, finances et notes dans un espace organisé."
+    },
+    "freelancerOS": {
+      "subtitle": "Gestion des affaires",
+      "description": "Modèles pour votre activité freelance — clients, projets, factures et pipelines."
+    }
+  },
+  "FeaturedTemplates": {
+    "label": "Modèles",
+    "title": "Espaces de travail prêts à l'emploi",
+    "viewAll": "Voir tout"
+  },
+  "Flagship": {
+    "label": "Le plus populaire",
+    "title1": "Votre",
+    "title2": "Second Cerveau",
+    "subtitle": "Un système Notion tout-en-un combinant GTD, PARA et prise de notes dans un espace de travail cohérent. Le dernier système de productivité dont vous aurez besoin.",
+    "oneTime": "paiement unique",
+    "cta": "Obtenir Second Cerveau →",
+    "preview": "Aperçu gratuit",
+    "f1": "Système GTD",
+    "f2": "Organisation PARA",
+    "f3": "Notes & références",
+    "f4": "Mises à jour gratuites"
+  },
+  "Testimonials": {
+    "label": "Avis",
+    "title": "Aimé par les personnes productives"
+  },
+  "Newsletter": {
+    "title": "Recevez les modèles par email",
+    "subtitle": "Rejoignez 2 000+ créateurs. Nouveaux modèles chaque semaine.",
+    "placeholder": "votre@email.com",
+    "button": "S'abonner"
+  },
+  "TemplatesPage": {
+    "title": "Tous les Modèles",
+    "subtitle": "Parcourez tous les modèles Notion. Filtrez par catégorie ou prix.",
+    "filterAll": "Tous",
+    "filterFree": "Gratuit",
+    "filterPro": "Pro",
+    "resultsCount": "modèles",
+    "noResults": "Aucun modèle ne correspond à votre filtre."
+  },
+  "About": {
+    "label": "Notre histoire",
+    "title": "Nous croyons que la productivité doit être simple.",
+    "p1": "Nebbuler est né de la frustration face aux outils de productivité trop complexes. Nous avons passé des années à tester chaque application, chaque méthode, chaque cadre — et nous revenions toujours à la même conclusion : le meilleur système est celui que vous utilisez réellement.",
+    "p2": "Nos modèles sont construits sur Notion parce qu'il offre une flexibilité totale sans la complexité. Chaque modèle est soigneusement conçu pour être minimal, intuitif et immédiatement utile. Pas de manuels de 200 pages. Pas de configuration interminable. Ouvrez, dupliquez et c'est parti.",
+    "p3": "Nous sommes une petite équipe de designers et d'enthousiastes de la productivité répartis en Amérique latine et en Europe. Chaque modèle est livré avec la même question en tête : l'utiliserions-nous nous-mêmes chaque jour ?",
+    "valuesTitle": "Nos valeurs",
+    "value1Title": "La simplicité avant tout",
+    "value1Desc": "Chaque décision de design commence par supprimer des éléments, pas en en ajoutant. Si une fonctionnalité ne sert pas immédiatement l'utilisateur, elle n'est pas incluse.",
+    "value2Title": "Conçu pour être utilisé",
+    "value2Desc": "Nous ne construisons pas des modèles pour des captures d'écran. Nous les construisons pour de vrais flux de travail. Chaque structure est testée dans une utilisation quotidienne réelle.",
+    "value3Title": "Amélioration continue",
+    "value3Desc": "Tous les modèles payants reçoivent des mises à jour gratuites pour toujours. Quand Notion lance de nouvelles fonctionnalités, nous améliorons nos modèles en conséquence.",
+    "cta": "Voir les modèles →"
+  },
+  "Blog": {
+    "title": "Le Blog Nebbuler",
+    "subtitle": "Guides de productivité, tutoriels de modèles et conseils Notion pour les créateurs modernes."
   },
   "SecondBrain": {
     "title": "Second Cerveau",

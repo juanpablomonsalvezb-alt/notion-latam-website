@@ -3,13 +3,86 @@
     "apps": "Apps",
     "templates": "Plantillas",
     "blog": "Blog",
+    "about": "Nosotros",
     "signIn": "Iniciar sesión",
-    "createAccount": "Crear cuenta gratis"
+    "createAccount": "Crear cuenta gratis",
+    "browse": "Ver plantillas"
   },
   "Hero": {
-    "title": "Plantillas para Notion & Monday.com",
-    "subtitle": "Descubre 30+ plantillas para organizar tu empresa y ahorrar tiempo valioso.",
-    "cta": "Ver Plantillas"
+    "badge": "6 plantillas disponibles",
+    "title": "Plantillas Notion para la productividad moderna",
+    "subtitle": "Descubre plantillas hermosamente diseñadas para organizar tu vida, negocio y finanzas — todo dentro de Notion.",
+    "cta": "Ver plantillas",
+    "ctaSecondary": "Saber más",
+    "socialProof": "creadores confían en Nebbuler"
+  },
+  "Categories": {
+    "label": "Colecciones",
+    "title": "Dos sistemas. Un flujo claro.",
+    "lifeOS": {
+      "subtitle": "Productividad personal",
+      "description": "Plantillas para tu vida — hábitos, metas, finanzas y notas en un espacio organizado."
+    },
+    "freelancerOS": {
+      "subtitle": "Gestión de negocio",
+      "description": "Plantillas para tu negocio freelance — clientes, proyectos, facturas y pipelines."
+    }
+  },
+  "FeaturedTemplates": {
+    "label": "Plantillas",
+    "title": "Espacios listos para usar",
+    "viewAll": "Ver todas"
+  },
+  "Flagship": {
+    "label": "Más popular",
+    "title1": "Tu",
+    "title2": "Segundo Cerebro",
+    "subtitle": "Un sistema Notion todo-en-uno que combina GTD, PARA y toma de notas en un espacio coherente. El último sistema de productividad que necesitarás.",
+    "oneTime": "pago único",
+    "cta": "Obtener Segundo Cerebro →",
+    "preview": "Vista previa gratis",
+    "f1": "Sistema GTD",
+    "f2": "Organización PARA",
+    "f3": "Notas y referencias",
+    "f4": "Actualizaciones gratis"
+  },
+  "Testimonials": {
+    "label": "Reseñas",
+    "title": "Amado por personas productivas"
+  },
+  "Newsletter": {
+    "title": "Recibe plantillas en tu correo",
+    "subtitle": "Únete a 2,000+ creadores. Nuevas plantillas cada semana.",
+    "placeholder": "tu@email.com",
+    "button": "Suscribirse"
+  },
+  "TemplatesPage": {
+    "title": "Todas las Plantillas",
+    "subtitle": "Explora todas las plantillas Notion. Filtra por categoría o precio.",
+    "filterAll": "Todas",
+    "filterFree": "Gratis",
+    "filterPro": "Pro",
+    "resultsCount": "plantillas",
+    "noResults": "No hay plantillas que coincidan con tu filtro."
+  },
+  "About": {
+    "label": "Nuestra historia",
+    "title": "Creemos que la productividad debe ser simple.",
+    "p1": "Nebbuler nació de la frustración con herramientas de productividad excesivamente complejas. Pasamos años probando cada app, cada método, cada framework — y siempre llegamos a la misma conclusión: el mejor sistema es el que realmente usas.",
+    "p2": "Nuestras plantillas están construidas sobre Notion porque te da flexibilidad total sin la complejidad. Cada plantilla está cuidadosamente diseñada para sentirse minimal, intuitiva e inmediatamente útil. Sin manuales de 200 páginas. Sin configuración interminable. Solo abre, duplica y listo.",
+    "p3": "Somos un pequeño equipo de diseñadores y entusiastas de la productividad distribuidos en América Latina y Europa. Cada plantilla se envía con la misma pregunta en mente: ¿la usaríamos nosotros mismos todos los días?",
+    "valuesTitle": "Nuestros valores",
+    "value1Title": "Simplicidad primero",
+    "value1Desc": "Cada decisión de diseño comienza eliminando cosas, no agregándolas. Si una función no sirve al usuario de inmediato, no se incluye.",
+    "value2Title": "Construido para ser usado",
+    "value2Desc": "No construimos plantillas para capturas de pantalla. Las construimos para flujos de trabajo reales. Cada estructura se prueba contra el uso diario real.",
+    "value3Title": "Mejora continua",
+    "value3Desc": "Todas las plantillas de pago reciben actualizaciones gratuitas para siempre. Cuando Notion lanza nuevas funciones, mejoramos nuestras plantillas.",
+    "cta": "Ver plantillas →"
+  },
+  "Blog": {
+    "title": "El Blog de Nebbuler",
+    "subtitle": "Guías de productividad, tutoriales de plantillas y consejos de Notion para creadores modernos."
   },
   "SecondBrain": {
     "title": "Segundo Cerebro",

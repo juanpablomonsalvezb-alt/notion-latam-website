@@ -3,13 +3,86 @@
     "apps": "Apps",
     "templates": "Templates",
     "blog": "Blog",
+    "about": "About",
     "signIn": "Sign In",
-    "createAccount": "Create a free account"
+    "createAccount": "Create a free account",
+    "browse": "Browse templates"
   },
   "Hero": {
-    "title": "Notion & Monday.com Templates",
-    "subtitle": "Discover 30+ templates to organize your company, saving you valuable time.",
-    "cta": "Shop Templates"
+    "badge": "6 templates available",
+    "title": "Notion Templates for Modern Productivity",
+    "subtitle": "Discover beautifully designed templates to organize your life, business and finances — all inside Notion.",
+    "cta": "Browse templates",
+    "ctaSecondary": "Learn more",
+    "socialProof": "creators trust Nebbuler"
+  },
+  "Categories": {
+    "label": "Collections",
+    "title": "Two systems. One clear workflow.",
+    "lifeOS": {
+      "subtitle": "Personal productivity",
+      "description": "Templates for your life — habits, goals, finances, and notes all in one organized workspace."
+    },
+    "freelancerOS": {
+      "subtitle": "Business management",
+      "description": "Templates for your freelance business — clients, projects, invoices, and pipelines."
+    }
+  },
+  "FeaturedTemplates": {
+    "label": "Templates",
+    "title": "Ready-to-use workspaces",
+    "viewAll": "View all"
+  },
+  "Flagship": {
+    "label": "Most popular",
+    "title1": "Your",
+    "title2": "Second Brain",
+    "subtitle": "An all-in-one Notion system combining GTD, PARA, and note-taking into a single, coherent workspace. The last productivity system you'll ever need.",
+    "oneTime": "one-time",
+    "cta": "Get Second Brain →",
+    "preview": "Free preview",
+    "f1": "GTD task system",
+    "f2": "PARA organization",
+    "f3": "Notes & highlights",
+    "f4": "Free updates"
+  },
+  "Testimonials": {
+    "label": "Reviews",
+    "title": "Loved by productive people"
+  },
+  "Newsletter": {
+    "title": "Get templates in your inbox",
+    "subtitle": "Join 2,000+ creators. New templates delivered every week.",
+    "placeholder": "your@email.com",
+    "button": "Subscribe"
+  },
+  "TemplatesPage": {
+    "title": "All Templates",
+    "subtitle": "Browse all Notion templates. Filter by category or price.",
+    "filterAll": "All",
+    "filterFree": "Free",
+    "filterPro": "Pro",
+    "resultsCount": "templates",
+    "noResults": "No templates match your filter."
+  },
+  "About": {
+    "label": "Our story",
+    "title": "We believe productivity should be simple.",
+    "p1": "Nebbuler was born out of frustration with overly complex productivity tools. We spent years testing every app, every method, every framework — and kept coming back to one conclusion: the best system is the one you actually use.",
+    "p2": "Our templates are built around Notion because it gives you ultimate flexibility without the complexity. Each template is carefully crafted to feel minimal, intuitive, and immediately useful. No 200-page manuals. No endless setup. Just open, duplicate, and go.",
+    "p3": "We're a small team of designers and productivity enthusiasts based across Latin America and Europe. Every template ships with the same question in mind: would we use this ourselves every single day?",
+    "valuesTitle": "Our values",
+    "value1Title": "Simplicity first",
+    "value1Desc": "Every design decision starts with removing things, not adding them. If a feature doesn't serve the user immediately, it doesn't ship.",
+    "value2Title": "Built to be used",
+    "value2Desc": "We don't build templates for screenshots. We build them for real workflows. Every structure is tested against actual daily use.",
+    "value3Title": "Continuous improvement",
+    "value3Desc": "All paid templates receive free updates forever. When Notion ships new features, we improve our templates to match.",
+    "cta": "Browse templates →"
+  },
+  "Blog": {
+    "title": "The Nebbuler Blog",
+    "subtitle": "Productivity guides, template tutorials, and Notion tips for modern makers."
   },
   "SecondBrain": {
     "title": "Second Brain",
