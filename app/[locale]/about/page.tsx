@@ -127,7 +127,7 @@ export default async function AboutPage({
               <div
                 key={i}
                 style={{
-                  background: "#f6f6f4",
+                  background: "#f0ece6",
                   border: "1px solid #e6e6e6",
                   borderRadius: 16,
                   padding: "24px 28px",
