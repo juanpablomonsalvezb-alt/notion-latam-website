@@ -53,86 +53,114 @@ export default async function Home({
 
       <main>
         {/* ── HERO ──────────────────────────────────────────────────────────── */}
-        <section style={{ background: "#fff", padding: "120px 24px 80px", borderBottom: "1px solid #e8e8e8" }}>
-          <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
-            <h1 style={{
-              fontSize: "clamp(2.8rem, 6vw, 4.5rem)",
-              fontWeight: 700,
-              color: "#000",
-              lineHeight: 1.05,
-              letterSpacing: "-0.04em",
-              marginBottom: 20,
-            }}>
-              {t("Hero.title")}
-            </h1>
+        <section style={{ background: "#fff", padding: "100px 24px 80px", borderBottom: "1px solid #e8e8e8", overflow: "hidden" }}>
+          <div style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            gap: 64,
+            justifyContent: "space-between",
+          }}>
+            {/* Left — Text */}
+            <div style={{ flex: "0 0 auto", maxWidth: 520 }}>
+              <h1 style={{
+                fontSize: "clamp(2.6rem, 5vw, 4rem)",
+                fontWeight: 700,
+                color: "#000",
+                lineHeight: 1.05,
+                letterSpacing: "-0.04em",
+                marginBottom: 20,
+              }}>
+                {t("Hero.title")}
+              </h1>
 
-            <p style={{
-              fontSize: 18,
-              color: "#666",
-              lineHeight: 1.7,
-              marginBottom: 40,
-              maxWidth: 500,
-              margin: "0 auto 40px",
-            }}>
-              {t("Hero.subtitle")}
-            </p>
+              <p style={{
+                fontSize: 18,
+                color: "#666",
+                lineHeight: 1.7,
+                marginBottom: 36,
+                maxWidth: 440,
+              }}>
+                {t("Hero.subtitle")}
+              </p>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-              <Link
-                href="/templates"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "13px 28px",
-                  background: "#000",
-                  color: "#fff",
-                  borderRadius: 100,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {t("Hero.cta")}
-              </Link>
-              <Link
-                href="/about"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "12px 24px",
-                  background: "transparent",
-                  color: "#555",
-                  borderRadius: 100,
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  border: "1px solid #d8d8d8",
-                }}
-              >
-                {t("Hero.ctaSecondary")}
-              </Link>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                <Link
+                  href="/templates"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "13px 28px",
+                    background: "#000",
+                    color: "#fff",
+                    borderRadius: 100,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {t("Hero.cta")}
+                </Link>
+                <Link
+                  href="/about"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "12px 24px",
+                    background: "transparent",
+                    color: "#555",
+                    borderRadius: 100,
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    border: "1px solid #d8d8d8",
+                  }}
+                >
+                  {t("Hero.ctaSecondary")}
+                </Link>
+              </div>
+
+              {/* Social proof */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 36 }}>
+                <div style={{ display: "flex" }}>
+                  {["#d3e3fd", "#fde8d3", "#d3fde8", "#f5e1fd"].map((c, i) => (
+                    <div key={i} style={{
+                      width: 28, height: 28, borderRadius: "50%", background: c,
+                      border: "2px solid #fff", marginLeft: i > 0 ? -8 : 0,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 10, fontWeight: 700, color: "#484848",
+                    }}>
+                      {["S","M","J","A"][i]}
+                    </div>
+                  ))}
+                </div>
+                <span style={{ fontSize: 13, color: "#888" }}>
+                  <strong style={{ color: "#333", fontWeight: 600 }}>2,000+</strong> {t("Hero.socialProof")}
+                </span>
+              </div>
             </div>
 
-            {/* Social proof */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginTop: 40 }}>
-              <div style={{ display: "flex" }}>
-                {["#d3e3fd", "#fde8d3", "#d3fde8", "#f5e1fd"].map((c, i) => (
-                  <div key={i} style={{
-                    width: 28, height: 28, borderRadius: "50%", background: c,
-                    border: "2px solid #fff", marginLeft: i > 0 ? -8 : 0,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 10, fontWeight: 700, color: "#484848",
-                  }}>
-                    {["S","M","J","A"][i]}
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: 13, color: "#888" }}>
-                <strong style={{ color: "#333", fontWeight: 600 }}>2,000+</strong> {t("Hero.socialProof")}
-              </span>
+            {/* Right — Video */}
+            <div className="hidden md:block" style={{ flex: "0 0 auto" }}>
+              <video
+                src="/hero-video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  width: 480,
+                  maxWidth: "100%",
+                  borderRadius: 20,
+                  border: "1px solid #e8e8e8",
+                  display: "block",
+                  boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
+                }}
+              />
             </div>
           </div>
         </section>
