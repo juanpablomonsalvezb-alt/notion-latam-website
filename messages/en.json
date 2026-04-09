@@ -1,0 +1,62 @@
+{
+  "Nav": {
+    "apps": "Apps",
+    "templates": "Templates",
+    "blog": "Blog",
+    "signIn": "Sign In",
+    "createAccount": "Create a free account"
+  },
+  "Hero": {
+    "title": "Notion & Monday.com Templates",
+    "subtitle": "Discover 30+ templates to organize your company, saving you valuable time.",
+    "cta": "Shop Templates"
+  },
+  "SecondBrain": {
+    "title": "Second Brain",
+    "subtitle": "An all-in-one Notion system to organize your tasks, projects, goals, and notes.",
+    "cta": "Learn More"
+  },
+  "Finance": {
+    "title": "All-In-One Finance Dashboard",
+    "subtitle": "Bring your financials in one place to get the big picture.",
+    "cta": "Get Finance Tracker"
+  },
+  "Monday": {
+    "title": "Manage with Monday.com",
+    "subtitle": "Professional Monday.com templates for sales pipelines, sprints, and client onboarding.",
+    "cta": "View Monday Templates"
+  },
+  "Templates": {
+    "title": "Templates by Nebbuler",
+    "subtitle": "Get things done with templates designed with simplicity in mind.",
+    "cta": "View All",
+    "crm_name": "CRM & Sales",
+    "crm_desc": "Manage your leads and sales pipeline.",
+    "projects_name": "Projects",
+    "projects_desc": "Organize sprints and deliveries.",
+    "finance_name": "Finance",
+    "finance_desc": "Income, expenses and KPIs.",
+    "monday_name": "Monday",
+    "monday_desc": "Templates for Monday.com."
+  },
+  "Footer": {
+    "tagline": "Productivity meets minimalism.",
+    "pages": "Pages",
+    "templates": "Templates",
+    "monday": "Monday",
+    "company": "Company",
+    "apps": "Apps",
+    "blog": "Blog",
+    "crmVentas": "CRM Sales",
+    "finanzas": "Finance",
+    "proyectos": "Projects",
+    "allAccess": "All Access",
+    "pipelineVentas": "Sales Pipeline",
+    "sprintsAgiles": "Agile Sprints",
+    "verTodos": "View All",
+    "about": "About",
+    "updates": "Updates",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2024–2026 Nebbuler. All rights reserved."
+  }
+}

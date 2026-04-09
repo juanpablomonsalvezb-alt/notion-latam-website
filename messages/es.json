@@ -1,0 +1,62 @@
+{
+  "Nav": {
+    "apps": "Apps",
+    "templates": "Plantillas",
+    "blog": "Blog",
+    "signIn": "Iniciar sesión",
+    "createAccount": "Crear cuenta gratis"
+  },
+  "Hero": {
+    "title": "Plantillas para Notion & Monday.com",
+    "subtitle": "Descubre 30+ plantillas para organizar tu empresa y ahorrar tiempo valioso.",
+    "cta": "Ver Plantillas"
+  },
+  "SecondBrain": {
+    "title": "Segundo Cerebro",
+    "subtitle": "Un sistema Notion todo-en-uno para organizar tus tareas, proyectos, metas y notas.",
+    "cta": "Saber Más"
+  },
+  "Finance": {
+    "title": "Dashboard Financiero Completo",
+    "subtitle": "Centraliza tus finanzas en un solo lugar para tener la visión completa.",
+    "cta": "Ver Finance Tracker"
+  },
+  "Monday": {
+    "title": "Gestiona con Monday.com",
+    "subtitle": "Plantillas profesionales de Monday.com para pipeline de ventas, sprints y onboarding.",
+    "cta": "Ver Plantillas Monday"
+  },
+  "Templates": {
+    "title": "Plantillas por Nebbuler",
+    "subtitle": "Haz más con plantillas diseñadas con la simplicidad en mente.",
+    "cta": "Ver Todas",
+    "crm_name": "CRM & Ventas",
+    "crm_desc": "Gestiona tus leads y pipeline de ventas.",
+    "projects_name": "Proyectos",
+    "projects_desc": "Organiza sprints y entregas.",
+    "finance_name": "Finanzas",
+    "finance_desc": "Ingresos, gastos y KPIs.",
+    "monday_name": "Monday",
+    "monday_desc": "Plantillas para Monday.com."
+  },
+  "Footer": {
+    "tagline": "Productividad con minimalismo.",
+    "pages": "Páginas",
+    "templates": "Plantillas",
+    "monday": "Monday",
+    "company": "Empresa",
+    "apps": "Apps",
+    "blog": "Blog",
+    "crmVentas": "CRM Ventas",
+    "finanzas": "Finanzas",
+    "proyectos": "Proyectos",
+    "allAccess": "Acceso Total",
+    "pipelineVentas": "Pipeline Ventas",
+    "sprintsAgiles": "Sprints Ágiles",
+    "verTodos": "Ver Todos",
+    "about": "Sobre Nosotros",
+    "updates": "Actualizaciones",
+    "privacy": "Política de Privacidad",
+    "copyright": "© 2024–2026 Nebbuler. Todos los derechos reservados."
+  }
+}

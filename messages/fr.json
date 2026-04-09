@@ -1,0 +1,62 @@
+{
+  "Nav": {
+    "apps": "Apps",
+    "templates": "Modèles",
+    "blog": "Blog",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte gratuit"
+  },
+  "Hero": {
+    "title": "Modèles Notion & Monday.com",
+    "subtitle": "Découvrez 30+ modèles pour organiser votre entreprise et gagner un temps précieux.",
+    "cta": "Voir les Modèles"
+  },
+  "SecondBrain": {
+    "title": "Second Cerveau",
+    "subtitle": "Un système Notion tout-en-un pour organiser vos tâches, projets, objectifs et notes.",
+    "cta": "En Savoir Plus"
+  },
+  "Finance": {
+    "title": "Tableau de Bord Financier",
+    "subtitle": "Centralisez vos finances en un seul endroit pour avoir une vision globale.",
+    "cta": "Obtenir Finance Tracker"
+  },
+  "Monday": {
+    "title": "Gérez avec Monday.com",
+    "subtitle": "Modèles Monday.com professionnels pour pipeline de ventes, sprints et onboarding clients.",
+    "cta": "Voir les Modèles Monday"
+  },
+  "Templates": {
+    "title": "Modèles par Nebbuler",
+    "subtitle": "Accomplissez plus avec des modèles conçus avec la simplicité en tête.",
+    "cta": "Voir Tout",
+    "crm_name": "CRM & Ventes",
+    "crm_desc": "Gérez vos prospects et pipeline de ventes.",
+    "projects_name": "Projets",
+    "projects_desc": "Organisez sprints et livraisons.",
+    "finance_name": "Finances",
+    "finance_desc": "Revenus, dépenses et KPIs.",
+    "monday_name": "Monday",
+    "monday_desc": "Modèles pour Monday.com."
+  },
+  "Footer": {
+    "tagline": "La productivité rencontre le minimalisme.",
+    "pages": "Pages",
+    "templates": "Modèles",
+    "monday": "Monday",
+    "company": "Entreprise",
+    "apps": "Apps",
+    "blog": "Blog",
+    "crmVentas": "CRM Ventes",
+    "finanzas": "Finances",
+    "proyectos": "Projets",
+    "allAccess": "Accès Complet",
+    "pipelineVentas": "Pipeline Ventes",
+    "sprintsAgiles": "Sprints Agiles",
+    "verTodos": "Voir Tout",
+    "about": "À Propos",
+    "updates": "Mises à Jour",
+    "privacy": "Politique de Confidentialité",
+    "copyright": "© 2024–2026 Nebbuler. Tous droits réservés."
+  }
+}
