@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
   <!--
-    nebbuler — Sello · Claro / Tinta
-    Variant:   Light (default)
-    Colors:    Ink #0A0A0A on Cloud #FAFAF7
+    nebbuler — Sello · Oscuro / Nube
+    Variant:   Dark
+    Colors:    Cloud #FAFAF7 on Ink #0A0A0A
     Font:      Fraunces 500 · opsz 144 · SOFT 50 · size 744 (clipped)
     Version:   v2 · 2026
     NOTE:      Convert <text> → outlined paths before production export
@@ -17,7 +17,7 @@
   </defs>
 
   <!-- Background fill -->
-  <rect x="40" y="40" width="420" height="420" rx="64" fill="#FAFAF7"/>
+  <rect x="40" y="40" width="420" height="420" rx="64" fill="#0A0A0A"/>
 
   <!-- Letter n — tripled, clipped to square -->
   <text
@@ -27,11 +27,11 @@
     font-size="595"
     letter-spacing="-0.025em"
     text-anchor="middle"
-    fill="#0A0A0A"
+    fill="#FAFAF7"
     clip-path="url(#clip)"
     style="font-variation-settings:'opsz' 144,'SOFT' 50">n</text>
 
   <!-- Stroke outline (on top of letter) -->
   <rect x="40" y="40" width="420" height="420" rx="64"
-        stroke="#0A0A0A" stroke-width="12" fill="none"/>
+        stroke="#FAFAF7" stroke-width="12" fill="none"/>
 </svg>

@@ -116,16 +116,9 @@ export default async function Home({
           }}
         >
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
-            {/* Logo icon */}
+            {/* Logo icon — inlined so Fraunces renders correctly */}
             <div style={{ marginBottom: "clamp(28px,4vw,40px)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/nebbuler-icon.svg"
-                alt="nebbuler"
-                width={56}
-                height={63}
-                style={{ display: "block" }}
-              />
+              <NebbulerIcon size={56} />
             </div>
             <h1
               style={{
@@ -430,5 +423,45 @@ function ProductCard({
         </div>
       </div>
     </article>
+  );
+}
+
+/* ── Nebbuler isotipo — Sello v2 inlined ───────────────────────────────────── */
+function NebbulerIcon({ size = 56 }: { size?: number }) {
+  const id = `sello-clip-${size}`;
+  return (
+    <svg
+      viewBox="0 0 500 500"
+      width={size}
+      height={size}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="nebbuler"
+    >
+      <defs>
+        <clipPath id={id}>
+          <rect x="40" y="40" width="420" height="420" rx="64" />
+        </clipPath>
+      </defs>
+      {/* Background */}
+      <rect x="40" y="40" width="420" height="420" rx="64" fill="var(--bg-primary)" />
+      {/* n — oversized and clipped */}
+      <text
+        x="250" y="400"
+        fontFamily="'Fraunces', serif"
+        fontWeight="500"
+        fontSize="595"
+        letterSpacing="-0.025em"
+        textAnchor="middle"
+        fill="var(--fg-primary)"
+        clipPath={`url(#${id})`}
+        style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 50" }}
+      >
+        n
+      </text>
+      {/* Stroke border (on top) */}
+      <rect x="40" y="40" width="420" height="420" rx="64"
+        stroke="var(--fg-primary)" strokeWidth="12" fill="none" />
+    </svg>
   );
 }
