@@ -1,473 +1,423 @@
-import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
-import { templates } from "@/lib/templates";
-import { TemplateCard } from "@/components/TemplateCard";
-import { Newsletter } from "@/components/Newsletter";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
+import { getFeatured, Product } from "@/lib/catalog";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-/* ─── Testimonials ─────────────────────────────────────────────────────────── */
-const testimonials = [
-  {
-    quote: "Nebbuler templates transformed how I manage my entire life. The Second Brain alone is worth every penny.",
-    name: "Sarah Chen",
-    role: "Product Designer",
-    avatar: "#d3e3fd",
+/* ── Copy by locale ────────────────────────────────────────────────────────── */
+const copy = {
+  es: {
+    catalogLabel: "Plantillas",
+    aboutLabel: "Sobre Nebbuler",
+    headline: "Sistemas de trabajo en Notion, diseñados como objetos.",
+    byline: "Estudio de diseño · Plantillas para Notion · ES · EN · FR",
+    manifesto: [
+      "Una plantilla de Notion puede ser dos cosas: un archivo que se compra, se duplica y se olvida — o un objeto que se usa durante años porque alguien pensó en cada decisión. El estudio hace lo segundo.",
+      "Nebbuler diseña sistemas de trabajo en Notion con la misma atención con la que un estudio de arquitectura hace un plano, o un editor revisa un libro antes de imprimirlo. Menos como software, más como un mueble bien hecho.",
+      "El catálogo se construye alrededor de una arquitectura simple: tres niveles de oficio — Core, System, Atelier — aplicados a cinco audiencias. Cada producto existe en un lugar definido, no como un archivo más en el catálogo.",
+    ],
+    catalogHeading: "Catálogo",
+    studioNoteTitle: "Una nota desde el estudio",
+    studioNote:
+      "Nebbuler publica pocas cosas, y cuando las publica, las escribe, las piensa y las prueba hasta que se sienten terminadas. La mayoría de las plantillas de Notion del mercado fueron hechas en un fin de semana. El estudio tarda meses. Si encontrás algo útil acá, nos alegra. Si no, también está bien — hay muchas maneras de trabajar, y la nuestra no tiene que ser la tuya.",
+    journalLink: "El estudio publica notas sobre su proceso en el →",
+    journalLabel: "journal",
+    levelLabel: "Nivel",
+    buy: "Comprar",
+    priceUnit: "USD",
   },
-  {
-    quote: "I use the Freelance Dashboard daily. Keeps my clients, projects and invoices perfectly organised.",
-    name: "Marcos Díaz",
-    role: "Freelance Developer",
-    avatar: "#fde8d3",
+  en: {
+    catalogLabel: "Templates",
+    aboutLabel: "About",
+    headline: "Notion work systems, designed as objects.",
+    byline: "Design studio · Notion templates · ES · EN · FR",
+    manifesto: [
+      "Notion templates can be two things: a file you buy, duplicate once, and forget — or an object you use for years because someone thought about every decision. The studio makes the second kind.",
+      "Nebbuler designs work systems in Notion with the kind of attention an architecture studio brings to a floor plan, or an editor brings to a book before it goes to print. Less like software. More like a well-made piece of furniture.",
+      "The catalog is built around a simple architecture: three levels of craft — Core, System, Atelier — applied to five audiences. Each product exists in a defined place, not as one more file in the catalog.",
+    ],
+    catalogHeading: "Catalog",
+    studioNoteTitle: "A note from the studio",
+    studioNote:
+      "Nebbuler publishes few things, and when it does, they are written, considered, and tested until they feel finished. Most Notion templates on the market were made in a weekend. The studio takes months. If you find something useful here, we're glad. If not, that's fine — there are many ways to work, and ours doesn't have to be yours.",
+    journalLink: "The studio publishes notes about its process in the →",
+    journalLabel: "journal",
+    levelLabel: "Level",
+    buy: "Buy",
+    priceUnit: "USD",
   },
-  {
-    quote: "The Finance Tracker gave me a real picture of my money for the first time. Beautifully simple.",
-    name: "Julie Moreau",
-    role: "UX Researcher",
-    avatar: "#d3fde8",
+  fr: {
+    catalogLabel: "Modèles",
+    aboutLabel: "À propos",
+    headline: "Des systèmes de travail Notion, conçus comme des objets.",
+    byline: "Studio de design · Modèles Notion · ES · EN · FR",
+    manifesto: [
+      "Un modèle Notion peut être deux choses : un fichier qu'on achète, qu'on duplique et qu'on oublie — ou un objet qu'on utilise pendant des années parce que quelqu'un a pensé à chaque décision. Le studio fait la seconde.",
+      "Nebbuler conçoit des systèmes de travail dans Notion avec l'attention qu'un cabinet d'architecture accorde à un plan, ou qu'un éditeur accorde à un livre avant l'impression. Moins comme un logiciel. Plutôt comme un meuble bien fait.",
+      "Le catalogue s'organise autour d'une architecture simple : trois niveaux de métier — Core, System, Atelier — appliqués à cinq publics. Chaque produit existe à une place définie, pas comme un fichier de plus dans le catalogue.",
+    ],
+    catalogHeading: "Catalogue",
+    studioNoteTitle: "Une note du studio",
+    studioNote:
+      "Nebbuler publie peu de choses, et quand il le fait, elles sont écrites, réfléchies et testées jusqu'à sembler finies. La plupart des modèles Notion sur le marché ont été faits en un week-end. Le studio prend des mois. Si vous trouvez quelque chose d'utile ici, nous en sommes heureux. Sinon, ce n'est pas grave — il existe beaucoup de manières de travailler, et la nôtre n'a pas à être la vôtre.",
+    journalLink: "Le studio publie des notes sur son processus dans le →",
+    journalLabel: "journal",
+    levelLabel: "Niveau",
+    buy: "Acheter",
+    priceUnit: "USD",
   },
-];
+} as const;
 
-/* ─── Page ─────────────────────────────────────────────────────────────────── */
+type Locale = keyof typeof copy;
+
+/* ── Product subtitle by locale ─────────────────────────────────────────────── */
+function subtitle(p: Product, locale: Locale): string {
+  if (locale === "es") return p.subtitleES;
+  if (locale === "fr") return p.subtitleFR;
+  return p.subtitleEN;
+}
+
+/* ── Price formatter ─────────────────────────────────────────────────────────── */
+function formatPrice(price: number, locale: string): string {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+
+/* ── Page ─────────────────────────────────────────────────────────────────── */
 export default async function Home({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale });
+  const l = (locale as Locale) in copy ? (locale as Locale) : "en";
+  const c = copy[l];
+  const featured = getFeatured();
 
   return (
     <>
-      <Navbar
-        templatesLabel={t("Nav.templates")}
-        blogLabel={t("Nav.blog")}
-        aboutLabel={t("Nav.about")}
-        browseLabel={t("Nav.browse")}
-      />
+      <Navbar catalogLabel={c.catalogLabel} aboutLabel={c.aboutLabel} />
 
       <main>
-        {/* ── HERO ──────────────────────────────────────────────────────────── */}
-        <section style={{ background: "#ffffff", padding: "100px 24px 80px", borderBottom: "1px solid #e8e8e8", overflow: "hidden" }}>
-          <div style={{
-            maxWidth: 1100,
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            gap: 64,
-            justifyContent: "space-between",
-          }}>
-            {/* Left — Text */}
-            <div style={{ flex: "0 0 auto", maxWidth: 520 }}>
-              <h1 style={{
-                fontSize: "clamp(2.6rem, 5vw, 4rem)",
-                fontWeight: 700,
-                color: "#000",
-                lineHeight: 1.05,
-                letterSpacing: "-0.04em",
-                marginBottom: 20,
-              }}>
-                {t("Hero.title")}
-              </h1>
-
-              <p style={{
-                fontSize: 18,
-                color: "#666",
-                lineHeight: 1.7,
-                marginBottom: 36,
-                maxWidth: 440,
-              }}>
-                {t("Hero.subtitle")}
-              </p>
-
-              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                <Link
-                  href="/templates"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "13px 28px",
-                    background: "#000",
-                    color: "#fff",
-                    borderRadius: 100,
-                    fontSize: 15,
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {t("Hero.cta")}
-                </Link>
-                <Link
-                  href="/about"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "12px 24px",
-                    background: "transparent",
-                    color: "#555",
-                    borderRadius: 100,
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    border: "1px solid #d8d8d8",
-                  }}
-                >
-                  {t("Hero.ctaSecondary")}
-                </Link>
-              </div>
-
-              {/* Social proof */}
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 36 }}>
-                <div style={{ display: "flex" }}>
-                  {["#d3e3fd", "#fde8d3", "#d3fde8", "#f5e1fd"].map((c, i) => (
-                    <div key={i} style={{
-                      width: 28, height: 28, borderRadius: "50%", background: c,
-                      border: "2px solid #fff", marginLeft: i > 0 ? -8 : 0,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: 10, fontWeight: 700, color: "#484848",
-                    }}>
-                      {["S","M","J","A"][i]}
-                    </div>
-                  ))}
-                </div>
-                <span style={{ fontSize: 13, color: "#888" }}>
-                  <strong style={{ color: "#333", fontWeight: 600 }}>2,000+</strong> {t("Hero.socialProof")}
-                </span>
-              </div>
-            </div>
-
-            {/* Right — Video */}
-            <div className="hidden md:block" style={{ flex: "0 0 auto" }}>
-              <video
-                src="/hero-video.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  width: 480,
-                  maxWidth: "100%",
-                  display: "block",
-                }}
-              />
-            </div>
+        {/* ── SECTION 1: Editorial opening ──────────────────────────────── */}
+        <section
+          style={{
+            padding:
+              "clamp(80px,12vw,140px) clamp(1.25rem,5vw,4rem) clamp(64px,10vw,112px)",
+          }}
+        >
+          <div style={{ maxWidth: 860, margin: "0 auto" }}>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 500,
+                fontSize: "clamp(2.25rem,5.5vw,3.75rem)",
+                color: "var(--fg-primary)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.08,
+                fontVariationSettings: "'opsz' 144, 'SOFT' 50",
+                textWrap: "balance",
+                marginBottom: "clamp(20px,3vw,28px)",
+              }}
+            >
+              {c.headline}
+            </h1>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 13,
+                color: "var(--fg-secondary)",
+                letterSpacing: "0.01em",
+                lineHeight: 1.5,
+              }}
+            >
+              {c.byline}
+            </p>
           </div>
         </section>
 
-        {/* ── NOTION TEMPLATES (featured grid) ──────────────────────────── */}
-        <section style={{ background: "#ffffff", padding: "80px 24px" }}>
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 40, flexWrap: "wrap", gap: 16 }}>
-              <div>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "#aaa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 }}>
-                  {t("FeaturedTemplates.label")}
-                </p>
-                <h2 style={{
-                  fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                  fontWeight: 700,
-                  color: "#000",
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1.1,
-                }}>
-                  {t("FeaturedTemplates.title")}
-                </h2>
-              </div>
-              <Link
-                href="/templates"
+        {/* ── SECTION 2: Manifesto excerpt ──────────────────────────────── */}
+        <section
+          style={{
+            padding:
+              "0 clamp(1.25rem,5vw,4rem) clamp(72px,10vw,104px)",
+            borderBottom: "1px solid var(--border)",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 600,
+              margin: "0 auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: 22,
+            }}
+          >
+            {c.manifesto.map((para, i) => (
+              <p
+                key={i}
                 style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: "#555",
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  border: "1px solid #e0e0e0",
-                  padding: "7px 16px",
-                  borderRadius: 100,
+                  fontFamily: "var(--font-body)",
+                  fontSize: "clamp(15px,2.2vw,17px)",
+                  color: i === 0 ? "var(--fg-primary)" : "var(--fg-secondary)",
+                  lineHeight: 1.65,
+                  fontWeight: i === 0 ? 400 : 400,
                 }}
               >
-                {t("FeaturedTemplates.viewAll")} →
-              </Link>
-            </div>
+                {para}
+              </p>
+            ))}
+          </div>
+        </section>
 
+        {/* ── SECTION 3: Catalog featured ───────────────────────────────── */}
+        <section
+          style={{
+            padding:
+              "clamp(64px,10vw,104px) clamp(1.25rem,5vw,4rem)",
+          }}
+        >
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            {/* Section label */}
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 500,
+                color: "var(--fg-secondary)",
+                letterSpacing: "0.09em",
+                textTransform: "uppercase",
+                marginBottom: 40,
+              }}
+            >
+              {c.catalogHeading}
+            </p>
+
+            {/* 2-column grid */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 20,
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "clamp(24px,4vw,48px)",
               }}
-              className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid-cols-1 md:grid-cols-2"
             >
-              {templates.map((template, i) => (
-                <TemplateCard key={template.slug} template={template} index={i} />
+              {featured.map((product) => (
+                <ProductCard
+                  key={product.slug}
+                  product={product}
+                  locale={l}
+                  subtitleText={subtitle(product, l)}
+                  levelLabel={c.levelLabel}
+                  buyLabel={c.buy}
+                  price={formatPrice(product.price, locale)}
+                />
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── SECOND BRAIN ──────────────────────────────────────────────── */}
-        <section style={{ background: "#ffffff", padding: "0 24px 80px" }}>
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
-              <div
-                style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}
-                className="grid-cols-1 md:grid-cols-2"
-              >
-                {/* Text */}
-                <div>
-                  <p style={{ fontSize: 11, fontWeight: 700, color: "#aaa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
-                    {t("Flagship.label")}
-                  </p>
-                  <h2 style={{
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                    fontWeight: 700,
-                    color: "#000",
-                    letterSpacing: "-0.035em",
-                    lineHeight: 1.1,
-                    marginBottom: 16,
-                  }}>
-                    {t("Flagship.title1")} {t("Flagship.title2")}
-                  </h2>
-                  <p style={{ fontSize: 16, color: "#666", lineHeight: 1.7, marginBottom: 32 }}>
-                    {t("Flagship.subtitle")}
-                  </p>
-
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
-                    {[t("Flagship.f1"), t("Flagship.f2"), t("Flagship.f3"), t("Flagship.f4")].map((feat, i) => (
-                      <span key={i} style={{
-                        fontSize: 12, fontWeight: 500, color: "#555",
-                        background: "#f5f5f5", borderRadius: 100,
-                        padding: "4px 12px", display: "inline-flex", alignItems: "center", gap: 5,
-                      }}>
-                        <span style={{ color: "#16a34a", fontSize: 11 }}>✓</span> {feat}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-                    <Link
-                      href="/templates/second-brain"
-                      style={{
-                        padding: "13px 28px",
-                        background: "#000",
-                        color: "#fff",
-                        borderRadius: 100,
-                        fontSize: 14,
-                        fontWeight: 600,
-                        textDecoration: "none",
-                      }}
-                    >
-                      {t("Flagship.cta")}
-                    </Link>
-                    <div>
-                      <div style={{ fontSize: 22, fontWeight: 700, color: "#000", letterSpacing: "-0.03em", lineHeight: 1 }}>$49</div>
-                      <div style={{ fontSize: 11, color: "#aaa" }}>{t("Flagship.oneTime")}</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mockup */}
-                <div style={{
-                  background: "#f9f9f9",
-                  border: "1px solid #e8e8e8",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  aspectRatio: "4/3",
-                }}>
-                  <div style={{ padding: "20px 24px", borderBottom: "1px solid #e8e8e8", display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ display: "flex", gap: 5 }}>
-                      {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
-                    </div>
-                    <div style={{ flex: 1, height: 7, background: "#e8e8e8", borderRadius: 100 }} />
-                  </div>
-                  <div style={{ padding: "20px 24px" }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#111", marginBottom: 14 }}>🧠 Second Brain</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
-                      {[["Inbox", "#e0f2fe", "12"], ["Projects", "#fef9c3", "5"], ["Areas", "#dcfce7", "8"], ["Resources", "#fce7f3", "34"]].map(([label, bg, count]) => (
-                        <div key={label} style={{ background: bg as string, borderRadius: 8, padding: "10px 12px" }}>
-                          <div style={{ fontSize: 11, color: "#555", marginBottom: 2 }}>{label}</div>
-                          <div style={{ fontSize: 16, fontWeight: 700, color: "#111" }}>{count}</div>
-                        </div>
-                      ))}
-                    </div>
-                    {[70, 50, 85, 40].map((w, i) => (
-                      <div key={i} style={{ height: 6, background: "#e8e8e8", borderRadius: 3, marginBottom: 6, width: `${w}%` }} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── FINANCE TRACKER ───────────────────────────────────────────── */}
-        <section style={{ background: "#ffffff", padding: "0 24px 80px" }}>
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
-              <div
-                style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}
-                className="grid-cols-1 md:grid-cols-2"
-              >
-                {/* Mockup first on desktop */}
-                <div style={{
-                  background: "#f9f9f9",
-                  border: "1px solid #e8e8e8",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  aspectRatio: "4/3",
-                  order: 0,
+        {/* ── SECTION 4: Studio note ────────────────────────────────────── */}
+        <section
+          style={{
+            padding:
+              "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
+            borderTop: "1px solid var(--border)",
+          }}
+        >
+          <div style={{ maxWidth: 560, margin: "0 auto" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 500,
+                fontSize: "clamp(13px,2vw,15px)",
+                color: "var(--fg-secondary)",
+                letterSpacing: "-0.005em",
+                fontVariationSettings: "'opsz' 72, 'SOFT' 50",
+                marginBottom: 18,
+                fontStyle: "italic",
+              }}
+            >
+              {c.studioNoteTitle}
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "clamp(14px,2vw,16px)",
+                color: "var(--fg-secondary)",
+                lineHeight: 1.68,
+                marginBottom: 20,
+              }}
+            >
+              {c.studioNote}
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                color: "var(--fg-secondary)",
+                lineHeight: 1.5,
+              }}
+            >
+              {c.journalLink}{" "}
+              <Link
+                href="/journal"
+                style={{
+                  color: "var(--fg-primary)",
+                  borderBottom: "1px solid var(--border)",
+                  paddingBottom: 1,
                 }}
-                className="order-2 md:order-1"
-                >
-                  <div style={{ padding: "20px 24px", borderBottom: "1px solid #e8e8e8", display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ display: "flex", gap: 5 }}>
-                      {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
-                    </div>
-                    <div style={{ flex: 1, height: 7, background: "#e8e8e8", borderRadius: 100 }} />
-                  </div>
-                  <div style={{ padding: "20px 24px" }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#111", marginBottom: 14 }}>💰 Finance Tracker</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 14 }}>
-                      {[["Income","#dcfce7","$4,200"],["Expenses","#fee2e2","$1,890"],["Saved","#dbeafe","$2,310"]].map(([l, bg, v]) => (
-                        <div key={l} style={{ background: bg as string, borderRadius: 8, padding: "8px 10px" }}>
-                          <div style={{ fontSize: 9, color: "#555" }}>{l}</div>
-                          <div style={{ fontSize: 13, fontWeight: 700, color: "#111" }}>{v}</div>
-                        </div>
-                      ))}
-                    </div>
-                    {[["Groceries","−$320","#fee2e2"],["Salary","+$4,200","#dcfce7"],["Rent","−$800","#fee2e2"],["Freelance","+$600","#dcfce7"]].map(([label, val, bg]) => (
-                      <div key={label} style={{ display: "flex", justifyContent: "space-between", fontSize: 10, padding: "4px 0", borderBottom: "1px solid #f0f0f0" }}>
-                        <span style={{ color: "#555" }}>{label}</span>
-                        <span style={{ background: bg as string, borderRadius: 3, padding: "1px 6px", fontWeight: 600 }}>{val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Text */}
-                <div className="order-1 md:order-2">
-                  <p style={{ fontSize: 11, fontWeight: 700, color: "#aaa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
-                    {t("Finance.title")}
-                  </p>
-                  <h2 style={{
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                    fontWeight: 700,
-                    color: "#000",
-                    letterSpacing: "-0.035em",
-                    lineHeight: 1.1,
-                    marginBottom: 16,
-                  }}>
-                    {t("Finance.subtitle")}
-                  </h2>
-                  <p style={{ fontSize: 16, color: "#666", lineHeight: 1.7, marginBottom: 32 }}>
-                    Track income, expenses and savings in one clean Notion workspace. Visual dashboards, monthly reports, net worth tracking.
-                  </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-                    <Link
-                      href="/templates/finance-tracker"
-                      style={{
-                        padding: "13px 28px",
-                        background: "#000",
-                        color: "#fff",
-                        borderRadius: 100,
-                        fontSize: 14,
-                        fontWeight: 600,
-                        textDecoration: "none",
-                      }}
-                    >
-                      {t("Finance.cta")}
-                    </Link>
-                    <div>
-                      <div style={{ fontSize: 22, fontWeight: 700, color: "#000", letterSpacing: "-0.03em", lineHeight: 1 }}>$19</div>
-                      <div style={{ fontSize: 11, color: "#aaa" }}>{t("Flagship.oneTime")}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
-        <section style={{ background: "#ffffff", padding: "0 24px 80px" }}>
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: 80 }}>
-              <div style={{ textAlign: "center", marginBottom: 48 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "#aaa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>
-                  {t("Testimonials.label")}
-                </p>
-                <h2 style={{
-                  fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                  fontWeight: 700,
-                  color: "#000",
-                  letterSpacing: "-0.03em",
-                }}>
-                  {t("Testimonials.title")}
-                </h2>
-              </div>
-
-              <div
-                style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}
-                className="grid-cols-1 md:grid-cols-3"
               >
-                {testimonials.map((item, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: "#ffffff",
-                      border: "1px solid #e8e8e8",
-                      borderRadius: 12,
-                      padding: "24px",
-                    }}
-                  >
-                    <div style={{ display: "flex", gap: 2, marginBottom: 14 }}>
-                      {[...Array(5)].map((_, j) => (
-                        <span key={j} style={{ fontSize: 12, color: "#f59e0b" }}>★</span>
-                      ))}
-                    </div>
-                    <p style={{ fontSize: 14, color: "#444", lineHeight: 1.7, marginBottom: 18, fontStyle: "italic" }}>
-                      &ldquo;{item.quote}&rdquo;
-                    </p>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{
-                        width: 32, height: 32, borderRadius: "50%",
-                        background: item.avatar,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 12, fontWeight: 700, color: "#484848",
-                      }}>
-                        {item.name[0]}
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: "#111" }}>{item.name}</div>
-                        <div style={{ fontSize: 12, color: "#999" }}>{item.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                {c.journalLabel}
+              </Link>
+              .
+            </p>
           </div>
         </section>
-
-        {/* ── NEWSLETTER ────────────────────────────────────────────────── */}
-        <Newsletter
-          title={t("Newsletter.title")}
-          subtitle={t("Newsletter.subtitle")}
-          placeholder={t("Newsletter.placeholder")}
-          buttonText={t("Newsletter.button")}
-        />
       </main>
 
       <Footer locale={locale} />
     </>
+  );
+}
+
+/* ── Product Card ──────────────────────────────────────────────────────────── */
+function ProductCard({
+  product,
+  subtitleText,
+  levelLabel,
+  buyLabel,
+  price,
+  locale,
+}: {
+  product: Product;
+  subtitleText: string;
+  levelLabel: string;
+  buyLabel: string;
+  price: string;
+  locale: Locale;
+}) {
+  const levelColor: Record<string, string> = {
+    Core:    "#6B7F3F",
+    System:  "#1C2B4A",
+    Atelier: "#6B1F1F",
+  };
+
+  const color = levelColor[product.level] ?? "var(--fg-secondary)";
+
+  return (
+    <article
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 0,
+      }}
+    >
+      {/* Screenshot carousel */}
+      <div style={{ marginBottom: 20 }}>
+        <ScreenshotCarousel
+          slug={product.slug}
+          count={product.screenshots}
+          alt={product.name}
+          autoPlay
+          interval={4000}
+        />
+      </div>
+
+      {/* Card meta */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {/* Level badge */}
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: 10,
+            fontWeight: 500,
+            color,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}
+        >
+          {levelLabel}: {product.level}
+        </span>
+
+        {/* Name + price row */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            gap: 12,
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 500,
+              fontSize: "clamp(18px,2.5vw,22px)",
+              color: "var(--fg-primary)",
+              letterSpacing: "-0.02em",
+              fontVariationSettings: "'opsz' 72, 'SOFT' 50",
+              lineHeight: 1.1,
+            }}
+          >
+            {product.name}
+          </h2>
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "clamp(16px,2vw,18px)",
+              color: "var(--fg-primary)",
+              fontVariantNumeric: "tabular-nums",
+              flexShrink: 0,
+            }}
+          >
+            {price}
+          </span>
+        </div>
+
+        {/* Subtitle */}
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: 14,
+            color: "var(--fg-secondary)",
+            lineHeight: 1.55,
+          }}
+        >
+          {subtitleText}
+        </p>
+
+        {/* CTA */}
+        <div style={{ marginTop: 4 }}>
+          <a
+            href={product.buyUrl}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "8px 18px",
+              background: "var(--fg-primary)",
+              color: "var(--bg-elevated)",
+              borderRadius: 100,
+              fontSize: 13,
+              fontFamily: "var(--font-body)",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+            }}
+          >
+            {buyLabel}
+          </a>
+        </div>
+      </div>
+    </article>
   );
 }
