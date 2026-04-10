@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Review — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .nebbuler-widget { gap: 0; }
+    .countdown {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--secondary);
+      letter-spacing: 0.01em;
+    }
+    .countdown.today {
+      color: var(--fg);
+      font-weight: 400;
+    }
+    .prompt {
+      font-family: var(--font-body);
+      font-size: clamp(15px, 3.5vw, 18px);
+      color: var(--fg);
+      margin-top: 12px;
+      text-align: center;
+      line-height: 1.5;
+      max-width: 280px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget review">
+    <div class="countdown" id="countdown">—</div>
+    <div class="prompt" id="prompt">—</div>
+  </div>
+  <script>
+    const PROMPTS = [
+      "What worked this week?",
+      "What didn't work?",
+      "What will you adjust next week?",
+      "What's the one thing you'd carry forward?"
+    ];
+
+    const DAY_NAMES = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    const params = new URLSearchParams(window.location.search);
+    const reviewDayName = (params.get('day') || 'sunday').toLowerCase();
+    const reviewDayIdx = DAY_NAMES.indexOf(reviewDayName) !== -1 ? DAY_NAMES.indexOf(reviewDayName) : 0;
+
+    function update() {
+      const now = new Date();
+      const today = now.getDay(); // 0=Sun
+
+      // days until review day
+      let daysUntil = (reviewDayIdx - today + 7) % 7;
+
+      const countdownEl = document.getElementById('countdown');
+      const promptEl = document.getElementById('prompt');
+
+      if (daysUntil === 0) {
+        countdownEl.textContent = 'Today is review day';
+        countdownEl.classList.add('today');
+        promptEl.textContent = PROMPTS[0];
+      } else {
+        const label = reviewDayName.charAt(0).toUpperCase() + reviewDayName.slice(1);
+        countdownEl.textContent = daysUntil === 1
+          ? `1 day until ${label} review`
+          : `${daysUntil} days until ${label} review`;
+        countdownEl.classList.remove('today');
+        // rotate prompt based on week number
+        const d = new Date();
+        const weekNum = Math.ceil(((d - new Date(d.getFullYear(), 0, 1)) / 86400000 + 1) / 7);
+        promptEl.textContent = PROMPTS[weekNum % PROMPTS.length];
+      }
+    }
+
+    update();
+    const now = new Date();
+    const msToMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+    setTimeout(() => { update(); setInterval(update, 86400000); }, msToMidnight);
+  </script>
+</body>
+</html>

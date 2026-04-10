@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .state {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .timer {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 15vw, 84px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--fg);
+      font-optical-sizing: auto;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .toggle {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--fg);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      cursor: pointer;
+      border-radius: 2px;
+      letter-spacing: 0.02em;
+      transition: border-color 0.15s;
+    }
+    .toggle:hover { border-color: var(--secondary); }
+    .reset {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--secondary);
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+    .reset:hover { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget pomodoro">
+    <div class="state" id="state">working</div>
+    <div class="timer" id="timer">25:00</div>
+    <div class="controls">
+      <button class="toggle" id="toggle" onclick="toggleTimer()">start</button>
+      <a class="reset" onclick="resetTimer()">reset</a>
+    </div>
+  </div>
+  <script>
+    const WORK = 25 * 60;
+    const BREAK = 5 * 60;
+    let remaining = WORK;
+    let isBreak = false;
+    let running = false;
+    let interval = null;
+
+    function fmt(s) {
+      return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+    }
+
+    function render() {
+      document.getElementById('timer').textContent = fmt(remaining);
+      document.getElementById('state').textContent = isBreak ? 'break' : 'working';
+      document.getElementById('toggle').textContent = running ? 'pause' : 'start';
+    }
+
+    function tick() {
+      if (remaining > 0) {
+        remaining--;
+        render();
+      } else {
+        clearInterval(interval);
+        running = false;
+        isBreak = !isBreak;
+        remaining = isBreak ? BREAK : WORK;
+        render();
+      }
+    }
+
+    function toggleTimer() {
+      if (running) {
+        clearInterval(interval);
+        running = false;
+      } else {
+        interval = setInterval(tick, 1000);
+        running = true;
+      }
+      render();
+    }
+
+    function resetTimer() {
+      clearInterval(interval);
+      running = false;
+      isBreak = false;
+      remaining = WORK;
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Progress — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .nebbuler-widget { gap: 10px; }
+    .row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 320px;
+      gap: 10px;
+    }
+    .label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--secondary);
+      white-space: nowrap;
+      min-width: 48px;
+    }
+    .label-end { text-align: right; }
+    .bar-wrap {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      position: relative;
+    }
+    .fill {
+      height: 100%;
+      background: var(--fg);
+      border-radius: 1px;
+      transition: width 0.3s ease;
+    }
+    .marker {
+      position: absolute;
+      top: -3px;
+      width: 2px;
+      height: 8px;
+      background: var(--fg);
+      transform: translateX(-50%);
+      border-radius: 1px;
+    }
+    .percent {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--secondary);
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget progress">
+    <div class="row">
+      <span class="label">Monday</span>
+      <div class="bar-wrap">
+        <div class="fill" id="fill"></div>
+        <div class="marker" id="marker"></div>
+      </div>
+      <span class="label label-end">Sunday</span>
+    </div>
+    <div class="percent" id="percent">—</div>
+  </div>
+  <script>
+    function update() {
+      const now = new Date();
+      // JS: 0=Sun, 1=Mon ... 6=Sat. Remap to Mon=0 .. Sun=6
+      const jsDay = now.getDay();
+      const day = jsDay === 0 ? 6 : jsDay - 1; // 0=Mon, 6=Sun
+      const secondsInDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+      const totalSeconds = 7 * 24 * 3600;
+      const elapsed = day * 24 * 3600 + secondsInDay;
+      const pct = Math.min(100, Math.round((elapsed / totalSeconds) * 100));
+
+      document.getElementById('fill').style.width = pct + '%';
+      document.getElementById('marker').style.left = pct + '%';
+      document.getElementById('percent').textContent = pct + '% of week elapsed';
+    }
+
+    update();
+    setInterval(update, 3600000); // hourly
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiet Quote — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .nebbuler-widget { gap: 0; padding: 32px 28px; max-width: 480px; margin: 0 auto; }
+    .text {
+      font-family: var(--font-body);
+      font-size: clamp(14px, 3vw, 16px);
+      font-style: italic;
+      color: var(--fg);
+      line-height: 1.65;
+      text-align: center;
+    }
+    .attribution {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--secondary);
+      margin-top: 14px;
+      letter-spacing: 0.01em;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget quote">
+    <div class="text" id="text"></div>
+    <div class="attribution" id="attribution"></div>
+  </div>
+  <script>
+    // 52 quotes — one per week of the year
+    // Curated from writers, architects, designers, craftspeople, thinkers
+    const QUOTES = [
+      { t: "The details are not the details. They make the design.", a: "Charles Eames" },
+      { t: "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.", a: "Antoine de Saint-Exupéry" },
+      { t: "Have nothing in your houses that you do not know to be useful, or believe to be beautiful.", a: "William Morris" },
+      { t: "Less, but better.", a: "Dieter Rams" },
+      { t: "Architecture is the thoughtful making of space.", a: "Louis Kahn" },
+      { t: "It is not what you look at that matters, it's what you see.", a: "Henry David Thoreau" },
+      { t: "Attention is the rarest and purest form of generosity.", a: "Simone Weil" },
+      { t: "Good design is as little design as possible.", a: "Dieter Rams" },
+      { t: "The most important thing about a technology is how it changes people.", a: "Jaron Lanier" },
+      { t: "Simplicity is the ultimate sophistication.", a: "Leonardo da Vinci" },
+      { t: "To see things as they are is the greatest skill.", a: "José Ortega y Gasset" },
+      { t: "Order is not pressure which is imposed on society from without, but an equilibrium which is set up from within.", a: "José Ortega y Gasset" },
+      { t: "The object of art is not to reproduce reality, but to create a reality of the same intensity.", a: "Alberto Giacometti" },
+      { t: "What we see, we do not observe. What we observe, we do not understand.", a: "Johann Wolfgang von Goethe" },
+      { t: "The most courageous act is still to think for yourself. Aloud.", a: "Coco Chanel" },
+      { t: "Brevity is the sister of talent.", a: "Anton Chekhov" },
+      { t: "One must always work, and a self-respecting artist must not fold his hands on the pretext that he is not in the mood.", a: "Pyotr Ilyich Tchaikovsky" },
+      { t: "The art of writing is the art of discovering what you believe.", a: "Gustave Flaubert" },
+      { t: "The only way to do great work is to love what you do. But more than that: to know what you are doing.", a: "Rainer Maria Rilke" },
+      { t: "Talent is a long patience.", a: "Gustave Flaubert" },
+      { t: "To write well, express yourself like the common people, but think like a wise man.", a: "Aristotle" },
+      { t: "A book must be the axe for the frozen sea within us.", a: "Franz Kafka" },
+      { t: "You cannot teach a man anything; you can only help him find it within himself.", a: "Galileo Galilei" },
+      { t: "An essential aspect of creativity is not being afraid to fail.", a: "Edwin Land" },
+      { t: "The function of good software is to make the complex appear to be simple.", a: "Grady Booch" },
+      { t: "Design is not just what it looks like and feels like. Design is how it works.", a: "Charles Eames" },
+      { t: "The greater danger for most of us lies not in setting our aim too high and falling short; but in setting our aim too low, and achieving our mark.", a: "Michelangelo" },
+      { t: "Every object tells a story if you know how to read it.", a: "Henry Ford" },
+      { t: "True simplicity is, free from affectation, and adorning nature; not using ornament to make amends for form.", a: "Shaker Principle" },
+      { t: "The sculptor produces the beautiful statue by chipping away such parts of the marble block as are not needed.", a: "Plotinus" },
+      { t: "To know what you know and what you do not know, that is true knowledge.", a: "Confucius" },
+      { t: "Light is the protagonist of architecture.", a: "Tadao Ando" },
+      { t: "The work of the individual still remains the spark that moves mankind ahead even more than teamwork.", a: "Igor Sikorsky" },
+      { t: "Every tool is a weapon if you hold it right.", a: "Ani DiFranco" },
+      { t: "The most regretted things in life are the things not done, not the things done.", a: "Mark Twain" },
+      { t: "Clarity is the counterbalance of profound thoughts.", a: "Luc de Clapiers" },
+      { t: "If I had eight hours to chop down a tree, I'd spend six sharpening my axe.", a: "Abraham Lincoln" },
+      { t: "Nothing is less real than realism.", a: "Georgia O'Keeffe" },
+      { t: "The more constraints one imposes, the more one frees one's self.", a: "Igor Stravinsky" },
+      { t: "All architecture is shelter, all great architecture is the design of space that contains, cuddles, exalts, or stimulates the persons in that space.", a: "Philip Johnson" },
+      { t: "Form ever follows function.", a: "Louis Sullivan" },
+      { t: "The ability to simplify means to eliminate the unnecessary so that the necessary may speak.", a: "Hans Hofmann" },
+      { t: "Content precedes design. Design in the absence of content is not design, it's decoration.", a: "Jeffrey Zeldman" },
+      { t: "Creativity is allowing yourself to make mistakes. Design is knowing which ones to keep.", a: "Scott Adams" },
+      { t: "Empty your mind, be formless, shapeless — like water.", a: "Bruce Lee" },
+      { t: "Be regular and orderly in your life, so that you may be violent and original in your work.", a: "Gustave Flaubert" },
+      { t: "The writer's job is to notice things other people don't notice.", a: "Joan Didion" },
+      { t: "First, solve the problem. Then, write the code.", a: "John Johnson" },
+      { t: "The role of the designer is that of a good host anticipating the needs of guests.", a: "Charles Eames" },
+      { t: "Silence is not the absence of sound but the presence of attention.", a: "Mark Strand" },
+      { t: "Measure twice, cut once.", a: "Carpenter's proverb" },
+      { t: "The best way to predict the future is to design it.", a: "Buckminster Fuller" },
+    ];
+
+    function getWeekNumber(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    const week = getWeekNumber(new Date());
+    const q = QUOTES[(week - 1) % QUOTES.length];
+    document.getElementById('text').textContent = '\u201c' + q.t + '\u201d';
+    document.getElementById('attribution').textContent = '\u2014 ' + q.a;
+  </script>
+</body>
+</html>

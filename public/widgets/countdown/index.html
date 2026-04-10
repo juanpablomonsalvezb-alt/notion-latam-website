@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .days {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 16vw, 96px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--fg);
+      font-optical-sizing: auto;
+    }
+    .label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--secondary);
+      margin-top: 10px;
+      text-align: center;
+      max-width: 240px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget countdown">
+    <div class="days" id="days">—</div>
+    <div class="label" id="label">days remaining</div>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const targetStr = params.get('target');
+    const labelStr = params.get('label') || 'deadline';
+
+    function update() {
+      if (!targetStr) {
+        document.getElementById('days').textContent = '?';
+        document.getElementById('label').textContent = 'add ?target=YYYY-MM-DD to the URL';
+        return;
+      }
+      const target = new Date(targetStr);
+      target.setHours(0, 0, 0, 0);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      const diff = Math.round((target - now) / 86400000);
+
+      if (diff === 0) {
+        document.getElementById('days').textContent = 'today';
+        document.getElementById('label').textContent = labelStr;
+      } else if (diff < 0) {
+        document.getElementById('days').textContent = Math.abs(diff);
+        document.getElementById('label').textContent = `days since ${labelStr}`;
+      } else {
+        document.getElementById('days').textContent = diff;
+        document.getElementById('label').textContent = `days until ${labelStr}`;
+      }
+    }
+
+    update();
+    // update daily at midnight
+    const now = new Date();
+    const msToMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+    setTimeout(() => { update(); setInterval(update, 86400000); }, msToMidnight);
+  </script>
+</body>
+</html>

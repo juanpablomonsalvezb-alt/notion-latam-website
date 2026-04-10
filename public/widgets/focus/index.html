@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Mode — Nebbuler</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    .nebbuler-widget {
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .nebbuler-widget:active { opacity: 0.7; }
+    .mode {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 14vw, 72px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--fg);
+      font-optical-sizing: auto;
+      transition: color 0.2s;
+    }
+    .hint {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--secondary);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebbuler-widget" onclick="toggle()">
+    <div class="mode" id="mode">working</div>
+    <div class="hint">click to toggle</div>
+  </div>
+  <script>
+    const STATES = ['working', 'resting'];
+    let idx = 0;
+
+    // restore from sessionStorage
+    try { idx = parseInt(sessionStorage.getItem('focus-idx') || '0'); } catch(e) {}
+
+    function render() {
+      document.getElementById('mode').textContent = STATES[idx];
+    }
+
+    function toggle() {
+      idx = (idx + 1) % STATES.length;
+      try { sessionStorage.setItem('focus-idx', idx); } catch(e) {}
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
