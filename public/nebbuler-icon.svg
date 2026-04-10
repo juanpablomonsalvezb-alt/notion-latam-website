@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 560" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,500&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Left side face -->
+  <polygon
+    points="26,116 68,156 68,494 26,454"
+    fill="none"
+    stroke="#0A0A0A"
+    stroke-width="13"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Top face -->
+  <polygon
+    points="110,76 474,76 432,156 68,156"
+    fill="none"
+    stroke="#0A0A0A"
+    stroke-width="13"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Front face — white fill covers inner stroke seams -->
+  <rect
+    x="68" y="156"
+    width="364" height="364"
+    rx="44"
+    fill="#FAFAF7"
+    stroke="#0A0A0A"
+    stroke-width="13"/>
+
+  <!-- Letter n — Fraunces 500 -->
+  <text
+    x="250" y="420"
+    font-family="'Fraunces', serif"
+    font-weight="500"
+    font-size="228"
+    letter-spacing="-0.025em"
+    text-anchor="middle"
+    dominant-baseline="auto"
+    fill="#0A0A0A"
+    style="font-variation-settings:'opsz' 144,'SOFT' 50">n</text>
+</svg>

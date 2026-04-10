@@ -116,6 +116,17 @@ export default async function Home({
           }}
         >
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
+            {/* Logo icon */}
+            <div style={{ marginBottom: "clamp(28px,4vw,40px)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/nebbuler-icon.svg"
+                alt="nebbuler"
+                width={56}
+                height={63}
+                style={{ display: "block" }}
+              />
+            </div>
             <h1
               style={{
                 fontFamily: "var(--font-display)",

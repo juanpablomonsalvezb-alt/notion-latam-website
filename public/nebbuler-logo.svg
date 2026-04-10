@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" width="480" height="120">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,500&amp;display=swap');
+      .wordmark {
+        font-family: 'Fraunces', serif;
+        font-weight: 500;
+        font-size: 72px;
+        letter-spacing: -0.025em;
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </defs>
+  <!-- Light version -->
+  <rect width="480" height="120" fill="#FAFAF7"/>
+  <text class="wordmark" x="32" y="88" fill="#0A0A0A">nebbuler</text>
+</svg>
