@@ -1,5 +1,5 @@
 import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
-import { catalog, Product } from "@/lib/catalog";
+import { catalog, bundles, Product } from "@/lib/catalog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -15,17 +15,14 @@ const copy = {
       Atelier: "Método más sistema. Va más allá de lo que Notion puede ser solo. Para trabajo serio con tiempo y atención.",
     },
     buy: "Comprar",
-    widgetTitle: "Widget Pack",
-    widgetSubtitle: "8 widgets embebibles para Notion — reloj, pomodoro, progreso, cuenta regresiva, cita semanal, foco, reflexión y revisión semanal.",
-    widgetPrice: "$19",
     bundlesTitle: "Bundles",
-    bundlesSubtitle: "Productos de paquete. Mismo precio día uno y mes doce.",
-    bundles: [
-      { name: "Core Bundle", includes: "Core Personal + Core Freelance + Core Student", price: "$89", note: "Los tres Core en un paquete." },
-      { name: "System Bundle", includes: "System Personal + Freelance + Student + Creator", price: "$289", note: "Los cuatro System en un paquete." },
-      { name: "Atelier Bundle", includes: "Atelier Personal + Freelance + Creator", price: "$449", note: "Los tres Atelier en un paquete." },
-      { name: "Colección completa", includes: "Los 10 productos del catálogo", price: "$599", note: "Todo el catálogo." },
-    ],
+    bundlesSubtitle: "Todos los productos de una audiencia en un paquete. Mismo precio día uno y mes doce.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     levelLabel: "Nivel",
   },
   en: {
@@ -38,17 +35,14 @@ const copy = {
       Atelier: "Method plus system. Goes beyond what Notion alone can be. For serious work with time and attention.",
     },
     buy: "Buy",
-    widgetTitle: "Widget Pack",
-    widgetSubtitle: "8 embeddable widgets for Notion — clock, pomodoro, progress, countdown, weekly quote, focus mode, daily reflection, and weekly review.",
-    widgetPrice: "$19",
     bundlesTitle: "Bundles",
-    bundlesSubtitle: "Bundle products. Same price day one and month twelve.",
-    bundles: [
-      { name: "Core Bundle", includes: "Core Personal + Core Freelance + Core Student", price: "$89", note: "All three Core products." },
-      { name: "System Bundle", includes: "System Personal + Freelance + Student + Creator", price: "$289", note: "All four System products." },
-      { name: "Atelier Bundle", includes: "Atelier Personal + Freelance + Creator", price: "$449", note: "All three Atelier products." },
-      { name: "Complete Collection", includes: "All 10 catalog products", price: "$599", note: "The full catalog." },
-    ],
+    bundlesSubtitle: "All products for one audience in a single package. Same price day one and month twelve.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     levelLabel: "Level",
   },
   fr: {
@@ -61,17 +55,14 @@ const copy = {
       Atelier: "Méthode et système. Va au-delà de ce que Notion peut être seul. Pour un travail sérieux avec temps et attention.",
     },
     buy: "Acheter",
-    widgetTitle: "Widget Pack",
-    widgetSubtitle: "8 widgets intégrables pour Notion — horloge, pomodoro, progression, compte à rebours, citation hebdomadaire, mode focus, réflexion quotidienne et revue hebdomadaire.",
-    widgetPrice: "19 $",
     bundlesTitle: "Bundles",
-    bundlesSubtitle: "Produits en bundle. Même prix le jour un et le mois douze.",
-    bundles: [
-      { name: "Core Bundle", includes: "Core Personal + Core Freelance + Core Student", price: "89 $", note: "Les trois produits Core." },
-      { name: "System Bundle", includes: "System Personal + Freelance + Student + Creator", price: "289 $", note: "Les quatre produits System." },
-      { name: "Atelier Bundle", includes: "Atelier Personal + Freelance + Creator", price: "449 $", note: "Les trois produits Atelier." },
-      { name: "Collection complète", includes: "Les 10 produits du catalogue", price: "599 $", note: "Le catalogue complet." },
-    ],
+    bundlesSubtitle: "Tous les produits d'un public en un seul package. Même prix le jour un et le mois douze.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     levelLabel: "Niveau",
   },
 } as const;
@@ -153,8 +144,7 @@ export default async function TemplatesPage({
             <section
               key={level}
               style={{
-                padding:
-                  "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
+                padding: "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
                 borderBottom: "1px solid var(--border)",
               }}
             >
@@ -192,7 +182,8 @@ export default async function TemplatesPage({
                       textTransform: "uppercase",
                     }}
                   >
-                    {products.length} {l === "fr" ? "produits" : l === "es" ? "productos" : "products"}
+                    {products.length}{" "}
+                    {l === "fr" ? "produits" : l === "es" ? "productos" : "products"}
                   </span>
                 </div>
                 <p
@@ -237,196 +228,6 @@ export default async function TemplatesPage({
           );
         })}
 
-        {/* ── Widget Pack ─────────────────────────────────────────────── */}
-        <section
-          style={{
-            padding: "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
-            borderBottom: "1px solid var(--border)",
-          }}
-        >
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "clamp(32px,5vw,64px)",
-                alignItems: "center",
-              }}
-              className="grid-cols-1 md:grid-cols-2"
-            >
-              {/* Widget preview */}
-              <div
-                style={{
-                  background: "var(--bg-elevated)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 10,
-                  overflow: "hidden",
-                  boxShadow:
-                    "0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.07)",
-                }}
-              >
-                {/* Browser bar */}
-                <div
-                  style={{
-                    height: 34,
-                    background: "#ECEAE3",
-                    borderBottom: "1px solid #DDDBD4",
-                    display: "flex",
-                    alignItems: "center",
-                    paddingLeft: 12,
-                    gap: 6,
-                  }}
-                >
-                  {(["#FF5F57", "#FEBC2E", "#28C840"] as const).map((c) => (
-                    <div
-                      key={c}
-                      style={{
-                        width: 9,
-                        height: 9,
-                        borderRadius: "50%",
-                        background: c,
-                        opacity: 0.85,
-                      }}
-                    />
-                  ))}
-                </div>
-                {/* Widget grid mockup */}
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: 1,
-                    background: "var(--border)",
-                    padding: 0,
-                  }}
-                >
-                  {[
-                    { label: "Clock", value: "14:32", sub: "Thursday" },
-                    { label: "Focus", value: "working", sub: "click to toggle" },
-                    { label: "Pomodoro", value: "25:00", sub: "ready" },
-                    { label: "Countdown", value: "18", sub: "days until deadline" },
-                  ].map(({ label, value, sub }) => (
-                    <div
-                      key={label}
-                      style={{
-                        background: "#FAFAF7",
-                        padding: "18px 20px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 4,
-                        minHeight: 88,
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 400,
-                          fontSize: 22,
-                          color: "var(--fg-primary)",
-                          letterSpacing: "-0.02em",
-                          fontVariationSettings: "'opsz' 72, 'SOFT' 50",
-                          lineHeight: 1,
-                        }}
-                      >
-                        {value}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: 10,
-                          color: "var(--fg-secondary)",
-                          letterSpacing: "0.01em",
-                        }}
-                      >
-                        {sub}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Text */}
-              <div>
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    fontWeight: 500,
-                    color: "#6B6B68",
-                    letterSpacing: "0.09em",
-                    textTransform: "uppercase",
-                    display: "block",
-                    marginBottom: 12,
-                  }}
-                >
-                  Add-on
-                </span>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 500,
-                    fontSize: "clamp(1.5rem,3vw,2rem)",
-                    color: "var(--fg-primary)",
-                    letterSpacing: "-0.02em",
-                    fontVariationSettings: "'opsz' 72, 'SOFT' 50",
-                    lineHeight: 1.1,
-                    marginBottom: 14,
-                  }}
-                >
-                  {c.widgetTitle}
-                </h2>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--fg-secondary)",
-                    lineHeight: 1.65,
-                    marginBottom: 24,
-                  }}
-                >
-                  {c.widgetSubtitle}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 20,
-                  }}
-                >
-                  <a
-                    href="#"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "8px 18px",
-                      background: "var(--fg-primary)",
-                      color: "var(--bg-elevated)",
-                      borderRadius: 100,
-                      fontSize: 13,
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {c.buy}
-                  </a>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 18,
-                      color: "var(--fg-primary)",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    {c.widgetPrice}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ── Bundles ─────────────────────────────────────────────────── */}
         <section
           style={{
@@ -468,25 +269,20 @@ export default async function TemplatesPage({
               }}
               className="grid-cols-1 sm:grid-cols-2"
             >
-              {c.bundles.map((bundle) => (
-                <div
-                  key={bundle.name}
-                  style={{
-                    background: "var(--bg-elevated)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 10,
-                    padding: "clamp(20px,3vw,28px)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                  }}
-                >
+              {bundles.map((bundle) => {
+                const includes =
+                  c.bundleIncludes[bundle.audience as keyof typeof c.bundleIncludes];
+                return (
                   <div
+                    key={bundle.slug}
                     style={{
+                      background: "var(--bg-elevated)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 10,
+                      padding: "clamp(20px,3vw,28px)",
                       display: "flex",
-                      alignItems: "baseline",
-                      justifyContent: "space-between",
-                      gap: 12,
+                      flexDirection: "column",
+                      gap: 8,
                     }}
                   >
                     <h3
@@ -502,59 +298,39 @@ export default async function TemplatesPage({
                     >
                       {bundle.name}
                     </h3>
-                    <span
+                    <p
                       style={{
                         fontFamily: "var(--font-body)",
-                        fontSize: 18,
-                        color: "var(--fg-primary)",
-                        fontVariantNumeric: "tabular-nums",
-                        flexShrink: 0,
+                        fontSize: 13,
+                        color: "var(--fg-secondary)",
+                        lineHeight: 1.5,
                       }}
                     >
-                      {bundle.price}
-                    </span>
+                      {includes}
+                    </p>
+                    <div style={{ marginTop: 8 }}>
+                      <a
+                        href={bundle.buyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          padding: "7px 16px",
+                          background: "var(--fg-primary)",
+                          color: "var(--bg-elevated)",
+                          borderRadius: 100,
+                          fontSize: 12,
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {c.buy}
+                      </a>
+                    </div>
                   </div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 13,
-                      color: "var(--fg-secondary)",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {bundle.includes}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 12,
-                      color: "var(--fg-secondary)",
-                      lineHeight: 1.5,
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {bundle.note}
-                  </p>
-                  <div style={{ marginTop: 4 }}>
-                    <a
-                      href="#"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        padding: "7px 16px",
-                        background: "var(--fg-primary)",
-                        color: "var(--bg-elevated)",
-                        borderRadius: 100,
-                        fontSize: 12,
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {c.buy}
-                    </a>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -656,6 +432,8 @@ function ProductCard({
       <div>
         <a
           href={product.buyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             display: "inline-flex",
             alignItems: "center",

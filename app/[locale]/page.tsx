@@ -404,6 +404,8 @@ function ProductCard({
         <div style={{ marginTop: 4 }}>
           <a
             href={product.buyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "inline-flex",
               alignItems: "center",
