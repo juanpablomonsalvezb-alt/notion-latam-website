@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
 import { catalog, bundles, Product } from "@/lib/catalog";
+import { JsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -131,6 +132,47 @@ function formatPrice(price: number, locale: string): string {
   }).format(price);
 }
 
+const BASE = "https://nebbuler.com";
+
+const pageSeo = {
+  en: {
+    title: "Nebbuler — Notion work systems, made with care",
+    description: "Core, System, and Atelier. Three levels of Notion templates for personal use, freelance work, students, and creators. Built slowly, on purpose.",
+    ogTitle: "Nebbuler — Notion work systems built with real craft",
+    ogDescription: "A design studio. Three levels of Notion templates — Core, System, Atelier — for personal, freelance, student, and creator audiences.",
+  },
+  es: {
+    title: "Nebbuler — Sistemas Notion para trabajar mejor",
+    description: "Tres niveles: Core, System y Atelier. Plantillas Notion para productividad personal, freelance, estudiantes y creadores. Hechas con oficio real.",
+    ogTitle: "Nebbuler — Sistemas Notion hechos con oficio",
+    ogDescription: "Un estudio de diseño. Tres niveles de plantillas Notion para productividad personal, freelance, estudiantes y creadores.",
+  },
+  fr: {
+    title: "Nebbuler — Systèmes Notion conçus avec soin",
+    description: "Core, System et Atelier. Trois niveaux de templates Notion pour la vie personnelle, le freelance, les étudiants et les créateurs. Faits lentement.",
+    ogTitle: "Nebbuler — Templates Notion faits avec métier",
+    ogDescription: "Un studio de design. Trois niveaux de templates Notion pour la vie personnelle, le freelance, les étudiants et les créateurs.",
+  },
+} as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const l = (locale as keyof typeof pageSeo) in pageSeo ? (locale as keyof typeof pageSeo) : "en";
+  const s = pageSeo[l];
+  const ogImg = `${BASE}/og?title=${encodeURIComponent(s.ogTitle)}&subtitle=${encodeURIComponent(s.ogDescription)}`;
+  return {
+    title: s.title,
+    description: s.description,
+    alternates: { canonical: `${BASE}/${l}` },
+    openGraph: { title: s.ogTitle, description: s.ogDescription, url: `${BASE}/${l}`, images: [{ url: ogImg, width: 1200, height: 630 }] },
+    twitter: { title: s.ogTitle, description: s.ogDescription, images: [ogImg] },
+  };
+}
+
 /* ── Page ─────────────────────────────────────────────────────────────────── */
 export default async function Home({
   params,
@@ -149,6 +191,15 @@ export default async function Home({
 
   return (
     <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": `${BASE}/#website`,
+        "name": "Nebbuler",
+        "url": BASE,
+        "publisher": { "@id": `${BASE}/#organization` },
+        "inLanguage": ["en", "es", "fr"],
+      }} />
       <Navbar catalogLabel={c.catalogLabel} aboutLabel={c.aboutLabel} />
 
       <main>

@@ -1,6 +1,48 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HeroAnimation } from "@/components/HeroAnimation";
+import { JsonLd } from "@/components/JsonLd";
+
+const BASE = "https://nebbuler.com";
+
+const aboutSeo = {
+  en: {
+    title: "About Nebbuler — A Notion design studio",
+    description: "Nebbuler is a small design studio. Every Notion template is built slowly, with full craft decisions at every level — from database to onboarding text.",
+    ogTitle: "About Nebbuler — The studio behind the templates",
+    ogDescription: "Nebbuler is a faceless design studio. No tutorials, no social media personality. Just Notion templates built to last, across three levels of craft.",
+  },
+  es: {
+    title: "Sobre Nebbuler — Un estudio de diseño Notion",
+    description: "Nebbuler es un estudio pequeño. Cada plantilla Notion se construye despacio, con decisiones de oficio visibles en cada capa — base de datos a onboarding.",
+    ogTitle: "Sobre Nebbuler — El estudio detrás de las plantillas",
+    ogDescription: "Nebbuler es un estudio sin cara. Sin tutoriales, sin personalidad en redes. Solo plantillas Notion hechas para durar, en tres niveles de oficio.",
+  },
+  fr: {
+    title: "À propos de Nebbuler — Studio Notion",
+    description: "Nebbuler est un studio de design indépendant. Chaque template Notion est construit avec soin — de la base de données au texte d'onboarding.",
+    ogTitle: "À propos de Nebbuler — Le studio derrière les templates",
+    ogDescription: "Nebbuler est un studio sans visage. Pas de tutoriels, pas de personnalité en ligne. Des templates Notion construits pour durer.",
+  },
+} as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const l = (locale as keyof typeof aboutSeo) in aboutSeo ? (locale as keyof typeof aboutSeo) : "en";
+  const s = aboutSeo[l];
+  const ogImg = `${BASE}/og?title=${encodeURIComponent(s.ogTitle)}&subtitle=${encodeURIComponent(s.ogDescription)}`;
+  return {
+    title: s.title,
+    description: s.description,
+    alternates: { canonical: `${BASE}/${l}/about` },
+    openGraph: { title: s.ogTitle, description: s.ogDescription, url: `${BASE}/${l}/about`, images: [{ url: ogImg, width: 1200, height: 630 }] },
+    twitter: { title: s.ogTitle, description: s.ogDescription, images: [ogImg] },
+  };
+}
 
 export default async function AboutPage({
   params,
@@ -29,7 +71,16 @@ export default async function AboutPage({
   ];
 
   return (
-    <div style={{ background: "#fafafa", minHeight: "100vh" }}>
+    <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE}/${locale}` },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": `${BASE}/${locale}/about` },
+        ],
+      }} />
+      <div style={{ background: "#fafafa", minHeight: "100vh" }}>
       {/* Hero */}
       <section style={{ padding: "80px 24px 64px" }}>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
@@ -141,5 +192,6 @@ export default async function AboutPage({
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
 import { catalog, bundles, Product } from "@/lib/catalog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 
 /* ── i18n copy ─────────────────────────────────────────────────────────────── */
 const copy = {
@@ -83,6 +84,47 @@ const levelColor: Record<string, string> = {
 
 const levels = ["Core", "System", "Atelier"] as const;
 
+const BASE = "https://nebbuler.com";
+
+const templatesSeo = {
+  en: {
+    title: "Notion templates by Nebbuler — Core, System, Atelier",
+    description: "Browse Nebbuler's full catalog of Notion templates. Three levels, five audiences — Personal, Freelance, Student, Creator. Premium craft, fixed price.",
+    ogTitle: "The Nebbuler catalog — Notion templates in three levels",
+    ogDescription: "Core ($29–39), System ($89), Atelier ($179). Each level designed for a different depth of need.",
+  },
+  es: {
+    title: "Catálogo de plantillas Notion — Nebbuler",
+    description: "Tres niveles de plantillas Notion: Core ($29-39), System ($89) y Atelier ($179). Para uso personal, freelance, estudiantes y creadores de contenido.",
+    ogTitle: "El catálogo Nebbuler — Plantillas Notion en tres niveles",
+    ogDescription: "Core ($29-39), System ($89), Atelier ($179). Cada nivel responde a una profundidad distinta de necesidad.",
+  },
+  fr: {
+    title: "Catalogue Notion Nebbuler — Core, System, Atelier",
+    description: "Découvrez le catalogue complet Nebbuler. Templates Notion en trois niveaux pour la vie personnelle, le freelance, les étudiants et les créateurs.",
+    ogTitle: "Le catalogue Nebbuler — Templates Notion en trois niveaux",
+    ogDescription: "Core (29–39 $), System (89 $), Atelier (179 $). Chaque niveau correspond à une profondeur d'usage différente.",
+  },
+} as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const l = (locale as keyof typeof templatesSeo) in templatesSeo ? (locale as keyof typeof templatesSeo) : "en";
+  const s = templatesSeo[l];
+  const ogImg = `${BASE}/og?title=${encodeURIComponent(s.ogTitle)}&subtitle=${encodeURIComponent(s.ogDescription)}`;
+  return {
+    title: s.title,
+    description: s.description,
+    alternates: { canonical: `${BASE}/${l}/templates` },
+    openGraph: { title: s.ogTitle, description: s.ogDescription, url: `${BASE}/${l}/templates`, images: [{ url: ogImg, width: 1200, height: 630 }] },
+    twitter: { title: s.ogTitle, description: s.ogDescription, images: [ogImg] },
+  };
+}
+
 /* ── Page ─────────────────────────────────────────────────────────────────── */
 export default async function TemplatesPage({
   params,
@@ -95,6 +137,40 @@ export default async function TemplatesPage({
 
   return (
     <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE}/${l}` },
+          { "@type": "ListItem", "position": 2, "name": c.title, "item": `${BASE}/${l}/templates` },
+        ],
+      }} />
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": `${BASE}/${l}/templates#catalog`,
+        "name": "Nebbuler Notion Templates",
+        "url": `${BASE}/${l}/templates`,
+        "numberOfItems": catalog.length,
+        "itemListElement": catalog.map((product, i) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "name": product.name,
+          "url": `${BASE}/${l}/templates/${product.slug}`,
+          "item": {
+            "@type": "Product",
+            "name": product.name,
+            "brand": { "@type": "Brand", "name": "Nebbuler" },
+            "offers": {
+              "@type": "Offer",
+              "price": product.price.toFixed(2),
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
+              "url": product.buyUrl,
+            },
+          },
+        })),
+      }} />
       <Navbar catalogLabel={c.nav.catalog} aboutLabel={c.nav.about} />
 
       <main>
