@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
-import { getFeatured, Product } from "@/lib/catalog";
+import { catalog, bundles, Product } from "@/lib/catalog";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -22,6 +22,19 @@ const copy = {
       "El catálogo se construye alrededor de una arquitectura simple: tres niveles de oficio — Core, System, Atelier — aplicados a cinco audiencias. Cada producto existe en un lugar definido, no como un archivo más en el catálogo.",
     ],
     catalogHeading: "Catálogo",
+    levelDesc: {
+      Core: "Sistema esencial. Lo necesario, sin nada que sobre.",
+      System: "Sistema completo. Bases conectadas, vistas pensadas, onboarding editorial.",
+      Atelier: "Método más sistema. Va más allá de lo que Notion puede ser solo.",
+    },
+    bundlesTitle: "Bundles",
+    bundlesSubtitle: "Todos los productos de una audiencia en un paquete.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     studioNoteTitle: "Una nota desde el estudio",
     studioNote:
       "Nebbuler publica pocas cosas, y cuando las publica, las escribe, las piensa y las prueba hasta que se sienten terminadas. La mayoría de las plantillas de Notion del mercado fueron hechas en un fin de semana. El estudio tarda meses. Si encontrás algo útil acá, nos alegra. Si no, también está bien — hay muchas maneras de trabajar, y la nuestra no tiene que ser la tuya.",
@@ -42,6 +55,19 @@ const copy = {
       "The catalog is built around a simple architecture: three levels of craft — Core, System, Atelier — applied to five audiences. Each product exists in a defined place, not as one more file in the catalog.",
     ],
     catalogHeading: "Catalog",
+    levelDesc: {
+      Core: "An essential system. What's needed, nothing more.",
+      System: "A complete system. Connected databases, considered views, editorial onboarding.",
+      Atelier: "Method plus system. Goes beyond what Notion alone can be.",
+    },
+    bundlesTitle: "Bundles",
+    bundlesSubtitle: "All products for one audience in a single package.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     studioNoteTitle: "A note from the studio",
     studioNote:
       "Nebbuler publishes few things, and when it does, they are written, considered, and tested until they feel finished. Most Notion templates on the market were made in a weekend. The studio takes months. If you find something useful here, we're glad. If not, that's fine — there are many ways to work, and ours doesn't have to be yours.",
@@ -62,6 +88,19 @@ const copy = {
       "Le catalogue s'organise autour d'une architecture simple : trois niveaux de métier — Core, System, Atelier — appliqués à cinq publics. Chaque produit existe à une place définie, pas comme un fichier de plus dans le catalogue.",
     ],
     catalogHeading: "Catalogue",
+    levelDesc: {
+      Core: "Un système essentiel. Ce qu'il faut, rien de plus.",
+      System: "Un système complet. Bases connectées, vues pensées, onboarding éditorial.",
+      Atelier: "Méthode et système. Va au-delà de ce que Notion peut être seul.",
+    },
+    bundlesTitle: "Bundles",
+    bundlesSubtitle: "Tous les produits d'un public en un seul package.",
+    bundleIncludes: {
+      Personal: "Core Personal + System Personal + Atelier Personal",
+      Freelance: "Core Freelance + System Freelance + Atelier Freelance",
+      Creator: "System Creator + Atelier Creator",
+      Student: "Core Student + System Student",
+    },
     studioNoteTitle: "Une note du studio",
     studioNote:
       "Nebbuler publie peu de choses, et quand il le fait, elles sont écrites, réfléchies et testées jusqu'à sembler finies. La plupart des modèles Notion sur le marché ont été faits en un week-end. Le studio prend des mois. Si vous trouvez quelque chose d'utile ici, nous en sommes heureux. Sinon, ce n'est pas grave — il existe beaucoup de manières de travailler, et la nôtre n'a pas à être la vôtre.",
@@ -101,7 +140,12 @@ export default async function Home({
   const { locale } = await params;
   const l = (locale as Locale) in copy ? (locale as Locale) : "en";
   const c = copy[l];
-  const featured = getFeatured();
+  const levels = ["Core", "System", "Atelier"] as const;
+  const levelColor: Record<string, string> = {
+    Core:    "#6B7F3F",
+    System:  "#1C2B4A",
+    Atelier: "#6B1F1F",
+  };
 
   return (
     <>
@@ -183,49 +227,189 @@ export default async function Home({
           </div>
         </section>
 
-        {/* ── SECTION 3: Catalog featured ───────────────────────────────── */}
+        {/* ── SECTION 3: Full catalog by level ──────────────────────────── */}
+        {levels.map((level) => {
+          const products = catalog.filter((p) => p.level === level);
+          const color = levelColor[level];
+          const desc = c.levelDesc[level];
+          return (
+            <section
+              key={level}
+              style={{
+                padding: "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
+                borderTop: "1px solid var(--border)",
+              }}
+            >
+              <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+                {/* Level header */}
+                <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 8, flexWrap: "wrap" }}>
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 500,
+                      fontSize: "clamp(1.4rem,2.8vw,1.9rem)",
+                      color: "var(--fg-primary)",
+                      letterSpacing: "-0.02em",
+                      fontVariationSettings: "'opsz' 72, 'SOFT' 50",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {level}
+                  </h2>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: 10,
+                      fontWeight: 500,
+                      color,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {products.length}{" "}
+                    {l === "fr" ? "produits" : l === "es" ? "productos" : "products"}
+                  </span>
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 14,
+                    color: "var(--fg-secondary)",
+                    lineHeight: 1.55,
+                    marginBottom: "clamp(28px,4vw,40px)",
+                    maxWidth: 480,
+                  }}
+                >
+                  {desc}
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${Math.min(products.length, 3)}, 1fr)`,
+                    gap: "clamp(20px,3vw,36px)",
+                  }}
+                  className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                >
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.slug}
+                      product={product}
+                      locale={l}
+                      subtitleText={subtitle(product, l)}
+                      levelLabel={c.levelLabel}
+                      buyLabel={c.buy}
+                      price={formatPrice(product.price, locale)}
+                      color={color}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        })}
+
+        {/* ── SECTION 4: Bundles ────────────────────────────────────────── */}
         <section
           style={{
-            padding:
-              "clamp(64px,10vw,104px) clamp(1.25rem,5vw,4rem)",
+            padding: "clamp(56px,8vw,88px) clamp(1.25rem,5vw,4rem)",
+            borderTop: "1px solid var(--border)",
           }}
         >
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            {/* Section label */}
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 500,
+                fontSize: "clamp(1.4rem,2.8vw,1.9rem)",
+                color: "var(--fg-primary)",
+                letterSpacing: "-0.02em",
+                fontVariationSettings: "'opsz' 72, 'SOFT' 50",
+                lineHeight: 1,
+                marginBottom: 8,
+              }}
+            >
+              {c.bundlesTitle}
+            </h2>
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: 11,
-                fontWeight: 500,
+                fontSize: 14,
                 color: "var(--fg-secondary)",
-                letterSpacing: "0.09em",
-                textTransform: "uppercase",
-                marginBottom: 40,
+                lineHeight: 1.55,
+                marginBottom: "clamp(28px,4vw,40px)",
               }}
             >
-              {c.catalogHeading}
+              {c.bundlesSubtitle}
             </p>
-
-            {/* 2-column grid */}
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(2, 1fr)",
-                gap: "clamp(24px,4vw,48px)",
+                gap: "clamp(12px,2vw,20px)",
               }}
-              className="grid-cols-1 md:grid-cols-2"
+              className="grid-cols-1 sm:grid-cols-2"
             >
-              {featured.map((product) => (
-                <ProductCard
-                  key={product.slug}
-                  product={product}
-                  locale={l}
-                  subtitleText={subtitle(product, l)}
-                  levelLabel={c.levelLabel}
-                  buyLabel={c.buy}
-                  price={formatPrice(product.price, locale)}
-                />
-              ))}
+              {bundles.map((bundle) => {
+                const includes = c.bundleIncludes[bundle.audience as keyof typeof c.bundleIncludes];
+                return (
+                  <div
+                    key={bundle.slug}
+                    style={{
+                      background: "var(--bg-elevated)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 10,
+                      padding: "clamp(18px,2.5vw,24px)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 500,
+                        fontSize: "clamp(16px,2vw,19px)",
+                        color: "var(--fg-primary)",
+                        letterSpacing: "-0.02em",
+                        fontVariationSettings: "'opsz' 72, 'SOFT' 50",
+                        lineHeight: 1.15,
+                      }}
+                    >
+                      {bundle.name}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: 13,
+                        color: "var(--fg-secondary)",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {includes}
+                    </p>
+                    <div style={{ marginTop: 4 }}>
+                      <a
+                        href={bundle.buyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          padding: "7px 16px",
+                          background: "var(--fg-primary)",
+                          color: "var(--bg-elevated)",
+                          borderRadius: 100,
+                          fontSize: 12,
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {c.buy}
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -302,6 +486,7 @@ function ProductCard({
   buyLabel,
   price,
   locale,
+  color,
 }: {
   product: Product;
   subtitleText: string;
@@ -309,14 +494,8 @@ function ProductCard({
   buyLabel: string;
   price: string;
   locale: Locale;
+  color: string;
 }) {
-  const levelColor: Record<string, string> = {
-    Core:    "#6B7F3F",
-    System:  "#1C2B4A",
-    Atelier: "#6B1F1F",
-  };
-
-  const color = levelColor[product.level] ?? "var(--fg-secondary)";
 
   return (
     <article
