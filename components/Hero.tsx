@@ -83,24 +83,45 @@ export default function Hero() {
             Comienza gratuitamente. No hace falta tarjeta.
           </p>
 
-          <Link
-            href="/crear"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#ffffff",
-              color: "#0a0a0a",
-              fontSize: 13,
-              fontWeight: 700,
-              padding: "16px 52px",
-              borderRadius: 3,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            Comenzar
-          </Link>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+            <Link
+              href="/crear"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                color: "#0a0a0a",
+                fontSize: 13,
+                fontWeight: 700,
+                padding: "16px 52px",
+                borderRadius: 3,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              Comenzar
+            </Link>
+            <Link
+              href="/plantillas"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "transparent",
+                color: "#ffffff",
+                fontSize: 13,
+                fontWeight: 700,
+                padding: "16px 52px",
+                borderRadius: 3,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                border: "1.5px solid rgba(255,255,255,0.4)",
+              }}
+            >
+              Ver plantillas
+            </Link>
+          </div>
         </div>
       </section>
 
